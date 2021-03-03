@@ -1,6 +1,6 @@
 # Flow
 
-Flow is a full-stack app created by Roberto Lopez-Trigo, Juan Martinez Guevera, Mike Power & Greg King.
+Flow is a full-stack app created by Roberto Lopez-Trigo, Juan Martinez-Guevara, Mike Power & Greg King.
 
 Flow helps the user create and record their own unique rap song in real time.
 
