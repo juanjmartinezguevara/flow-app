@@ -9,9 +9,7 @@ function AllPosts(props) {
         actions.getAllPosts().then((allPosts) => {
             setPosts(allPosts.data)
         }).catch(console.error)
-
     }, [])
-
 
     const showPosts = () => {
         return posts.map(post => {
@@ -21,12 +19,10 @@ function AllPosts(props) {
         })
     }
 
-
     return (
         <>
             <h3>All Posts</h3>
             <ul>{showPosts()}</ul>
-
         </>
     );
 }
