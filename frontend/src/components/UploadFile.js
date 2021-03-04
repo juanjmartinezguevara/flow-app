@@ -10,6 +10,7 @@ class UploadFile extends Component {
   // On file select (from the pop up)
   onFileChange = (event) => {
     // Update the state
+    console.log(event.target, event.target.files)
     this.setState({ selectedFile: event.target.files[0] });
   };
 
@@ -33,14 +34,15 @@ class UploadFile extends Component {
 //     axios.post("api/uploadfile", formData);
 //   };
 
-onFileUpload(){
+onFileUpload = (pr) => {
+    console.log('PR', pr)
     let file = this.state.selectedFile;
     let fileName = this.state.selectedFile.name;
     let fileType = this.state.selectedFile.type;
 
     console.log('File Name', fileName)
     console.log('FILETYPE', fileType)
-    axios.post("http://localhost:5000/sign_s3",{
+    axios.post("http://localhost:5000/api/sign_s3",{
       fileName : fileName,
       fileType : fileType
     })

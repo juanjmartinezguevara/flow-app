@@ -28,6 +28,7 @@ const actions = {
         return await axios.get(`${baseURL}/allPosts`, resetHead())
     },
     addPost: async (post) => {
+        console.log('are we there yet')
         return await axios.post(`${baseURL}/addAPost`, { post }, resetHead())
     },
     logIn: async (data) => {
