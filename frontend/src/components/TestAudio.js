@@ -273,6 +273,7 @@ const handleRecStop = () => {
                     </div>
                   </div>
                 </div>
+                
                 <div className="playback-controls-panel">
                   <div className="playback-container">
                     <div className="playback-wrapper">
