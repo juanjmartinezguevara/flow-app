@@ -10,6 +10,7 @@ import TempHome from './components/TempHome'
 import actions from './api'
 import { Switch, Route, Link } from 'react-router-dom'
 import TestAudio from './components/TestAudio'
+import UploadFile from './components/UploadFile'
 
 
 
@@ -53,6 +54,7 @@ function App() {
         <Route exact path="/profile" render={(props) => <Profile {...props} />} />
         <Route exact path="/recordingBooth" render={(props) => <TestAudio {...props} />} />
         <Route exact path="/tempHome" render={(props) => <TempHome {...props} />} />
+        <Route exact path="/uploadFile" render={(props) => <UploadFile {...props} />} />
       </Switch>
     </div>
   );
