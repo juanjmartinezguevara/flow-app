@@ -7,6 +7,7 @@ const path = require('path')
 const app = express()
 
 
+
 const MONGODB_URI = process.env.MONGODB_URI || `mongodb://localhost/localIronPlate`
 
 mongoose
@@ -42,3 +43,13 @@ app.get('*', (req, res, next) => {
 
 
 app.listen(PORT, () => console.log(`Listening to port ${PORT}`))
+
+//AWS CODE
+// app.use(cors());
+// app.use(express.json({limit: '50mb'}));
+
+// var sign_s3 = require('./sign_s3');
+// app.use('/sign_s3', sign_s3.sign_s3);
+// app.listen(PORT, function(){
+//     console.log("Server is running on Port: " +PORT);
+// })
