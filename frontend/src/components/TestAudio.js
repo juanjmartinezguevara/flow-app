@@ -47,8 +47,8 @@ function TestAudio(props) {
         stream,
         onSoundEnd = _=>{},
         onSoundStart = _=>{},
-        silence_delay = 10,
-        min_decibels =-20
+        silence_delay = 100,
+        min_decibels =-40
         ) {
         const ctx = new AudioContext();
         const analyser = ctx.createAnalyser();
