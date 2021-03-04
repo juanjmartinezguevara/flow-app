@@ -223,7 +223,6 @@ footer {
   -webkit-user-select: none;
   user-select: none;
 }
-
 #menuToggle a
 {
   text-decoration: none;
@@ -292,11 +291,9 @@ footer {
   transform: rotate(0deg) scale(0.2, 0.2);
 }
 
-#menuToggle input:checked ~ span:nth-last-child(2)
-{
+#menuToggle input:checked ~ span:nth-last-child(2) {
   transform: rotate(-45deg) translate(0, -1px);
 }
-
 #menu {
   position: absolute;
   width: 100%;
@@ -310,12 +307,9 @@ footer {
   transform: translate(0, -100%);
   transition: transform 0.5s cubic-bezier(0.77,0.2,0.05,1.0);
 }
-
-#menu li
-{
+#menu li {
   font-size: 16px;
 }
-
 #menuToggle input:checked ~ ul {
   transform: none;
 }
