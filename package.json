@@ -8,8 +8,11 @@
         "preinstall": "echo --- preinstall --- && cd backend && npm install && cd ../frontend && npm install && npm run build && cd ..",
         "start": "echo --- start --- && cd backend && npm start"
     },
-
     "keywords": [],
     "author": "",
-    "license": "ISC"
+    "license": "ISC",
+    "dependencies": {
+        "datamuse": "^1.0.5",
+        "react-speech-recognition": "^3.7.0"
+    }
 }
