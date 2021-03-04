@@ -2,6 +2,14 @@ import React, {useRef,useState,useEffect} from 'react';
 import beat1 from '../assets/beatOne.m4a'
 import SpeechRecognition, { useSpeechRecognition } from 'react-speech-recognition'
 import datamuse from 'datamuse'
+import mic from '../images/mic.svg'
+import avatar from '../images/avatar.svg'
+import avatar2 from '../images/avatar2.svg'
+import social from '../images/social.svg'
+import social2 from '../images/social2.svg'
+import comment from '../images/comment.svg'
+import heart from '../images/heart.svg'
+
 function TestAudio(props) {
    
     const [recordings,setRecordings] = useState([])
@@ -141,11 +149,13 @@ function mergeStreams(stream1,stream2){
         }
   
 }
+let key = 0
 
 function go(blob){
 
   const url = window.URL.createObjectURL(blob);
-  addRec(url,'download')
+  key++
+  addRec(url,`take ${key}`)
 
 }
 
@@ -178,24 +188,52 @@ const addSongLine=()=>{
 
 
     return (
-        <div>
-      
+        <div className="TestAudio">
             <audio  id='song' src={beat1} loop={true} ></audio>
            
             <button id='stop' onClick={stopRecording}> Stop </button>
+
             <button onClick={recordAudio}> Record </button>
-                <div id='scroller'>
-                
-                   {line}
-                   <div id='currentList'>
-                        <p style={{color:'blue'}}>{transcript}</p>
-                        <p style={{color:'red'}}>{rhymes}</p>
-                    </div>
-                 
+
+            <div id='scroller'>
+               {line}
+               <div id='currentList'>
+                    <p style={{color:'blue'}}>{transcript}</p>
+                    <p style={{color:'red'}}>{rhymes}</p>
                 </div>
+            </div>
+
             <div>
                 {recordings}
             </div>
+
+            <footer>
+              <div className="social-buttons">
+                  {/* <div className="social-list">
+                      <div className="individual-btn"><img className="social-icons" src={avatar2}></img></div>
+                      <div className="like-comment-container">
+                          <div className="individual-btn"><img className="social-icons" src={heart}></img></div>
+                          <div className="individual-btn"><img className="social-icons" src={comment}></img></div>
+                      </div>
+                  </div> */}
+              </div>
+              <div className="nav-buttons">
+                  <div className="nav-list">
+                      <div className="button-icons-inset">
+                        <div><img className="button-icons" src={avatar2}></img></div>
+                      </div>
+                      <div className="button-icons-inset">
+                        <div><img className="button-icons" src={avatar2}></img></div>
+                      </div>
+                      <div className="button-icons-inset">
+                        <div><img className="button-icons" src={avatar2}></img></div>
+                      </div>
+                      <div className="button-icons-inset">
+                        <div><img className="button-icons" src={avatar2}></img></div>
+                      </div>
+                  </div>
+              </div>
+            </footer>
         </div>
     );
 }
