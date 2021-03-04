@@ -25,8 +25,6 @@ function App() {
 
   return (
     <div className="App">
-
-      <h1>🤯 Iron Plate  🚀 </h1>
       {/* <h4>{user.email}</h4> */}
       <nav>
         <Link to="/">Home</Link>
@@ -50,7 +48,6 @@ function App() {
         <Route exact path="/recordingBooth" render={(props) => <TestAudio {...props} />} />
         <Route exact path="/tempHome" render={(props) => <TempHome {...props} />} />
       </Switch>
-
     </div>
   );
 }
