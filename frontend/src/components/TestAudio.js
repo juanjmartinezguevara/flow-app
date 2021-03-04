@@ -8,15 +8,16 @@ import stop from '../images/stop.svg'
 import trashbin from '../images/trashbin.svg'
 import save from '../images/save.svg'
 import replay from '../images/replay.svg'
-
+import AudioCanvas from './AudioCanvas'
 
 function TestAudio(props) {
    
-    const [recordings,setRecordings] = useState([])
+    const [recordings,setRecordings] = useState((<audio id='userRecording'></audio>))
     const [rhymes,setRhymes] = useState([])
     const { transcript, resetTranscript } = useSpeechRecognition()
     const [silent,setSilent] = useState(false)
     const [lock,setLock] = useState([])
+    const [keyCounter,setKeyCounter] = useState(0)
     //const [words,setWords] =useState()
 
     useEffect(()=>{
@@ -114,26 +115,25 @@ function TestAudio(props) {
   
 //add recording to list 
 const addRec =(blobby,name)=>{
-    const copyRec= [...recordings]
-    copyRec.push((<audio src={blobby} id={name} key={name} title={name} controls ></audio>))
+    // const copyRec= [...recordings]
+    // copyRec.push((<audio src={blobby} id={name} key={name} title={name}></audio>))
+    
+    const copyRec = (<audio src={blobby} id={'userRecording'} key={name}></audio>)
     setRecordings(copyRec)
 }
-const audioContext = new AudioContext();
-let dest = audioContext.createMediaStreamDestination();
-const recorder = new MediaRecorder(dest.stream);
 
 function mergeStreams(stream1,stream2){
-    // const audioContext = new AudioContext();
+    const audioContext = new AudioContext();
     console.log('started recording')
        let audioIn_01 = audioContext.createMediaStreamSource(stream1);
         let audioIn_02 = audioContext.createMediaStreamSource(stream2);
         console.log('started recording')
-        // let dest = audioContext.createMediaStreamDestination();
+        let dest = audioContext.createMediaStreamDestination();
         console.log('started recording')
         audioIn_01.connect(dest);
         audioIn_02.connect(dest);
         console.log('started recording')
-        // const recorder = new MediaRecorder(dest.stream);
+        const recorder = new MediaRecorder(dest.stream);
         recorder.start()
         console.log('started recording')
          
@@ -148,11 +148,11 @@ function mergeStreams(stream1,stream2){
             
         }
 
-        // document.getElementById('record-stop').onclick=()=>{
-        //     recorder.stop()
-        //     cancelAnimationFrame(myReq)
-        //     console.log('stopped recording')
-        // }
+        document.getElementById('fixer').onclick=()=>{
+            recorder.stop()
+            cancelAnimationFrame(myReq)
+            console.log('stopped recording')
+        }
   
 }
 let key = 0
@@ -169,16 +169,15 @@ function go(blob){
 const stopRecording=()=>{
     document.getElementById('song').pause()
     document.getElementById('song').currentTime=0
-    cancelAnimationFrame(myReq)
-    recorder.stop()
 }
 //currently there exists a delay that needs to be offset when merged.!!!!!!!
 
 
 const songLine =()=>{
     const lastLine= transcript
+    setKeyCounter(keyCounter+1)
    return (
-   <p style={{color:'white'}}>{lastLine}</p>
+   <p key={keyCounter} style={{color:'white'}}>{lastLine}</p>
 )
 }
 
@@ -195,6 +194,17 @@ const lockSuggestion=()=>{
   const copyRhyme= [...rhymes]
   setLock(copyRhyme)
 }
+
+const handlePlayPause=()=>{
+  if(document.getElementById('userRecording').paused)
+  {
+    document.getElementById('userRecording').play();
+  }else{
+    document.getElementById('userRecording').pause();
+  }
+}
+
+
 const handleRecStop = () => {
   if (document.getElementById('song').paused) {
     // document.getElementById('record-stop').setAttribute('class', 'button-icons bi-stop')
@@ -205,15 +215,21 @@ const handleRecStop = () => {
     // document.getElementById('record-stop').setAttribute('class', 'button-icons bi-record')
     document.getElementById('record-stop-img').src = mic
     stopRecording()
+    document.getElementById('fixer').click();
   }
 }
+
+//resizeLines function
+
+
     return (
         <div className="TestAudio">
           <div className="scroll-rhymes-container" id='currentTranscript'>
 
           {line}
             <audio  id='song' src={beat1} loop={true} ></audio>
-{/* 
+            <p id='fixer'></p>
+{/*         
             <div>
                <div id='currentTranscript'> */}
                     <p style={{color:'rgb(0 255 220)'}}>{transcript}</p>
@@ -226,9 +242,9 @@ const handleRecStop = () => {
                 </div> */}
             {/* </div> */}
 
-            {/* <div>
+            <div>
                 {recordings}
-            </div> */}
+            </div>
             </div>
 
               <div className="nav-buttons-play">
@@ -252,7 +268,9 @@ const handleRecStop = () => {
 
                 <div className="canvas-anim-box">
                   <div className="canvas-outset">
-                    <div className="canvas-inset"></div>
+                    <div className="canvas-inset">
+                      <AudioCanvas />
+                    </div>
                   </div>
                 </div>
                 <div className="playback-controls-panel">
@@ -281,12 +299,12 @@ const handleRecStop = () => {
                   </div>
                   <div className="nav-list-play">
                       <div className="button-icons-inset">
-                        <div className="button-icons-outset">
+                        <div className="button-icons-outset" onClick={handlePlayPause} id='playButton'>
                           <img className="button-icons bi-play" src={play}></img>
                         </div>
                       </div>
                       <div className="button-icons-inset">
-                        <div className="button-icons-outset" id='stop' onClick={stopRecording}>
+                        <div className="button-icons-outset">
                           <img className="button-icons bi-stop" src={stop}></img>
                         </div>
                       </div>

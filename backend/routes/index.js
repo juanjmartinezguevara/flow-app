@@ -6,7 +6,6 @@ const axios = require('axios')
 const jwt = require('jsonwebtoken')
 
 
-
 router.get(`/user`, verifyToken, async (req, res, next) => {
     //GETTING OUR USER
     jwt.verify(req.token, 'secretkey', (err, authData) => {
@@ -22,7 +21,6 @@ router.get(`/user`, verifyToken, async (req, res, next) => {
     })
 })
 
-
 router.get(`/myPosts`, verifyToken, async (req, res, next) => {
 
     jwt.verify(req.token, 'secretkey', async (err, authData) => {
@@ -36,13 +34,10 @@ router.get(`/myPosts`, verifyToken, async (req, res, next) => {
     })
 })
 
-
-
-
-
-
 router.post(`/addAPost`, verifyToken, async (req, res, next) => {
+    
     jwt.verify(req.token, 'secretkey', async (err, authData) => {
+        console.log('HERE WE ARE', req, res, next)
         if (err) {
             res.status(403).json(err);
         } else {
@@ -93,11 +88,6 @@ router.post(`/logMeIn`, async (req, res, next) => {
 })
 
 
-
-
-
-
-
 // Verify Token
 function verifyToken(req, res, next) {
     // Get auth header value
@@ -118,7 +108,46 @@ function verifyToken(req, res, next) {
     }
 }
 
+var aws = require('aws-sdk');
+require('dotenv').config(); // Configure dotenv to load in the .env file
+// Configure aws with your accessKeyId and your secretAccessKey
+aws.config.update({
+  region: 'us-east-2', // Put your aws region here
+  accessKeyId: process.env.AWSAccessKeyId,
+  secretAccessKey: process.env.AWSSecretKey
+})
 
+const S3_BUCKET = process.env.Bucket
+console.log(process.env)
+// Now lets export this function so we can call it from somewhere else
+// exports.sign_s3 = (req,res) => {
+    router.post('/sign_s3', (req, res) => {
+        console.log(req.body, 'favorit beer')
+  const s3 = new aws.S3();  // Create a new instance of S3
+  const fileName = req.body.fileName;
+  const fileType = req.body.fileType;
+// Set up the payload of what we are sending to the S3 api
+  const s3Params = {
+    Bucket: S3_BUCKET,
+    Key: fileName,
+    Expires: 3000,
+    ContentType: fileType,
+    ACL: 'public-read'
+  };
+// Make a request to the S3 API to get a signed URL which we can use to upload our file
+s3.getSignedUrl('putObject', s3Params, (err, data) => {
+    if(err){
+      console.log(err);
+      res.json({error: err})
+    }
+    // Data payload of what we are sending back, the url of the signedRequest and a URL where we can access the content after its saved.
+    const returnData = {
+      signedRequest: data,
+      url: `https://${S3_BUCKET}.s3.amazonaws.com/${fileName}`
+    };
+    res.json({data:{returnData}});
+  });
+})
 
 
 module.exports = router
