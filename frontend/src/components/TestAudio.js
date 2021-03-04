@@ -92,7 +92,7 @@ function TestAudio(props) {
           detectSilence(stream, onSilence, onSpeak);
 
           var audio = document.getElementById('song').captureStream()
-            // document.getElementById('song').play()
+            document.getElementById('song').play()
           mergeStreams(stream,audio)
           SpeechRecognition.startListening({continuous:true})
           
