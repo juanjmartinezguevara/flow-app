@@ -26,16 +26,22 @@ function App() {
   return (
     <div className="App">
       {/* <h4>{user.email}</h4> */}
-      <nav>
-        <Link to="/">Home</Link>
-        <Link to="all-posts">All Posts</Link>
-        <Link to="add-posts">Add Post</Link>
-        {/* {!user.email ? <Link to="/auth">Log in</Link> : <Link to="/profile">Profile</Link>} */}
-        <Link to="/auth">Log in</Link> : <Link to="/profile">Profile</Link>
-        <Link to="/recordingBooth">Recording Booth</Link>
 
-      </nav>
-
+      <nav role="navigation">
+            <div id="menuToggle">
+                <input type="checkbox" />
+                <span></span>
+                <span></span>
+                <span></span>
+                <ul id="menu">
+                    <Link to="/"><li>Home</li></Link>
+                    <Link to="all-posts"><li>All Posts</li></Link>
+                    <Link to="add-posts"><li>Add Post</li></Link>
+                    <Link to="/auth"><li>Log in</li></Link> : <Link to="/profile">Profile</Link>
+                    <Link to="/recordingBooth"><li>Recording Booth</li></Link>
+                </ul>
+            </div>
+        </nav>
 
       <Switch>
         <Route exact path="/" render={(props) => <Home {...props} />} />

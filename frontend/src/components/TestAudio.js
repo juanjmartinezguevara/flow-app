@@ -4,7 +4,7 @@ import SpeechRecognition, { useSpeechRecognition } from 'react-speech-recognitio
 import datamuse from 'datamuse'
 import mic from '../images/mic.svg'
 import play from '../images/play.svg'
-import avatar2 from '../images/avatar2.svg'
+import stop from '../images/stop.svg'
 import trashbin from '../images/trashbin.svg'
 
 
@@ -45,8 +45,8 @@ function TestAudio(props) {
         stream,
         onSoundEnd = _=>{},
         onSoundStart = _=>{},
-        silence_delay = 10,
-        min_decibels =-20
+        silence_delay = 100,
+        min_decibels =-40
         ) {
         const ctx = new AudioContext();
         const analyser = ctx.createAnalyser();
@@ -171,10 +171,9 @@ const stopRecording=()=>{
 
 const songLine =()=>{
     const lastLine= transcript
-   return (<div>
-   <p style={{color:'blue'}}>{lastLine}</p>
-   
-    </div>)
+   return (
+   <p style={{color:'rgb(103 241 222)'}}>{lastLine}</p>
+)
 }
 
 const [line,setLine]=useState([])
@@ -191,45 +190,39 @@ const lockSuggestion=()=>{
   setLock(copyRhyme)
 }
 
-
-
     return (
         <div className="TestAudio">
-          <div className="scroll-rhymes-container">
+          <div className="scroll-rhymes-container" id='currentTranscript'>
+          {line}
             <audio  id='song' src={beat1} loop={true} ></audio>
-           
-            <button id='stop' onClick={stopRecording}> Stop </button>
-
-            <button onClick={recordAudio}> Record </button>
-
+{/* 
             <div>
-               <div id='currentTranscript'>
-                    {line}
-                    <p style={{color:'blue'}}>{transcript}</p>
-                </div>
-                <div id='suggestion' onClick={lockSuggestion}>
+               <div id='currentTranscript'> */}
+                    <p style={{color:'rgb(0 255 220)'}}>{transcript}</p>
+                {/* </div> */}
+                {/* <div id='suggestion' onClick={lockSuggestion}>
                      <p style={{color:'red'}}>{rhymes}</p>
                 </div>
                 <div id='lockedRhyme'>
-                    {lock}
-                </div>
-            </div>
+                    
+                </div> */}
+            {/* </div> */}
 
-            <div>
+            {/* <div>
                 {recordings}
-            </div>
+            </div> */}
             </div>
               <div className="nav-buttons-play">
 
                 <div className="suggestions-container">
                   <div className="suggestions sug-1">
-                    <div className="custom-rhyme">
-
+                    <div className="custom-rhyme" id='suggestion' onClick={lockSuggestion}>
+                      <p style={{color:'rgb(255 63 143)'}}>{rhymes}</p>
                     </div>
                   </div>
                   <div className="suggestions sug-2">
-                    <div className="custom-rhyme">
-
+                    <div className="custom-rhyme" id='lockedRhyme'>
+                      <p style={{color: 'rgb(94 202 253)'}}>{lock}</p>
                     </div>
                   </div>
                   <div className="suggestions sug-3">
@@ -239,19 +232,33 @@ const lockSuggestion=()=>{
                   </div>
                 </div>
 
+                <div className="canvas-anim-box">
+                  <div className="canvas-outset">
+                    <div className="canvas-inset"></div>
+                  </div>
+                </div>
+
                 <div className="nav-list-play">
                     <div className="button-icons-inset">
-                      <div className="button-icons-outset"><img className="button-icons bi-play" src={avatar2}></img></div>
+                      <div className="button-icons-outset">
+                        <img className="button-icons bi-play" src={play}></img>
+                      </div>
                     </div>
                     <div className="button-icons-inset">
-                      <div className="button-icons-outset"><img className="button-icons bi-play" src={play}></img></div>
+                      <div className="button-icons-outset" id='stop' onClick={stopRecording}>
+                        <img className="button-icons bi-stop" src={stop}></img>
+                      </div>
                     </div>
                     <div className="button-icons-inset">
-                      <div className="button-icons-outset"><img className="button-icons bi-play" src={mic}></img></div>
+                      <div className="button-icons-outset" onClick={recordAudio}>
+                        <img className="button-icons bi-record" src={mic}></img>
+                      </div>
                     </div>
                     <div className="button-icons-inset">
-                      <div className="button-icons-outset"><img className="button-icons bi-play" src={trashbin}></img></div>
+                      <div className="button-icons-outset">
+                        <img className="button-icons bi-play" src={trashbin}></img>
                     </div>
+                  </div>
                 </div>
               </div>
         </div>
