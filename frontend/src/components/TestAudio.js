@@ -16,6 +16,7 @@ function TestAudio(props) {
     const [rhymes,setRhymes] = useState([])
     const { transcript, resetTranscript } = useSpeechRecognition()
     const [silent,setSilent] = useState(false)
+    const [lock,setLock] = useState([])
     //const [words,setWords] =useState()
 
     useEffect(()=>{
@@ -24,10 +25,12 @@ function TestAudio(props) {
         datamuse.request(`words?rel_rhy=${lastWord}&max=5`)
         .then((res)=>{
            res.forEach(element => {
-               retrievedRhymes.push(` ${element.word} `)
+               retrievedRhymes.push(` ${element.word} `)       
            });
+           if(retrievedRhymes.length!==0){
           
            setRhymes(retrievedRhymes)
+           }
            
            
            addSongLine()
@@ -44,8 +47,8 @@ function TestAudio(props) {
         stream,
         onSoundEnd = _=>{},
         onSoundStart = _=>{},
-        silence_delay = 100,
-        min_decibels =-80
+        silence_delay = 10,
+        min_decibels =-20
         ) {
         const ctx = new AudioContext();
         const analyser = ctx.createAnalyser();
@@ -172,7 +175,7 @@ const songLine =()=>{
     const lastLine= transcript
    return (<div>
    <p style={{color:'blue'}}>{lastLine}</p>
-    <p style={{color:'red'}}>{rhymes}</p>
+   
     </div>)
 }
 
@@ -185,6 +188,11 @@ const addSongLine=()=>{
     setLine(copyLine)
 }
 
+const lockSuggestion=()=>{
+  const copyRhyme= [...rhymes]
+  setLock(copyRhyme)
+}
+
 
 
     return (
@@ -195,11 +203,16 @@ const addSongLine=()=>{
 
             <button onClick={recordAudio}> Record </button>
 
-            <div id='scroller'>
-               {line}
-               <div id='currentList'>
+            <div>
+               <div id='currentTranscript'>
+                    {line}
                     <p style={{color:'blue'}}>{transcript}</p>
-                    <p style={{color:'red'}}>{rhymes}</p>
+                </div>
+                <div id='suggestion' onClick={lockSuggestion}>
+                     <p style={{color:'red'}}>{rhymes}</p>
+                </div>
+                <div id='lockedRhyme'>
+                    {lock}
                 </div>
             </div>
 
