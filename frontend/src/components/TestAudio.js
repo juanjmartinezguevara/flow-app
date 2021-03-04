@@ -6,6 +6,8 @@ import mic from '../images/mic.svg'
 import play from '../images/play.svg'
 import stop from '../images/stop.svg'
 import trashbin from '../images/trashbin.svg'
+import save from '../images/save.svg'
+import replay from '../images/replay.svg'
 
 
 function TestAudio(props) {
@@ -208,6 +210,7 @@ const handleRecStop = () => {
     return (
         <div className="TestAudio">
           <div className="scroll-rhymes-container" id='currentTranscript'>
+
           {line}
             <audio  id='song' src={beat1} loop={true} ></audio>
 {/* 
@@ -227,22 +230,22 @@ const handleRecStop = () => {
                 {recordings}
             </div> */}
             </div>
+
               <div className="nav-buttons-play">
 
                 <div className="suggestions-container">
                   <div className="suggestions sug-1">
-                    <div className="custom-rhyme" id='suggestion' onClick={lockSuggestion}>
-                      <p style={{color:'rgb(255 63 143)'}}>{rhymes}</p>
+                    <div className="custom-rhyme">
+                      <div className="custom-rhyme-inner" id='suggestion' onClick={lockSuggestion}>
+                        <p style={{color:'rgb(255 63 143)'}}>{rhymes}</p>
+                      </div>
                     </div>
                   </div>
                   <div className="suggestions sug-2">
-                    <div className="custom-rhyme" id='lockedRhyme'>
-                      <p style={{color: 'rgb(94 202 253)'}}>{lock}</p>
-                    </div>
-                  </div>
-                  <div className="suggestions sug-3">
                     <div className="custom-rhyme">
-
+                      <div className="custom-rhyme-inner" id='lockedRhyme'>
+                        <p style={{color: 'rgb(94 202 253)'}}>{lock}</p>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -252,26 +255,50 @@ const handleRecStop = () => {
                     <div className="canvas-inset"></div>
                   </div>
                 </div>
-
-                <div className="nav-list-play">
-                    <div className="button-icons-inset">
-                      <div className="button-icons-outset">
-                        <img className="button-icons bi-play" src={play}></img>
+                <div className="playback-controls-panel">
+                  <div className="playback-container">
+                    <div className="playback-wrapper">
+                      <div className="tracks-container">
+                        <div className="tracks-inset">
+                          <div className="tracks-onset">
+                            <ul>
+                              <li>Track 1</li>
+                            </ul>
+                          </div>
+                        </div>
+                      </div>
+                      <div className="selected-container">
+                            <div><img className="button-icons" src={replay}></img></div>
+                            <div><img className="button-icons" src={stop}></img></div>
+                            <div><img className="button-icons" src={save}></img></div>
                       </div>
                     </div>
-                    <div className="button-icons-inset">
-                      <div className="button-icons-outset" id='stop' onClick={stopRecording}>
-                        <img className="button-icons bi-stop" src={stop}></img>
-                      </div>
+                  </div>
+                  <div className="duration-container">
+                    <div className="dur-inset">
+                      <div className="dur-onset"></div>
                     </div>
-                    <div className="button-icons-inset">
-                      <div className="button-icons-outset" id="record-stop" onClick={handleRecStop}>
-                        <img className="button-icons bi-record" id="record-stop-img" src={mic}></img>
+                  </div>
+                  <div className="nav-list-play">
+                      <div className="button-icons-inset">
+                        <div className="button-icons-outset">
+                          <img className="button-icons bi-play" src={play}></img>
+                        </div>
                       </div>
-                    </div>
-                    <div className="button-icons-inset">
-                      <div className="button-icons-outset">
-                        <img className="button-icons bi-play" src={trashbin}></img>
+                      <div className="button-icons-inset">
+                        <div className="button-icons-outset" id='stop' onClick={stopRecording}>
+                          <img className="button-icons bi-stop" src={stop}></img>
+                        </div>
+                      </div>
+                      <div className="button-icons-inset">
+                        <div className="button-icons-outset" id="record-stop" onClick={handleRecStop}>
+                          <img className="button-icons bi-record" id="record-stop-img" src={mic}></img>
+                        </div>
+                      </div>
+                      <div className="button-icons-inset">
+                        <div className="button-icons-outset">
+                          <img className="button-icons bi-play" src={trashbin}></img>
+                      </div>
                     </div>
                   </div>
                 </div>
