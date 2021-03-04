@@ -9,7 +9,7 @@ import Profile from './components/Profile'
 import TempHome from './components/TempHome'
 import actions from './api'
 import { Switch, Route, Link } from 'react-router-dom'
-
+import TestAudio from './components/TestAudio'
 
 
 
@@ -34,7 +34,7 @@ function App() {
         <Link to="add-posts">Add Post</Link>
         {/* {!user.email ? <Link to="/auth">Log in</Link> : <Link to="/profile">Profile</Link>} */}
         <Link to="/auth">Log in</Link> : <Link to="/profile">Profile</Link>
-
+        <Link to="/recordingBooth">Recording Booth</Link>
 
       </nav>
 
@@ -47,6 +47,7 @@ function App() {
         <Route exact path="/auth" render={(props) => <Auth {...props} />} />
         {/* <Route exact path="/profile" render={(props) => <Profile user={user} {...props} />} /> */}
         <Route exact path="/profile" render={(props) => <Profile {...props} />} />
+        <Route exact path="/recordingBooth" render={(props) => <TestAudio {...props} />} />
         <Route exact path="/tempHome" render={(props) => <TempHome {...props} />} />
       </Switch>
 
