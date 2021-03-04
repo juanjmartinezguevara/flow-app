@@ -49,10 +49,10 @@ footer {
   width: 100%;
   justify-content: space-between;
 }
+
 .nav-list div {
   height: 40px;
   width: 40px;
-  list-style-type: none;
   padding: 5px;
   text-align: center;
   font-weight: bold;
@@ -109,22 +109,32 @@ footer {
 .scroll-rhymes-container {
   background-image: url('./images/abstract.jpg');
   background-size: cover;
-
   height: 40%;
   overflow-y: scroll;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 .custom-rhyme {
-  height: 40px;
+  height: 50px;
   width: 85%;
   display: flex;
   justify-content: center;
   align-items: center;
   border-radius: 50px;
   background: #b7b4b4;
-  box-shadow: inset 4px 4px 5px #494848, inset -4px -4px 5px #d8d8d8;
+  box-shadow: inset 4px 4px 5px #999c9e, 
+              inset -4px -4px 7px #ffffff;
+}
+.custom-rhyme-inner {
+  height: 65%;
+  width: 94%;
+  background: #383838;
+  border-radius: 50px;
+
 }
 .suggestions-container {
-  height: 60%;
+  height: 47%;
   width: 100%;
   background: #ecf0f3;
   display: flex;
@@ -133,7 +143,7 @@ footer {
   justify-content: space-evenly;
 }
 .suggestions {
-  height: 29%;
+  height: 43%;
   width: 95%;
   display: flex;
   flex-direction: column;
@@ -146,7 +156,7 @@ footer {
 .canvas-anim-box {
   background: #ecf0f3;
   border-top: 1px solid #ecf0f3;
-  height: 20%;
+  height: 18%;
   width: 100%;
   display: flex;
   justify-content: center;
@@ -171,6 +181,93 @@ footer {
   background-size: cover;
   background-position-y: center;
 }
+.playback-controls-panel {
+  height: 35%;
+  background: #686a6b;
+  box-shadow: -4px -2px 4px 1px #ffffff;
+}
+.playback-container {
+  height: 33%;
+  display: flex;
+  justify-content: center;
+}
+.playback-wrapper {
+  height: 100%;
+  width: 95%;
+  display: flex;
+  align-items: center;
+}
+
+.tracks-container {
+  height: 80%;
+  width: 60%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.tracks-inset {
+  height: 90%;
+  width: 90%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50px;
+  box-shadow: inset 5px 5px 15px #313232,
+              inset -5px -5px 5px #9fa2a4;
+}
+.tracks-onset {
+  height: 65%;
+  width: 90%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #383838;
+  border-radius: 50px;
+}
+.tracks-onset li {
+  color: white;
+  list-style-type: none;
+  font-weight: bold;
+}
+.selected-container {
+  width: 60%;
+  display: flex;
+  justify-content: space-evenly;
+}
+.selected-container div {
+  height: 30px;
+  width: 30px;
+  border-radius: 50px;
+  font-size: .7em;
+  padding: 1px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 4px 4px 7px #3d3f3f,
+             -4px -4px 5px #939597;
+}
+.duration-container {
+  height: 12%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.dur-inset {
+  height: 100%;
+  width: 90%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50px;
+  box-shadow: inset 5px 5px 15px #313232,
+              inset -5px -5px 5px #9fa2a4;
+}
+.dur-onset {
+  height: 40%;
+  width: 95%;
+  border-radius: 50px;
+  background: #63DEBC;
+}
 /* -----------Play Studio Buttons (TESTAUDIO)------------- */
 .button-icons-inset {
   height: 75px;
@@ -179,14 +276,14 @@ footer {
   justify-content: center;
   align-items: center;
   border-radius: 50%;
-  background: #ecf0f3;
-  box-shadow: inset -3px -3px 10px #ffffff, 
-              inset 3px 3px 10px #cbced1;
+  background: #686a6b;
+  box-shadow: inset 5px 5px 15px #313232, 
+              inset -5px -5px 15px #9fa2a4;
   transition: box-shadow .5s;
 }
 .button-icons-outset:active {
-  box-shadow: inset 2px 2px 4px #cbced1, 
-              inset -2px -2px 2px #ffffff;
+  box-shadow: inset 2px 2px 3px #313232, 
+              inset -2px -2px 3px #9fa2a4;
 }
 .button-icons-outset {
   height: 40px;
@@ -198,15 +295,15 @@ footer {
   display: flex;
   justify-content: center;
   align-items: center;
-  box-shadow: 4px 4px 8px #cbced1,
-             -4px -4px 8px #ffffff;
+  background: #686a6b;
+  box-shadow:  4px 4px 10px #3d3f3f,
+              -4px -4px 10px #939597;
 }
 .nav-list-play{
   display: flex;
-  height: 20%;
+  height: 55%;
   width: 100%;
-  background: #ecf0f3;
-  border-top: 4px solid #d0d0d0;
+  border-top: 1px solid #686a6b;
   align-items: center;
   justify-content: space-evenly;
   align-items: center;

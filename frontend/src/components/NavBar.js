@@ -9,8 +9,8 @@ import heart from '../images/heart.svg'
 
 function NavBar(props) {
     return (
-        <footer>
-            <div className="social-buttons">
+        <footer style={{height: `${props.height}`, flexDirection: `${props.row}`}}>
+            <div className="social-buttons" style={{display: `${props.display}`}}>
                 <div className="social-list">
                     <div className="individual-btn"><img className="social-icons" src={avatar2}></img></div>
                     <div className="like-comment-container">
@@ -19,7 +19,7 @@ function NavBar(props) {
                     </div>
                 </div>
             </div>
-            <div className="nav-buttons">
+            <div className="nav-buttons" style={{boxShadow: `${props.shadowDisplay}`}}>
                 <div className="nav-list">
                     <div><img className="button-icons" src={mic}></img></div>
                     <div><img className="button-icons" src={social2}></img></div>
