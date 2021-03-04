@@ -107,9 +107,9 @@ footer {
   text-shadow: 3px 4px 5px #494848;
 }
 .scroll-rhymes-container {
-  background-image: url('./images/music-loop.gif');
+  background-image: url('./images/abstract.jpg');
   background-size: cover;
-  background-position-x: center;
+
   height: 40%;
   overflow-y: scroll;
 }
@@ -182,6 +182,11 @@ footer {
   background: #ecf0f3;
   box-shadow: inset -3px -3px 10px #ffffff, 
               inset 3px 3px 10px #cbced1;
+  transition: box-shadow .5s;
+}
+.button-icons-outset:active {
+  box-shadow: inset 2px 2px 4px #cbced1, 
+              inset -2px -2px 2px #ffffff;
 }
 .button-icons-outset {
   height: 40px;
@@ -227,7 +232,6 @@ footer {
 {
   text-decoration: none;
   color: #ec6aa0;
-  
   transition: color 0.3s ease;
 }
 

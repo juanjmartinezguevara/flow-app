@@ -40,13 +40,13 @@ function TestAudio(props) {
    
 
     function recordAudio(){
-     
+
     function detectSilence(
         stream,
         onSoundEnd = _=>{},
         onSoundStart = _=>{},
-        silence_delay = 100,
-        min_decibels =-40
+        silence_delay = 50,
+        min_decibels =-80
         ) {
         const ctx = new AudioContext();
         const analyser = ctx.createAnalyser();
@@ -116,19 +116,22 @@ const addRec =(blobby,name)=>{
     copyRec.push((<audio src={blobby} id={name} key={name} title={name} controls ></audio>))
     setRecordings(copyRec)
 }
+const audioContext = new AudioContext();
+let dest = audioContext.createMediaStreamDestination();
+const recorder = new MediaRecorder(dest.stream);
 
 function mergeStreams(stream1,stream2){
-    const audioContext = new AudioContext();
+    // const audioContext = new AudioContext();
     console.log('started recording')
        let audioIn_01 = audioContext.createMediaStreamSource(stream1);
         let audioIn_02 = audioContext.createMediaStreamSource(stream2);
         console.log('started recording')
-        let dest = audioContext.createMediaStreamDestination();
+        // let dest = audioContext.createMediaStreamDestination();
         console.log('started recording')
         audioIn_01.connect(dest);
         audioIn_02.connect(dest);
         console.log('started recording')
-        const recorder = new MediaRecorder(dest.stream);
+        // const recorder = new MediaRecorder(dest.stream);
         recorder.start()
         console.log('started recording')
          
@@ -143,11 +146,11 @@ function mergeStreams(stream1,stream2){
             
         }
 
-        document.getElementById('stop').onclick=()=>{
-            recorder.stop()
-            cancelAnimationFrame(myReq)
-            console.log('stopped recording')
-        }
+        // document.getElementById('record-stop').onclick=()=>{
+        //     recorder.stop()
+        //     cancelAnimationFrame(myReq)
+        //     console.log('stopped recording')
+        // }
   
 }
 let key = 0
@@ -165,6 +168,7 @@ const stopRecording=()=>{
     document.getElementById('song').pause()
     document.getElementById('song').currentTime=0
     cancelAnimationFrame(myReq)
+    recorder.stop()
 }
 //currently there exists a delay that needs to be offset when merged.!!!!!!!
 
@@ -172,7 +176,7 @@ const stopRecording=()=>{
 const songLine =()=>{
     const lastLine= transcript
    return (
-   <p style={{color:'rgb(103 241 222)'}}>{lastLine}</p>
+   <p style={{color:'white'}}>{lastLine}</p>
 )
 }
 
@@ -189,7 +193,18 @@ const lockSuggestion=()=>{
   const copyRhyme= [...rhymes]
   setLock(copyRhyme)
 }
-
+const handleRecStop = () => {
+  if (document.getElementById('song').paused) {
+    // document.getElementById('record-stop').setAttribute('class', 'button-icons bi-stop')
+    document.getElementById('record-stop-img').src = stop
+    recordAudio()
+  }
+  else {
+    // document.getElementById('record-stop').setAttribute('class', 'button-icons bi-record')
+    document.getElementById('record-stop-img').src = mic
+    stopRecording()
+  }
+}
     return (
         <div className="TestAudio">
           <div className="scroll-rhymes-container" id='currentTranscript'>
@@ -250,8 +265,8 @@ const lockSuggestion=()=>{
                       </div>
                     </div>
                     <div className="button-icons-inset">
-                      <div className="button-icons-outset" onClick={recordAudio}>
-                        <img className="button-icons bi-record" src={mic}></img>
+                      <div className="button-icons-outset" id="record-stop" onClick={handleRecStop}>
+                        <img className="button-icons bi-record" id="record-stop-img" src={mic}></img>
                       </div>
                     </div>
                     <div className="button-icons-inset">
