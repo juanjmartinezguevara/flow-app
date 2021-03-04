@@ -3,12 +3,10 @@ import beat1 from '../assets/beatOne.m4a'
 import SpeechRecognition, { useSpeechRecognition } from 'react-speech-recognition'
 import datamuse from 'datamuse'
 import mic from '../images/mic.svg'
-import avatar from '../images/avatar.svg'
+import play from '../images/play.svg'
 import avatar2 from '../images/avatar2.svg'
-import social from '../images/social.svg'
-import social2 from '../images/social2.svg'
-import comment from '../images/comment.svg'
-import heart from '../images/heart.svg'
+import trashbin from '../images/trashbin.svg'
+
 
 function TestAudio(props) {
    
@@ -189,6 +187,7 @@ const addSongLine=()=>{
 
     return (
         <div className="TestAudio">
+          <div className="scroll-rhymes-container">
             <audio  id='song' src={beat1} loop={true} ></audio>
            
             <button id='stop' onClick={stopRecording}> Stop </button>
@@ -206,34 +205,42 @@ const addSongLine=()=>{
             <div>
                 {recordings}
             </div>
+            </div>
+              <div className="nav-buttons-play">
 
-            <footer>
-              <div className="social-buttons">
-                  {/* <div className="social-list">
-                      <div className="individual-btn"><img className="social-icons" src={avatar2}></img></div>
-                      <div className="like-comment-container">
-                          <div className="individual-btn"><img className="social-icons" src={heart}></img></div>
-                          <div className="individual-btn"><img className="social-icons" src={comment}></img></div>
-                      </div>
-                  </div> */}
-              </div>
-              <div className="nav-buttons">
-                  <div className="nav-list">
-                      <div className="button-icons-inset">
-                        <div><img className="button-icons" src={avatar2}></img></div>
-                      </div>
-                      <div className="button-icons-inset">
-                        <div><img className="button-icons" src={avatar2}></img></div>
-                      </div>
-                      <div className="button-icons-inset">
-                        <div><img className="button-icons" src={avatar2}></img></div>
-                      </div>
-                      <div className="button-icons-inset">
-                        <div><img className="button-icons" src={avatar2}></img></div>
-                      </div>
+                <div className="suggestions-container">
+                  <div className="suggestions sug-1">
+                    <div className="custom-rhyme">
+
+                    </div>
                   </div>
+                  <div className="suggestions sug-2">
+                    <div className="custom-rhyme">
+
+                    </div>
+                  </div>
+                  <div className="suggestions sug-3">
+                    <div className="custom-rhyme">
+
+                    </div>
+                  </div>
+                </div>
+
+                <div className="nav-list-play">
+                    <div className="button-icons-inset">
+                      <div className="button-icons-outset"><img className="button-icons bi-play" src={avatar2}></img></div>
+                    </div>
+                    <div className="button-icons-inset">
+                      <div className="button-icons-outset"><img className="button-icons bi-play" src={play}></img></div>
+                    </div>
+                    <div className="button-icons-inset">
+                      <div className="button-icons-outset"><img className="button-icons bi-play" src={mic}></img></div>
+                    </div>
+                    <div className="button-icons-inset">
+                      <div className="button-icons-outset"><img className="button-icons bi-play" src={trashbin}></img></div>
+                    </div>
+                </div>
               </div>
-            </footer>
         </div>
     );
 }
