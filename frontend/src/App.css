@@ -107,9 +107,9 @@ footer {
   text-shadow: 3px 4px 5px #494848;
 }
 .scroll-rhymes-container {
-  background-image: url('./images/music-loop.gif');
+  background-image: url('./images/abstract.jpg');
   background-size: cover;
-  background-position-x: center;
+
   height: 40%;
   overflow-y: scroll;
 }
@@ -182,6 +182,11 @@ footer {
   background: #ecf0f3;
   box-shadow: inset -3px -3px 10px #ffffff, 
               inset 3px 3px 10px #cbced1;
+  transition: box-shadow .5s;
+}
+.button-icons-outset:active {
+  box-shadow: inset 2px 2px 4px #cbced1, 
+              inset -2px -2px 2px #ffffff;
 }
 .button-icons-outset {
   height: 40px;
@@ -223,12 +228,10 @@ footer {
   -webkit-user-select: none;
   user-select: none;
 }
-
 #menuToggle a
 {
   text-decoration: none;
   color: #ec6aa0;
-  
   transition: color 0.3s ease;
 }
 
@@ -292,11 +295,9 @@ footer {
   transform: rotate(0deg) scale(0.2, 0.2);
 }
 
-#menuToggle input:checked ~ span:nth-last-child(2)
-{
+#menuToggle input:checked ~ span:nth-last-child(2) {
   transform: rotate(-45deg) translate(0, -1px);
 }
-
 #menu {
   position: absolute;
   width: 100%;
@@ -310,12 +311,9 @@ footer {
   transform: translate(0, -100%);
   transition: transform 0.5s cubic-bezier(0.77,0.2,0.05,1.0);
 }
-
-#menu li
-{
+#menu li {
   font-size: 16px;
 }
-
 #menuToggle input:checked ~ ul {
   transform: none;
 }
