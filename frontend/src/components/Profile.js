@@ -1,33 +1,63 @@
-import React, { useState, useEffect } from 'react';
-import actions from '../api'
+import React, { useState, useEffect } from "react";
+// import actions from '../api'
+import axios from "axios";
+import NavBar from "./NavBar";
 
 function Profile(props) {
-    const [myPosts, setMyPosts] = useState([])
+  // const [myPosts, setMyPosts] = useState([])
+  const [posts, setPosts] = useState([]);
 
+  // useEffect(() => {
+  //     console.log(props)
+  //     if (!props.user.email) {
+  //         props.history.push('/')
+  //     }
+  //     actions.getMyPosts().then(res => setMyPosts(res.data))
+  // }, [])
 
-    useEffect(() => {
-        console.log(props)
-        if (!props.user.email) {
-            props.history.push('/')
-        }
-        actions.getMyPosts().then(res => setMyPosts(res.data))
-    }, [])
+  // const showPosts = () => {
+  //     return myPosts.map(post => {
+  //         return (
+  //             <li key={post._id}>{post.post}</li>
+  //         )
+  //     })
+  // }
 
-    const showPosts = () => {
-        return myPosts.map(post => {
-            return (
-                <li key={post._id}>{post.post}</li>
-            )
-        })
-    }
+  useEffect(() => {
+    axios.get("https://rickandmortyapi.com/api/character").then((res) => {
+      console.log(res.data.results);
+      setPosts(res.data.results);
+    });
+  }, []);
 
-    return (
-        <div>
-            <h3>{props.user?.email}</h3>
+  const showPosts = () => {
+    return posts.map((eachPost) => {
+      return <img className="profile-post" src={eachPost.image} alt="" />;
+    });
+  };
 
-            {showPosts()}
+  return (
+    <div>
+      {/* <h3>[database call: email]</h3>
+
+            {showPosts()} */}
+      <header className="profile-header">
+        <div className='header-bio'>
+          <h1>@blah</h1>
+          <p>Optional profile bio goes here</p>
         </div>
-    );
+        <img
+          className="profile-header-propic"
+          src="https://assets.capitalxtra.com/2017/47/nicki-minaj-1511527250-view-0.jpg"
+          alt=""
+        />
+      </header>
+      <div className='profile-post-feed'>
+        {showPosts()}
+      </div>
+      <NavBar/>
+    </div>
+  );
 }
 
 export default Profile;

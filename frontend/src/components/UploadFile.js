@@ -14,25 +14,6 @@ class UploadFile extends Component {
     this.setState({ selectedFile: event.target.files[0] });
   };
 
-  // On file upload (click the upload button)
-//   onFileUpload = () => {
-//     // Create an object of formData
-//     const formData = new FormData();
-
-//     // Update the formData object
-//     formData.append(
-//       "myFile",
-//       this.state.selectedFile,
-//       this.state.selectedFile.name
-//     );
-
-//     // Details of the uploaded file
-//     console.log(this.state.selectedFile);
-
-//     // Request made to the backend api
-//     // Send formData object
-//     axios.post("api/uploadfile", formData);
-//   };
 
 onFileUpload = (pr) => {
     console.log('PR', pr)
@@ -58,7 +39,8 @@ onFileUpload = (pr) => {
       axios.put(signedRequest,file,options)
       .then(result => { this.setState({audio: url,
       },()=>console.log(this.state.audio))
-      alert("audio uploaded")})
+      //post url to mongoose here??  or better do it from backend index.js before sending response to here???
+      alert("File uploaded")})
       .catch(error => {
         alert("ERROR " + JSON.stringify(error));
       })
@@ -67,10 +49,6 @@ onFileUpload = (pr) => {
       alert(JSON.stringify(error));
     })
 }
-
-
-
-
 
 
   // File content to be displayed after

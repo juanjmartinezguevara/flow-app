@@ -12,7 +12,7 @@ import AudioCanvas from './AudioCanvas'
 
 function TestAudio(props) {
    
-    const [recordings,setRecordings] = useState((<audio id='userRecording'></audio>))
+    const [recordings,setRecordings] = useState((<li>Track 1<audio id='userRecording'></audio></li>))
     const [rhymes,setRhymes] = useState([])
     const { transcript, resetTranscript } = useSpeechRecognition()
     const [silent,setSilent] = useState(false)
@@ -224,28 +224,12 @@ const handleRecStop = () => {
 
     return (
         <div className="TestAudio">
+          <audio id='song' src={beat1} loop={true} ></audio>
+          <p id='fixer'></p>
           <div className="scroll-rhymes-container" id='currentTranscript'>
-
-          {line}
-            <audio  id='song' src={beat1} loop={true} ></audio>
-            <p id='fixer'></p>
-{/*         
-            <div>
-               <div id='currentTranscript'> */}
-                    <p style={{color:'rgb(0 255 220)'}}>{transcript}</p>
-                {/* </div> */}
-                {/* <div id='suggestion' onClick={lockSuggestion}>
-                     <p style={{color:'red'}}>{rhymes}</p>
-                </div>
-                <div id='lockedRhyme'>
-                    
-                </div> */}
-            {/* </div> */}
-
-            <div>
-                {recordings}
-            </div>
-            </div>
+            {line}
+            <p style={{color:'rgb(0 255 220)'}}>{transcript}</p>
+          </div>
 
               <div className="nav-buttons-play">
 
@@ -281,7 +265,7 @@ const handleRecStop = () => {
                         <div className="tracks-inset">
                           <div className="tracks-onset">
                             <ul>
-                              <li>Track 1</li>
+                              {recordings}
                             </ul>
                           </div>
                         </div>

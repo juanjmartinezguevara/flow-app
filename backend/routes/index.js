@@ -2,6 +2,11 @@ const express = require('express')
 const router = express.Router();
 const Post = require('../models/Post')
 const User = require('../models/User')
+const Songs = require('../models/Songs')
+const Beats = require('../models/Beats')
+const Comments = require('../models/Comments')
+const Likes = require('../models/Likes')
+const Follows = require('../models/Follows')
 const axios = require('axios')
 const jwt = require('jsonwebtoken')
 
@@ -13,13 +18,38 @@ router.get(`/user`, verifyToken, async (req, res, next) => {
             res.status(403).json(err);
         } else {
             User.findById(authData.user._id).then(user => {
-                console.log(user, '?!?!?!?')
                 res.status(200).json(user)
             }).catch(err => res.status(500).json(err))
 
         }
     })
 })
+
+// router.get(`/getAllBeats`, verifyToken, async (req, res, next) => {
+//     jwt.verify(req.token, 'secretkey', (err, authData) => {
+//         if (err) {
+//             res.status(403).json(err);
+//         } else {
+//             User.find({}).then(beats => {
+//                 res.status(200).json(beats)
+//             }).catch(err => res.status(500).json(err))
+
+//         }
+//     })
+// })
+
+// router.get(`/getBeat`, verifyToken, async (req, res, next) => {
+//     jwt.verify(req.token, 'secretkey', (err, authData) => {
+//         if (err) {
+//             res.status(403).json(err);
+//         } else {
+//             User.findById({??????????}).then(beats => {
+//                 res.status(200).json(beats)
+//             }).catch(err => res.status(500).json(err))
+
+//         }
+//     })
+// })
 
 router.get(`/myPosts`, verifyToken, async (req, res, next) => {
 
@@ -37,7 +67,6 @@ router.get(`/myPosts`, verifyToken, async (req, res, next) => {
 router.post(`/addAPost`, verifyToken, async (req, res, next) => {
     
     jwt.verify(req.token, 'secretkey', async (err, authData) => {
-        console.log('HERE WE ARE', req, res, next)
         if (err) {
             res.status(403).json(err);
         } else {
@@ -145,6 +174,7 @@ s3.getSignedUrl('putObject', s3Params, (err, data) => {
       signedRequest: data,
       url: `https://${S3_BUCKET}.s3.amazonaws.com/${fileName}`
     };
+    console.log('AWS FILE SAVE RESULTS>>>>>>>>>', res)
     res.json({data:{returnData}});
   });
 })
