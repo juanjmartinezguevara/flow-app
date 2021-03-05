@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import logo from './logo.svg';
 import './App.css';
+import './otherstyles.css';
 import Home from './components/Home'
 import AddPost from './components/AddPost'
 import AllPosts from './components/AllPosts'
@@ -10,8 +11,8 @@ import TempHome from './components/TempHome'
 import actions from './api'
 import { Switch, Route, Link } from 'react-router-dom'
 import TestAudio from './components/TestAudio'
-
-
+import Comments from './components/Comments'
+import Likes from './components/Likes'
 
 function App() {
 
@@ -37,8 +38,10 @@ function App() {
                     <Link to="/"><li>Home</li></Link>
                     <Link to="all-posts"><li>All Posts</li></Link>
                     <Link to="add-posts"><li>Add Post</li></Link>
-                    <Link to="/auth"><li>Log in</li></Link> : <Link to="/profile">Profile</Link>
+                    <Link to="/auth"><li>Log in</li></Link><Link to="/profile">Profile</Link>
                     <Link to="/recordingBooth"><li>Recording Booth</li></Link>
+                    <Link to="/comments"><li>TEMP Comments</li></Link>
+                    <Link to="/likes"><li>TEMP Likes</li></Link>
                 </ul>
             </div>
         </nav>
@@ -53,6 +56,8 @@ function App() {
         <Route exact path="/profile" render={(props) => <Profile {...props} />} />
         <Route exact path="/recordingBooth" render={(props) => <TestAudio {...props} />} />
         <Route exact path="/tempHome" render={(props) => <TempHome {...props} />} />
+        <Route exact path="/comments" render={(props) => <Comments {...props} />} />
+        <Route exact path="/likes" render={(props) => <Likes {...props} />} />
       </Switch>
     </div>
   );
