@@ -1,5 +1,9 @@
 import React, {useRef,useState,useEffect} from 'react';
-import beat1 from '../assets/beatOne.m4a'
+import beat1 from '../assets/beatsTrack1.m4a'
+import beat2 from '../assets/beatsTrack2.m4a'
+import beat3 from '../assets/beatsTrack3.m4a'
+import beat4 from '../assets/beatsTrack4.m4a'
+import beat5 from '../assets/beatsTrack5.m4a'
 import SpeechRecognition, { useSpeechRecognition } from 'react-speech-recognition'
 import datamuse from 'datamuse'
 import mic from '../images/mic.svg'
@@ -11,36 +15,78 @@ import replay from '../images/replay.svg'
 import AudioCanvas from './AudioCanvas'
 
 function TestAudio(props) {
+
+  const userRec=useRef()
    
-    const [recordings,setRecordings] = useState((<li>Track 1<audio id='userRecording'></audio></li>))
+    const [recordings,setRecordings] = useState((<li>Track 1<audio ref={userRec} id='userRecording'></audio></li>))
     const [rhymes,setRhymes] = useState([])
     const { transcript, resetTranscript } = useSpeechRecognition()
     const [silent,setSilent] = useState(false)
     const [lock,setLock] = useState([])
     const [keyCounter,setKeyCounter] = useState(0)
+
+   
+    
+    const [tracks,setTracks] =
+     useState([
+        { song: beat1,
+        name: 'After Dark'},
+        { song: beat2,
+        name: 'Futurology'},
+        { song: beat3,
+          name: 'Peacock'},
+        { song: beat4,
+          name: 'Callback'},
+        { song: beat5,
+          name: 'Drained'}
+        ])
+
     //const [words,setWords] =useState()
 
     useEffect(()=>{
         const lastWord = transcript.split(' ')[transcript.split(' ').length-1]
         let retrievedRhymes=[]
+        let retHolder=[]
         datamuse.request(`words?rel_rhy=${lastWord}&max=5`)
-        .then((res)=>{
-           res.forEach(element => {
-               retrievedRhymes.push(` ${element.word} `)       
+        .then((res)=>{ 
+          
+          if(res.length!==0){
+          for(let i = 0;i<3;i++){
+           
+            retHolder.push(res[Math.floor(Math.random()*res.length)].word)
+          }
+           retHolder.forEach(element => {
+            
+               retrievedRhymes.push(` ${element} `)       
            });
            if(retrievedRhymes.length!==0){
-          
+            
            setRhymes(retrievedRhymes)
            }
-           
-           
            addSongLine()
+          }
+
         })
         
     },[silent])
 
     let myReq;   //animation frame ID
    
+    const loadTrack=()=>{
+      let selectBox= document.getElementById('selectBox');
+      let selectedValue = selectBox.options[selectBox.selectedIndex].value;
+      document.getElementById('song').src=selectedValue
+    }
+
+
+    const chooseTrack =()=>{
+      return tracks.map((element)=>{
+        return (
+          <option value={element.song} >{element.name} </option>
+        )
+      })
+     
+    }
 
     function recordAudio(){
 
@@ -105,6 +151,7 @@ function TestAudio(props) {
 
           var audio = document.getElementById('song').captureStream()
             document.getElementById('song').play()
+            
           mergeStreams(stream,audio)
           SpeechRecognition.startListening({continuous:true})
           
@@ -115,24 +162,23 @@ function TestAudio(props) {
   
 //add recording to list 
 const addRec =(blobby,name)=>{
-    // const copyRec= [...recordings]
-    // copyRec.push((<audio src={blobby} id={name} key={name} title={name}></audio>))
-    
+  
     const copyRec = (<audio src={blobby} id={'userRecording'} key={name}></audio>)
+    
     setRecordings(copyRec)
 }
 
 function mergeStreams(stream1,stream2){
     const audioContext = new AudioContext();
-    console.log('started recording')
+   
        let audioIn_01 = audioContext.createMediaStreamSource(stream1);
         let audioIn_02 = audioContext.createMediaStreamSource(stream2);
-        console.log('started recording')
+  
         let dest = audioContext.createMediaStreamDestination();
-        console.log('started recording')
+       
         audioIn_01.connect(dest);
         audioIn_02.connect(dest);
-        console.log('started recording')
+     
         const recorder = new MediaRecorder(dest.stream);
         recorder.start()
         console.log('started recording')
@@ -199,6 +245,7 @@ const handlePlayPause=()=>{
   if(document.getElementById('userRecording').paused)
   {
     document.getElementById('userRecording').play();
+    
   }else{
     document.getElementById('userRecording').pause();
   }
@@ -219,7 +266,34 @@ const handleRecStop = () => {
   }
 }
 
-//resizeLines function
+// //make a time slider
+function TimeSlider() {
+
+    const [time, setTime] = useState(0)
+   
+
+    useEffect(()=>{
+      document.getElementById('userRecording').currentTime=time
+     console.log(userRec)
+    },[time])
+  //change stuff here
+   
+
+    return (
+        <section>
+          <input id='timeSlider'
+            type="range"
+            min={0}
+            max={30}
+            step={0.02}
+            value={time}
+            onChange={event => {
+              setTime(event.target.valueAsNumber)
+            }}
+          />
+        </section>
+    )
+}
 
 
     return (
@@ -264,9 +338,12 @@ const handleRecStop = () => {
                       <div className="tracks-container">
                         <div className="tracks-inset">
                           <div className="tracks-onset">
-                            <ul>
-                              {recordings}
-                            </ul>
+                          <select id='selectBox' onChange={loadTrack}>
+                              {chooseTrack()}
+                            </select>
+                         
+                              
+                            
                           </div>
                         </div>
                       </div>
@@ -277,9 +354,11 @@ const handleRecStop = () => {
                       </div>
                     </div>
                   </div>
-                  <div className="duration-container">
+                  <div className="duration-container" >
                     <div className="dur-inset">
-                      <div className="dur-onset"></div>
+                      <div className="dur-onset" id='duration'>
+                        {/* <TimeSlider /> */}
+                      </div>
                     </div>
                   </div>
                   <div className="nav-list-play">
@@ -288,11 +367,7 @@ const handleRecStop = () => {
                           <img className="button-icons bi-play" src={play}></img>
                         </div>
                       </div>
-                      <div className="button-icons-inset">
-                        <div className="button-icons-outset">
-                          <img className="button-icons bi-stop" src={stop}></img>
-                        </div>
-                      </div>
+                    
                       <div className="button-icons-inset">
                         <div className="button-icons-outset" id="record-stop" onClick={handleRecStop}>
                           <img className="button-icons bi-record" id="record-stop-img" src={mic}></img>
@@ -306,6 +381,7 @@ const handleRecStop = () => {
                   </div>
                 </div>
               </div>
+              {recordings}
         </div>
     );
 }
