@@ -46,7 +46,7 @@ function AudioCanvas(props) {
         
         
         for (var i = 0; i < bufferLength; i++) {
-          barHeight = dataArray[i]*0.6;
+          barHeight = dataArray[i]*0.3;
       
 
             
@@ -69,28 +69,17 @@ function AudioCanvas(props) {
       renderFrame();
   })
 
-   
-    
-      
 }
 
-       
-         
-      const oneOrTwo=()=>{
-         
-            return (
-                <div className="canvas-container">
-                  <canvas id="canvas" onClick={displayCanvas}></canvas>
-                 
-                </div>
-                  )
-          
-      }
-      
+
+      displayCanvas()
    
 
-return (
-  oneOrTwo()
-);
+      return (
+        <div className="canvas-container">
+          <canvas id="canvas" ></canvas>
+         
+        </div>
+          )
 }
-export default AudioCanvas;
+export default React.memo(AudioCanvas);

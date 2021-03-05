@@ -2,10 +2,17 @@ import React, { useState, useEffect } from "react";
 // import actions from '../api'
 import axios from "axios";
 import NavBar from "./NavBar";
+import TheContext from '../TheContext';
+
+// TO USE CONTEXT DATA
+// from inside a function
+// const { user } = useContext(TheContext)
 
 function Profile(props) {
   // const [myPosts, setMyPosts] = useState([])
   const [posts, setPosts] = useState([]);
+
+  const { user } = React.useContext(TheContext)
 
   // useEffect(() => {
   //     console.log(props)
@@ -30,8 +37,11 @@ function Profile(props) {
     });
   }, []);
 
+
+
   const showPosts = () => {
     return posts.map((eachPost) => {
+
       return <img className="profile-post" src={eachPost.image} alt="" />;
     });
   };
@@ -45,6 +55,7 @@ function Profile(props) {
         <div className='header-bio'>
           <h1>@blah</h1>
           <p>Optional profile bio goes here</p>
+          <button>Edit profile</button>
         </div>
         <img
           className="profile-header-propic"
@@ -55,7 +66,7 @@ function Profile(props) {
       <div className='profile-post-feed'>
         {showPosts()}
       </div>
-      <NavBar/>
+      {/* <NavBar/> */}
     </div>
   );
 }

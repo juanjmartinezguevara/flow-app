@@ -6,12 +6,13 @@ const User = model('User', new Schema({
     picture: String,
     given_name: String,
     family_name: String,
+    userName: { type: String, unique: true },
     userPhoto: String,
     userSignUpDate: Date,
     userAbout: String,
     userTwitter: String,
     userInstagram: String,
-    userSoundCLoud: String
+    userSoundCloud: String
 
 }))
 module.exports = User 

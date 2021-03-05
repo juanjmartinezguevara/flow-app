@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import axios from "axios";
+import actions from '../api'
 
 class UploadFile extends Component {
   state = {
@@ -23,31 +24,11 @@ onFileUpload = (pr) => {
 
     console.log('File Name', fileName)
     console.log('FILETYPE', fileType)
-    axios.post("http://localhost:5000/api/sign_s3",{
-      fileName : fileName,
-      fileType : fileType
+    actions.uploadFile({fileName, fileType, file, kind:'song'})
+    .then(res => {
+      console.log(res)
     })
-    .then(response => {
-      var returnData = response.data.data.returnData;
-      var signedRequest = returnData.signedRequest;
-      var url = returnData.url;
-      var options = {
-        headers: {
-          'Content-Type': fileType,
-        }
-      };
-      axios.put(signedRequest,file,options)
-      .then(result => { this.setState({audio: url,
-      },()=>console.log(this.state.audio))
-      //post url to mongoose here??  or better do it from backend index.js before sending response to here???
-      alert("File uploaded")})
-      .catch(error => {
-        alert("ERROR " + JSON.stringify(error));
-      })
-    })
-    .catch(error => {
-      alert(JSON.stringify(error));
-    })
+    .catch(console.error)
 }
 
 

@@ -14,6 +14,8 @@ import TestAudio from './components/TestAudio'
 import Comments from './components/Comments'
 import Likes from './components/Likes'
 import UploadFile from './components/UploadFile'
+import EditProfile from './components/EditProfile'
+import TheContext from './TheContext'
 
 function App() {
   const [navDisplayed, setNavDisplayed] = useState(false)
@@ -50,6 +52,7 @@ function App() {
     }    
   }
   return (
+    <TheContext.Provider value={{user}}>
     <div className="App">
       {/* <h4>{user.email}</h4> */}
       <nav className="navigation">
@@ -131,8 +134,10 @@ function App() {
         <Route exact path="/comments" render={(props) => <Comments {...props} />} />
         <Route exact path="/likes" render={(props) => <Likes {...props} />} />
         <Route exact path="/uploadFile" render={(props) => <UploadFile {...props} />} />
+        <Route exact path="/editprofile" render={(props) => <EditProfile {...props} />} />
       </Switch>
     </div>
+    </TheContext.Provider>
   );
 }
 
