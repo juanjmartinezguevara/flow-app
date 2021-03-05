@@ -260,7 +260,7 @@ const handleRecStop = () => {
   }
 }
 
-//resizeLines function
+
 
 
     return (
