@@ -322,12 +322,15 @@ canvas {
 nav {
   height: 0;
   width: 100%;
-  display: block;
-
+  display: flex;
+  align-items: center;
+  background: #686a6b;
+  border-bottom: 1px solid rgb(129, 129, 129);
 }
+
 .hamburger-button {
-  height: 40px;
-  width: 40px;
+  height: 60px;
+  width: 60px;
   position: fixed;
   top: 0;
   z-index: 99;
@@ -335,25 +338,215 @@ nav {
 }
 .hamburger-button div {
   display: block;
-  width: 33px;
-  height: 4px;
-  margin-bottom: 5px;
+  width: 25px;
+  height: 5px;
+  margin: 4px;
   position: relative;
   background: #ec6aa0;
   border-radius: 3px;
+  box-shadow: inset 1px 1px 2px #313232, 
+              inset -1px -1px 1px #aaacad;
 }
-#menu {
-  height: 100%;
-  width: 100%;
+.menu {
+  height: 85%;
+  width: 85%;
   opacity: 0;
-  background: #ededed;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  align-items: center;
+  flex-direction: column;
+  background: #686a6b;
   list-style-type: none;
   -webkit-font-smoothing: antialiased;
+  border-radius: 20px;
+  box-shadow: inset 3px 3px 4px #484b4c, 
+              inset -3px -3px 4px #8c8f90;
   /* transform-origin: 0% 0%;
   transform: translate(0, -100%);
   transition: transform 0.5s cubic-bezier(0.77,0.2,0.05,1.0); */
 }
+.menu-route {
+  height: 30%;
+  width: 50%;
+  opacity: var(--menuOpacity)
+}
+.menu-outset {
+  height: 100%;
+  width: 55%;
+  border-radius: 50px;
+  border-radius: 50px;
+  /* box-shadow: inset 4px 4px 5px #505050, 
+            inset -4px -4px 5px #7d7f80; */
 
+}
+.menu-inset {
+  height: 70%;
+  width: 70%;
+  /* background: linear-gradient(139deg, #d9dada, #919292);   */
+  border-radius: 50px;
+  /* box-shadow: 1px 1px 8px #2a2a2b, 
+            -2px -2px 8px #a6aaab; */
+}
+.menu-route, .menu-outset, .menu-inset {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+:root {
+  --menuOpacity: 0;
+  --colorChange: #686a6b;
+  --mo6boxShadow: inset 4px 4px 5px #505050, inset -4px -4px 5px #7d7f80;
+  --mo5boxShadow: inset 4px 4px 5px #505050, inset -4px -4px 5px #7d7f80;
+  --mo4boxShadow: inset 4px 4px 5px #505050, inset -4px -4px 5px #7d7f80;
+  --mo3boxShadow: inset 4px 4px 5px #505050, inset -4px -4px 5px #7d7f80;
+  --mo2boxShadow: inset 4px 4px 5px #505050, inset -4px -4px 5px #7d7f80;
+  --mo1boxShadow: inset 4px 4px 5px #505050, inset -4px -4px 5px #7d7f80;
+  --mi6boxShadow: 1px 1px 8px #2a2a2b, -2px -2px 8px #a6aaab;
+  --mi5boxShadow: 1px 1px 8px #2a2a2b, -2px -2px 8px #a6aaab;
+  --mi4boxShadow: 1px 1px 8px #2a2a2b, -2px -2px 8px #a6aaab;
+  --mi3boxShadow: 1px 1px 8px #2a2a2b, -2px -2px 8px #a6aaab;
+  --mi2boxShadow: 1px 1px 8px #2a2a2b, -2px -2px 8px #a6aaab;
+  --mi1boxShadow: 1px 1px 8px #2a2a2b, -2px -2px 8px #a6aaab;
+  --mi6bg: linear-gradient(139deg, #686a6b, #686a6b);
+  --mi5bg: linear-gradient(139deg, #686a6b, #686a6b);
+  --mi4bg: linear-gradient(139deg, #686a6b, #686a6b);
+  --mi3bg: linear-gradient(139deg, #686a6b, #686a6b);
+  --mi2bg: linear-gradient(139deg, #686a6b, #686a6b);
+  --mi1bg: linear-gradient(139deg, #686a6b, #686a6b);
+}
+.mo-6 {
+  box-shadow: var(--mo6boxShadow)
+}
+.mo-5 {
+  box-shadow: var(--mo5boxShadow)
+}
+.mo-4 {
+  box-shadow: var(--mo4boxShadow)
+}
+.mo-3 {
+  box-shadow: var(--mo3boxShadow)
+}
+.mo-2 {
+  box-shadow: var(--mo2boxShadow)
+}
+.mo-1 {
+  box-shadow: var(--mo1boxShadow)
+}
+.mi-6 {
+  box-shadow: var(--mi6boxShadow);
+  background: var(--mi6bg)
+}
+.mi-5 {
+  box-shadow: var(--mi5boxShadow);
+  background: var(--mi5bg)
+}
+.mi-4 {
+  box-shadow: var(--mi4boxShadow);
+  background: var(--mi4bg)
+}
+.mi-3 {
+  box-shadow: var(--mi3boxShadow);
+  background: var(--mi3bg)
+}
+.mi-2 {
+  box-shadow: var(--mi2boxShadow);
+  background: var(--mi2bg)
+}
+.mi-1{
+  box-shadow: var(--mi1boxShadow);
+  background: var(--mi1bg)
+}
+.menu a {
+  text-decoration: none;
+  font-weight: bold;
+  font-size: .8em;
+  color: var(--colorChange)
+}
+/* @keyframes buttonDips {
+  0% {
+    box-shadow: none;
+  }
+  100% {
+    box-shadow: inset 4px 4px 5px #505050, inset -4px -4px 5px #7d7f80;
+  }
+}
+@keyframes buttonPops {
+  0% {
+    background: linear-gradient(139deg, #686a6b, #686a6b);
+    box-shadow: none;
+    --colorChange: white;
+  }
+  50% {
+    background: linear-gradient(139deg, #686a6b, #686a6b);
+    box-shadow: none;
+  }
+  100% {
+    box-shadow: 3px 3px 8px #4e4e50, -4px -4px 5px #8c8c8c;
+    background: linear-gradient(139deg, #d9dada, #919292);
+    --colorChange: #ec6aa0;
+  }
+} */
+@keyframes massiveMenuAnimation {
+  0% {
+    --menuOpacity: 1;
+    --colorChange: #686a6b;
+    --mo6boxShadow: inset 0px 0px 0px #505050, inset -0px -0px 0px #7d7f80;
+  }
+  10% {
+    --mo6boxShadow: inset 4px 4px 5px #505050, inset -4px -4px 5px #7d7f80;
+    --mi6boxShadow: 0px 0px 0px #2a2a2b, -0px -0px 0px #a6aaab;
+    --mi6bg: linear-gradient(139deg, #686a6b, #686a6b);
+    --mo3boxShadow: inset 0px 0px 0px #505050, inset -0px -0px 0px #7d7f80;
+  }
+  20% {
+    --mi6boxShadow: 1px 1px 8px #2a2a2b, -2px -2px 8px #a6aaab;
+    --mi6bg: linear-gradient(139deg, #d9dada, #919292);
+    --mo3boxShadow: inset 4px 4px 5px #505050, inset -4px -4px 5px #7d7f80;
+    --mi3boxShadow: 0px 0px 0px #2a2a2b, -0px -0px 0px #a6aaab;
+    --mi3bg: linear-gradient(139deg, #686a6b, #686a6b);
+    --mo5boxShadow: inset 0px 0px 0px #505050, inset -0px -0px 0px #7d7f80;
+  }
+  40% {
+    --mi3boxShadow: 1px 1px 8px #2a2a2b, -2px -2px 8px #a6aaab;
+    --mi3bg: linear-gradient(139deg, #d9dada, #919292);
+    --mo5boxShadow: inset 4px 4px 5px #505050, inset -4px -4px 5px #7d7f80;
+    --mi5boxShadow: 0px 0px 0px #2a2a2b, -0px -0px 0px #a6aaab;
+    --mi5bg: linear-gradient(139deg, #686a6b, #686a6b);
+    --mo2boxShadow: inset 0px 0px 0px #505050, inset -0px -0px 0px #7d7f80;
+  }
+  60% {
+    --mi5boxShadow: 1px 1px 8px #2a2a2b, -2px -2px 8px #a6aaab;
+    --mi5bg: linear-gradient(139deg, #d9dada, #919292);
+    --mo2boxShadow: inset 4px 4px 5px #505050, inset -4px -4px 5px #7d7f80;
+    --mi2boxShadow: 0px 0px 0px #2a2a2b, -0px -0px 0px #a6aaab;
+    --mi2bg: linear-gradient(139deg, #686a6b, #686a6b);
+    --mo4boxShadow: inset 0px 0px 0px #505050, inset -0px -0px 0px #7d7f80;
+  }
+  80% {
+    --mi2boxShadow: 1px 1px 8px #2a2a2b, -2px -2px 8px #a6aaab;
+    --mi2bg: linear-gradient(139deg, #d9dada, #919292);
+    --mo4boxShadow: inset 4px 4px 5px #505050, inset -4px -4px 5px #7d7f80;
+    --mi4boxShadow: 0px 0px 0px #2a2a2b, -0px -0px 0px #a6aaab;
+    --mi4bg: linear-gradient(139deg, #686a6b, #686a6b);
+    --mo1boxShadow: inset 0px 0px 0px #505050, inset -0px -0px 0px #7d7f80;
+    --mi1boxShadow: 0px 0px 0px #2a2a2b, -0px -0px 0px #a6aaab;
+    --mi1bg: linear-gradient(139deg, #686a6b, #686a6b);
+  }
+  100% {
+    --menuOpacity: 1;
+    --colorChange: #ec6aa0;
+    --mo1boxShadow: inset 4px 4px 5px #505050, inset -4px -4px 5px #7d7f80;
+    --mi4boxShadow: 1px 1px 8px #2a2a2b, -2px -2px 8px #a6aaab;
+    --mi1boxShadow: 0px 0px 0px #2a2a2b, -0px -0px 0px #a6aaab;
+    --mi1bg: linear-gradient(139deg, #d9dada, #919292);
+    --mi2bg: linear-gradient(139deg, #d9dada, #919292);
+    --mi3bg: linear-gradient(139deg, #d9dada, #919292);
+    --mi5bg: linear-gradient(139deg, #d9dada, #919292);
+    --mi4bg: linear-gradient(139deg, #d9dada, #919292);
+    --mi6bg: linear-gradient(139deg, #d9dada, #919292);
+  }
+}
 /*------------------------------HOME HOME HOME HOME HOME HOME HOME HOME PAGE----------------------------*/
 .Home {
   height: 100%;
