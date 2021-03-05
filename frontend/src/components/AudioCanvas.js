@@ -74,23 +74,14 @@ function AudioCanvas(props) {
       
 }
 
-       
-         
-      const oneOrTwo=()=>{
-         
-            return (
-                <div className="canvas-container">
-                  <canvas id="canvas" onClick={displayCanvas}></canvas>
-                 
-                </div>
-                  )
-          
-      }
       
    
 
-return (
-  oneOrTwo()
-);
+      return (
+        <div className="canvas-container">
+          <canvas id="canvas" onClick={displayCanvas}></canvas>
+         
+        </div>
+          )
 }
 export default AudioCanvas;

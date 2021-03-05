@@ -1,5 +1,9 @@
 import React, {useRef,useState,useEffect} from 'react';
-import beat1 from '../assets/beatOne.m4a'
+import beat1 from '../assets/beatsTrack1.m4a'
+import beat2 from '../assets/beatsTrack2.m4a'
+import beat3 from '../assets/beatsTrack3.m4a'
+import beat4 from '../assets/beatsTrack4.m4a'
+import beat5 from '../assets/beatsTrack5.m4a'
 import SpeechRecognition, { useSpeechRecognition } from 'react-speech-recognition'
 import datamuse from 'datamuse'
 import mic from '../images/mic.svg'
@@ -18,29 +22,66 @@ function TestAudio(props) {
     const [silent,setSilent] = useState(false)
     const [lock,setLock] = useState([])
     const [keyCounter,setKeyCounter] = useState(0)
+    const [tracks,setTracks] =
+     useState([
+        { song: beat1,
+        name: 'After Dark'},
+        { song: beat2,
+        name: 'Futurology'},
+        { song: beat3,
+          name: 'Peacock'},
+        { song: beat4,
+          name: 'Callback'},
+        { song: beat5,
+          name: 'Drained'}
+        ])
+
     //const [words,setWords] =useState()
 
     useEffect(()=>{
         const lastWord = transcript.split(' ')[transcript.split(' ').length-1]
         let retrievedRhymes=[]
+        let retHolder=[]
         datamuse.request(`words?rel_rhy=${lastWord}&max=5`)
-        .then((res)=>{
-           res.forEach(element => {
-               retrievedRhymes.push(` ${element.word} `)       
+        .then((res)=>{ 
+          
+          if(res.length!==0){
+          for(let i = 0;i<3;i++){
+           
+            retHolder.push(res[Math.floor(Math.random()*res.length)].word)
+          }
+           retHolder.forEach(element => {
+            
+               retrievedRhymes.push(` ${element} `)       
            });
            if(retrievedRhymes.length!==0){
-          
+            
            setRhymes(retrievedRhymes)
            }
-           
-           
            addSongLine()
+          }
+
         })
         
     },[silent])
 
     let myReq;   //animation frame ID
    
+    const loadTrack=()=>{
+      let selectBox= document.getElementById('selectBox');
+      let selectedValue = selectBox.options[selectBox.selectedIndex].value;
+      document.getElementById('song').src=selectedValue
+    }
+
+
+    const chooseTrack =()=>{
+      return tracks.map((element)=>{
+        return (
+          <option value={element.song} >{element.name} </option>
+        )
+      })
+     
+    }
 
     function recordAudio(){
 
@@ -264,9 +305,12 @@ const handleRecStop = () => {
                       <div className="tracks-container">
                         <div className="tracks-inset">
                           <div className="tracks-onset">
-                            <ul>
-                              {recordings}
-                            </ul>
+                          <select id='selectBox' onChange={loadTrack}>
+                              {chooseTrack()}
+                            </select>
+                         
+                              
+                            
                           </div>
                         </div>
                       </div>
@@ -306,6 +350,7 @@ const handleRecStop = () => {
                   </div>
                 </div>
               </div>
+              {recordings}
         </div>
     );
 }
