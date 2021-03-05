@@ -13,16 +13,16 @@ function AudioCanvas(props) {
       var canvas = document.getElementById('canvas')
 
     
-      console.log(canvas)
+     
       var ctx = canvas.getContext("2d");
   
       src.connect(analyser);
-      analyser.connect(context.destination);
+      
   
       analyser.fftSize = 256;
   
       var bufferLength = analyser.frequencyBinCount;
-      console.log(bufferLength);
+     
   
       var dataArray = new Uint8Array(bufferLength);
   
@@ -81,7 +81,7 @@ function AudioCanvas(props) {
             return (
                 <div className="canvas-container">
                   <canvas id="canvas" onClick={displayCanvas}></canvas>
-                  <audio id='second'></audio>
+                 
                 </div>
                   )
           
