@@ -49,7 +49,7 @@ function App() {
     <TheContext.Provider value={{user}}>
     <div className="App">
       {/* <h4>{user.email}</h4> */}
-      <nav className="navigation">
+      {/* <nav className="navigation">
           <ul id="menu">
               <Link to="/" onClick={hideNavBar}><li>Home</li></Link>
               <Link to="all-posts" onClick={hideNavBar}><li>All Posts</li></Link>
@@ -60,7 +60,7 @@ function App() {
               <Link to="/comments" onClick={hideNavBar}><li>TEMP Comments</li></Link>
               <Link to="/likes" onClick={hideNavBar}><li>TEMP Likes</li></Link>
           </ul>
-      </nav>
+      </nav> */}
       <div className="hamburger-button" onClick={navDisplayCheck}>
         <div></div>
         <div></div>

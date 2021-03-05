@@ -62,8 +62,10 @@ const actions = {
     return await axios.get(`${baseURL}/getOneUserRT`, resetHead());
   },
 
-  addUserProf: async () => {
-    return await axios.get(`${baseURL}/addUserProfRT`, resetHead());
+  addUserProf: async (person) => {
+    console.log('hello from the action')
+    return await axios.post(`${baseURL}/addUserProfRT`, person, resetHead());
+    
   },
 
   addUserPhoto: async () => {
