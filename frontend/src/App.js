@@ -13,16 +13,17 @@ import { Switch, Route, Link } from 'react-router-dom'
 import TestAudio from './components/TestAudio'
 import Comments from './components/Comments'
 import Likes from './components/Likes'
+import UploadFile from './components/UploadFile'
 
 function App() {
 
-  // const [user, setUser] = useState({})
+  const [user, setUser] = useState({})
 
-  // useEffect(() => {
-  //   actions.getUser().then(res => {
-  //     setUser(res.data)
-  //   }).catch(console.error)
-  // }, [])
+  useEffect(() => {
+    actions.getUser().then(res => {
+      setUser(res.data)
+    }).catch(console.error)
+  }, [])
 
   return (
     <div className="App">
@@ -50,14 +51,15 @@ function App() {
         <Route exact path="/" render={(props) => <Home {...props} />} />
         <Route exact path="/all-posts" render={(props) => <AllPosts {...props} />} />
         <Route exact path="/add-posts" render={(props) => <AddPost {...props} />} />
-        {/* <Route exact path="/auth" render={(props) => <Auth setUser={setUser} {...props} />} /> */}
-        <Route exact path="/auth" render={(props) => <Auth {...props} />} />
-        {/* <Route exact path="/profile" render={(props) => <Profile user={user} {...props} />} /> */}
-        <Route exact path="/profile" render={(props) => <Profile {...props} />} />
+        <Route exact path="/auth" render={(props) => <Auth setUser={setUser} {...props} />} />
+        {/* <Route exact path="/auth" render={(props) => <Auth {...props} />} /> */}
+        <Route exact path="/profile" render={(props) => <Profile user={user} {...props} />} />
+        {/* <Route exact path="/profile" render={(props) => <Profile {...props} />} /> */}
         <Route exact path="/recordingBooth" render={(props) => <TestAudio {...props} />} />
         <Route exact path="/tempHome" render={(props) => <TempHome {...props} />} />
         <Route exact path="/comments" render={(props) => <Comments {...props} />} />
         <Route exact path="/likes" render={(props) => <Likes {...props} />} />
+        <Route exact path="/uploadFile" render={(props) => <UploadFile {...props} />} />
       </Switch>
     </div>
   );

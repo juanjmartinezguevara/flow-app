@@ -6,15 +6,18 @@ import mic from '../images/mic.svg'
 import play from '../images/play.svg'
 import stop from '../images/stop.svg'
 import trashbin from '../images/trashbin.svg'
-
+import save from '../images/save.svg'
+import replay from '../images/replay.svg'
+import AudioCanvas from './AudioCanvas'
 
 function TestAudio(props) {
    
-    const [recordings,setRecordings] = useState([])
+    const [recordings,setRecordings] = useState((<li>Track 1<audio id='userRecording'></audio></li>))
     const [rhymes,setRhymes] = useState([])
     const { transcript, resetTranscript } = useSpeechRecognition()
     const [silent,setSilent] = useState(false)
     const [lock,setLock] = useState([])
+    const [keyCounter,setKeyCounter] = useState(0)
     //const [words,setWords] =useState()
 
     useEffect(()=>{
@@ -40,13 +43,13 @@ function TestAudio(props) {
    
 
     function recordAudio(){
-     
+
     function detectSilence(
         stream,
         onSoundEnd = _=>{},
         onSoundStart = _=>{},
-        silence_delay = 100,
-        min_decibels =-40
+        silence_delay = 50,
+        min_decibels =-80
         ) {
         const ctx = new AudioContext();
         const analyser = ctx.createAnalyser();
@@ -112,8 +115,10 @@ function TestAudio(props) {
   
 //add recording to list 
 const addRec =(blobby,name)=>{
-    const copyRec= [...recordings]
-    copyRec.push((<audio src={blobby} id={name} key={name} title={name} controls ></audio>))
+    // const copyRec= [...recordings]
+    // copyRec.push((<audio src={blobby} id={name} key={name} title={name}></audio>))
+    
+    const copyRec = (<audio src={blobby} id={'userRecording'} key={name}></audio>)
     setRecordings(copyRec)
 }
 
@@ -143,7 +148,7 @@ function mergeStreams(stream1,stream2){
             
         }
 
-        document.getElementById('stop').onclick=()=>{
+        document.getElementById('fixer').onclick=()=>{
             recorder.stop()
             cancelAnimationFrame(myReq)
             console.log('stopped recording')
@@ -164,15 +169,15 @@ function go(blob){
 const stopRecording=()=>{
     document.getElementById('song').pause()
     document.getElementById('song').currentTime=0
-    cancelAnimationFrame(myReq)
 }
 //currently there exists a delay that needs to be offset when merged.!!!!!!!
 
 
 const songLine =()=>{
     const lastLine= transcript
+    setKeyCounter(keyCounter+1)
    return (
-   <p style={{color:'rgb(103 241 222)'}}>{lastLine}</p>
+   <p key={keyCounter} style={{color:'white'}}>{lastLine}</p>
 )
 }
 
@@ -190,73 +195,113 @@ const lockSuggestion=()=>{
   setLock(copyRhyme)
 }
 
+const handlePlayPause=()=>{
+  if(document.getElementById('userRecording').paused)
+  {
+    document.getElementById('userRecording').play();
+  }else{
+    document.getElementById('userRecording').pause();
+  }
+}
+
+
+const handleRecStop = () => {
+  if (document.getElementById('song').paused) {
+    // document.getElementById('record-stop').setAttribute('class', 'button-icons bi-stop')
+    document.getElementById('record-stop-img').src = stop
+    recordAudio()
+  }
+  else {
+    // document.getElementById('record-stop').setAttribute('class', 'button-icons bi-record')
+    document.getElementById('record-stop-img').src = mic
+    stopRecording()
+    document.getElementById('fixer').click();
+  }
+}
+
+//resizeLines function
+
+
     return (
         <div className="TestAudio">
+          <audio id='song' src={beat1} loop={true} ></audio>
+          <p id='fixer'></p>
           <div className="scroll-rhymes-container" id='currentTranscript'>
-          {line}
-            <audio  id='song' src={beat1} loop={true} ></audio>
-{/* 
-            <div>
-               <div id='currentTranscript'> */}
-                    <p style={{color:'rgb(0 255 220)'}}>{transcript}</p>
-                {/* </div> */}
-                {/* <div id='suggestion' onClick={lockSuggestion}>
-                     <p style={{color:'red'}}>{rhymes}</p>
-                </div>
-                <div id='lockedRhyme'>
-                    
-                </div> */}
-            {/* </div> */}
+            {line}
+            <p style={{color:'rgb(0 255 220)'}}>{transcript}</p>
+          </div>
 
-            {/* <div>
-                {recordings}
-            </div> */}
-            </div>
               <div className="nav-buttons-play">
 
                 <div className="suggestions-container">
                   <div className="suggestions sug-1">
-                    <div className="custom-rhyme" id='suggestion' onClick={lockSuggestion}>
-                      <p style={{color:'rgb(255 63 143)'}}>{rhymes}</p>
+                    <div className="custom-rhyme">
+                      <div className="custom-rhyme-inner" id='suggestion' onClick={lockSuggestion}>
+                        <p style={{color:'rgb(255 63 143)'}}>{rhymes}</p>
+                      </div>
                     </div>
                   </div>
                   <div className="suggestions sug-2">
-                    <div className="custom-rhyme" id='lockedRhyme'>
-                      <p style={{color: 'rgb(94 202 253)'}}>{lock}</p>
-                    </div>
-                  </div>
-                  <div className="suggestions sug-3">
                     <div className="custom-rhyme">
-
+                      <div className="custom-rhyme-inner" id='lockedRhyme'>
+                        <p style={{color: 'rgb(94 202 253)'}}>{lock}</p>
+                      </div>
                     </div>
                   </div>
                 </div>
 
                 <div className="canvas-anim-box">
                   <div className="canvas-outset">
-                    <div className="canvas-inset"></div>
+                    <div className="canvas-inset">
+                      <AudioCanvas />
+                    </div>
                   </div>
                 </div>
-
-                <div className="nav-list-play">
-                    <div className="button-icons-inset">
-                      <div className="button-icons-outset">
-                        <img className="button-icons bi-play" src={play}></img>
+                
+                <div className="playback-controls-panel">
+                  <div className="playback-container">
+                    <div className="playback-wrapper">
+                      <div className="tracks-container">
+                        <div className="tracks-inset">
+                          <div className="tracks-onset">
+                            <ul>
+                              {recordings}
+                            </ul>
+                          </div>
+                        </div>
+                      </div>
+                      <div className="selected-container">
+                            <div><img className="button-icons" src={replay}></img></div>
+                            <div><img className="button-icons" src={stop}></img></div>
+                            <div><img className="button-icons" src={save}></img></div>
                       </div>
                     </div>
-                    <div className="button-icons-inset">
-                      <div className="button-icons-outset" id='stop' onClick={stopRecording}>
-                        <img className="button-icons bi-stop" src={stop}></img>
-                      </div>
+                  </div>
+                  <div className="duration-container">
+                    <div className="dur-inset">
+                      <div className="dur-onset"></div>
                     </div>
-                    <div className="button-icons-inset">
-                      <div className="button-icons-outset" onClick={recordAudio}>
-                        <img className="button-icons bi-record" src={mic}></img>
+                  </div>
+                  <div className="nav-list-play">
+                      <div className="button-icons-inset">
+                        <div className="button-icons-outset" onClick={handlePlayPause} id='playButton'>
+                          <img className="button-icons bi-play" src={play}></img>
+                        </div>
                       </div>
-                    </div>
-                    <div className="button-icons-inset">
-                      <div className="button-icons-outset">
-                        <img className="button-icons bi-play" src={trashbin}></img>
+                      <div className="button-icons-inset">
+                        <div className="button-icons-outset">
+                          <img className="button-icons bi-stop" src={stop}></img>
+                        </div>
+                      </div>
+                      <div className="button-icons-inset">
+                        <div className="button-icons-outset" id="record-stop" onClick={handleRecStop}>
+                          <img className="button-icons bi-record" id="record-stop-img" src={mic}></img>
+                        </div>
+                      </div>
+                      <div className="button-icons-inset">
+                        <div className="button-icons-outset">
+                          <img className="button-icons bi-play" src={trashbin}></img>
+                      </div>
                     </div>
                   </div>
                 </div>

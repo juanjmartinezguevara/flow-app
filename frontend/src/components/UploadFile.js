@@ -1,71 +1,29 @@
-  
-import React from "react";
+import React, { Component } from "react";
 import axios from "axios";
-import MicRecorder from 'mic-recorder-to-mp3';
-const audioRecorder = new MicRecorder({ bitRate: 128 });
 
-function UploadFile(props) {
+class UploadFile extends Component {
+  state = {
+    // Initially, no file is selected
+    selectedFile: null,
+  };
 
-    constructor(props){
-        super(props);
-        this.state={
-            isblocked: false,
-            blobUrl: '',
-            isrecording:false,
-            audio:''
-        }
-        this.start = this.start.bind(this);
-        this.stop = this.stop.bind(this);
-        this.handleaudiofile = this.handleaudiofile.bind(this);
-    }
-    
-    
-    componentDidUpdate(){
-        navigator.getUserMedia({ audio: true ,video:false},
-            () => {
-              console.log('Permission Granted');
-              this.setState({ isblocked: false });
-            },
-            () => {
-              console.log('Permission Denied');
-              this.setState({ isblocked: true })
-            },
-          );
-    }
+  // On file select (from the pop up)
+  onFileChange = (event) => {
+    // Update the state
+    console.log(event.target, event.target.files)
+    this.setState({ selectedFile: event.target.files[0] });
+  };
 
-    start = () => {
-    
-    if(this.state.isblocked){
-        console.log('permission Denied');
-    }else{
-        audioRecorder.start()
-        .then(()=>{
-               this.setState({
-                isrecording:true
-            });
-        }).catch((e)=> console.log(e));
-    }
-    };
-  
-    stop = () => {
-       audioRecorder
-            .stop()
-            .getMp3()
-            .then(([buffer,blob])=>{
-                const blobUrl = URL.createObjectURL(blob)
-                this.setState({blobUrl,isrecording:true});
-                var d = new Date();
-                var file = new File([blob],d.valueOf(),{ type:"audio/wav" })
-                console.log(file);
-                this.handleaudiofile(file);
-            }).catch((e)=>console.log('We could not retrieve your message'));
-   };
-    
-   handleaudiofile(ev){
-    let file = ev;
-    let fileName = ev.name;
-    let fileType = ev.type;
-    axios.post("http://localhost:5000/sign_s3",{
+
+onFileUpload = (pr) => {
+    console.log('PR', pr)
+    let file = this.state.selectedFile;
+    let fileName = this.state.selectedFile.name;
+    let fileType = this.state.selectedFile.type;
+
+    console.log('File Name', fileName)
+    console.log('FILETYPE', fileType)
+    axios.post("http://localhost:5000/api/sign_s3",{
       fileName : fileName,
       fileType : fileType
     })
@@ -81,7 +39,8 @@ function UploadFile(props) {
       axios.put(signedRequest,file,options)
       .then(result => { this.setState({audio: url,
       },()=>console.log(this.state.audio))
-      alert("audio uploaded")})
+      //post url to mongoose here??  or better do it from backend index.js before sending response to here???
+      alert("File uploaded")})
       .catch(error => {
         alert("ERROR " + JSON.stringify(error));
       })
@@ -91,16 +50,45 @@ function UploadFile(props) {
     })
 }
 
-    render(){
-        return(
-            <>
-            <button onClick={this.start} disabled={this.state.isrecording} type="button">Start</button>
-            <button onClick={this.stop}  type="button">Stop</button>
-                <audio src={this.state.blobUrl} controls="controls"/>
-             </>   
-        )
-    }
-}
 
+  // File content to be displayed after
+  // file upload is complete
+  fileData = () => {
+    if (this.state.selectedFile) {
+      return (
+        <div>
+          <h2>File Details:</h2>
+          <p>File Name: {this.state.selectedFile.name}</p>
+          <p>File Type: {this.state.selectedFile.type}</p>
+          <p>
+            Last Modified:{" "}
+            {this.state.selectedFile.lastModifiedDate.toDateString()}
+          </p>
+        </div>
+      );
+    } else {
+      return (
+        <div>
+          <br />
+          <h4>Choose before Pressing the Upload button</h4>
+        </div>
+      );
+    }
+  };
+
+  render() {
+    return (
+      <div>
+        <h1>GeeksforGeeks</h1>
+        <h3>File Upload using React!</h3>
+        <div>
+          <input type="file" onChange={this.onFileChange} />
+          <button onClick={this.onFileUpload}>Upload!</button>
+        </div>
+        {this.fileData()}
+      </div>
+    );
+  }
+}
 
 export default UploadFile;
