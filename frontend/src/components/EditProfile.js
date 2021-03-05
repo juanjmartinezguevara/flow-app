@@ -16,11 +16,11 @@ function EditProfile(props) {
       data[key] = value;
     }
 
-    console.log("Form data", data);
-    axios.post("/movie/create", data).then((resp) => {
-      console.log("woo movie created go to page", resp.data.user._id);
-      history.push("/" + resp.data.user._id);
-    });
+    // console.log("Form data", data);
+    // axios.post("/movie/create", data).then((resp) => {
+    //   console.log("woo movie created go to page", resp.data.user._id);
+    //   history.push("/" + resp.data.user._id);
+    // });
   };
 
   return (

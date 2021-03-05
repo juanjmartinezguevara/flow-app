@@ -14,8 +14,6 @@ function Profile(props) {
 
   const { user } = React.useContext(TheContext)
 
-
-
   // useEffect(() => {
   //     console.log(props)
   //     if (!props.user.email) {
