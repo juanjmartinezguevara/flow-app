@@ -14,6 +14,7 @@ import TestAudio from './components/TestAudio'
 import Comments from './components/Comments'
 import Likes from './components/Likes'
 import UploadFile from './components/UploadFile'
+import TheContext from './TheContext'
 
 function App() {
 
@@ -26,6 +27,7 @@ function App() {
   }, [])
 
   return (
+    <TheContext.Provider value={{user}}>
     <div className="App">
       {/* <h4>{user.email}</h4> */}
 
@@ -62,6 +64,7 @@ function App() {
         <Route exact path="/uploadFile" render={(props) => <UploadFile {...props} />} />
       </Switch>
     </div>
+    </TheContext.Provider>
   );
 }
 
