@@ -15,9 +15,10 @@ import Comments from './components/Comments'
 import Likes from './components/Likes'
 import UploadFile from './components/UploadFile'
 import EditProfile from './components/EditProfile'
+import TheContext from './TheContext'
 
 function App() {
-
+  const [navDisplayed, setNavDisplayed] = useState(false)
   const [user, setUser] = useState({})
 
   useEffect(() => {
@@ -26,27 +27,45 @@ function App() {
     }).catch(console.error)
   }, [])
 
+  const navDisplayCheck = () => {
+    console.log("ok")
+    if (navDisplayed == true) {
+      document.querySelector('nav').style.height = '0'
+      document.querySelector('#menu').style.opacity = '0'
+      setNavDisplayed(false)
+    }
+    else {
+      document.querySelector('nav').style.height = '40vh'
+      document.querySelector('#menu').style.opacity = '1'
+      setNavDisplayed(true)
+    }
+  }
+  const hideNavBar = () => {
+    document.querySelector('nav').style.height = '0'
+    document.querySelector('#menu').style.opacity = '0'
+    setNavDisplayed(false)
+  }
   return (
+    <TheContext.Provider value={{user}}>
     <div className="App">
       {/* <h4>{user.email}</h4> */}
-
-      <nav role="navigation">
-            <div id="menuToggle">
-                <input type="checkbox" />
-                <span></span>
-                <span></span>
-                <span></span>
-                <ul id="menu">
-                    <Link to="/"><li>Home</li></Link>
-                    <Link to="all-posts"><li>All Posts</li></Link>
-                    <Link to="add-posts"><li>Add Post</li></Link>
-                    <Link to="/auth"><li>Log in</li></Link><Link to="/profile">Profile</Link>
-                    <Link to="/recordingBooth"><li>Recording Booth</li></Link>
-                    <Link to="/comments"><li>TEMP Comments</li></Link>
-                    <Link to="/likes"><li>TEMP Likes</li></Link>
-                </ul>
-            </div>
-        </nav>
+      <nav className="navigation">
+          <ul id="menu">
+              <Link to="/" onClick={hideNavBar}><li>Home</li></Link>
+              <Link to="all-posts" onClick={hideNavBar}><li>All Posts</li></Link>
+              <Link to="add-posts" onClick={hideNavBar}><li>Add Post</li></Link>
+              <Link to="/auth" onClick={hideNavBar}><li>Log in</li></Link>
+              <Link to="/profile" onClick={hideNavBar}><li>Profile</li></Link>
+              <Link to="/recordingBooth" onClick={hideNavBar}><li>Recording Booth</li></Link>
+              <Link to="/comments" onClick={hideNavBar}><li>TEMP Comments</li></Link>
+              <Link to="/likes" onClick={hideNavBar}><li>TEMP Likes</li></Link>
+          </ul>
+      </nav>
+      <div className="hamburger-button" onClick={navDisplayCheck}>
+        <div></div>
+        <div></div>
+        <div></div>
+      </div>
 
       <Switch>
         <Route exact path="/" render={(props) => <Home {...props} />} />
@@ -64,6 +83,7 @@ function App() {
         <Route exact path="/editprofile" render={(props) => <EditProfile {...props} />} />
       </Switch>
     </div>
+    </TheContext.Provider>
   );
 }
 
