@@ -50,10 +50,10 @@ footer {
   width: 100%;
   justify-content: space-between;
 }
+
 .nav-list div {
   height: 40px;
   width: 40px;
-  list-style-type: none;
   padding: 5px;
   text-align: center;
   font-weight: bold;
@@ -101,7 +101,7 @@ footer {
   border-radius: 10px;
   box-shadow: 4px 4px 8px #cbced1, -4px -4px 8px #ffffff;
 }
-/* -----------Customize Rhymes Section-------------------- */
+/* -----------------------------------------------Customize Rhymes Section--------------------------------------------------- */
 .TestAudio p {
   font-size: 15x;
   font-weight: bold;
@@ -110,22 +110,29 @@ footer {
 .scroll-rhymes-container {
   background-image: url('./images/abstract.jpg');
   background-size: cover;
-
   height: 40%;
   overflow-y: scroll;
 }
 .custom-rhyme {
-  height: 40px;
+  height: 50px;
   width: 85%;
   display: flex;
   justify-content: center;
   align-items: center;
   border-radius: 50px;
   background: #b7b4b4;
-  box-shadow: inset 4px 4px 5px #494848, inset -4px -4px 5px #d8d8d8;
+  box-shadow: inset 4px 4px 5px #999c9e, 
+              inset -4px -4px 7px #ffffff;
+}
+.custom-rhyme-inner {
+  height: 65%;
+  width: 94%;
+  background: #383838;
+  border-radius: 50px;
+
 }
 .suggestions-container {
-  height: 60%;
+  height: 40%;
   width: 100%;
   background: #ecf0f3;
   display: flex;
@@ -134,8 +141,9 @@ footer {
   justify-content: space-evenly;
 }
 .suggestions {
-  height: 29%;
-  width: 95%;
+  height: 42%;
+  width: 98%;
+  margin: 5px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -147,30 +155,130 @@ footer {
 .canvas-anim-box {
   background: #ecf0f3;
   border-top: 1px solid #ecf0f3;
-  height: 20%;
+  height: 25%;
   width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
 }
 .canvas-outset {
-  height: 80%;
-  width: 70%;
+  height: 85%;
+  width: 85%;
   display: flex;
   justify-content: center;
   align-items: center;
   border-radius: 50px;
   background: #ecf0f3;
-  box-shadow: inset -3px -3px 10px #ffffff, 
-              inset 3px 3px 10px #cbced1;
+  box-shadow: 3px 3px 5px 0px #d0d2d4, -2px -2px 3px #ffffff;
 }
 .canvas-inset {
-  height: 76%;
-  width: 93%;
+  height: 80%;
+  width: 94%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   border-radius: 50px;
-  background-image: url('./images/canvas-wave.png');
+  box-shadow: inset 2px 2px 5px #999c9e, inset -3px -3px 4px #ecebeb;
+  /* background-image: url('./images/canvas-wave.png');
   background-size: cover;
-  background-position-y: center;
+  background-position-y: center; */
+}
+.canvas-container {
+  height: 70%;
+  width: 91%;
+  border-radius: 50px;
+  overflow: hidden;
+}
+canvas {
+  position: relative;
+  bottom: 80%;
+}
+.playback-controls-panel {
+  height: 35%;
+  background: #686a6b;
+  box-shadow: -4px -2px 4px 1px #ffffff;
+}
+.playback-container {
+  height: 33%;
+  display: flex;
+  justify-content: center;
+}
+.playback-wrapper {
+  height: 100%;
+  width: 95%;
+  display: flex;
+  align-items: center;
+}
+
+.tracks-container {
+  height: 80%;
+  width: 60%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.tracks-inset {
+  height: 90%;
+  width: 90%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50px;
+  box-shadow: inset 5px 5px 15px #313232,
+              inset -5px -5px 5px #9fa2a4;
+}
+.tracks-onset {
+  height: 65%;
+  width: 90%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #383838;
+  border-radius: 50px;
+}
+.tracks-onset li {
+  color: white;
+  list-style-type: none;
+  font-weight: bold;
+}
+.selected-container {
+  width: 60%;
+  display: flex;
+  justify-content: space-evenly;
+}
+.selected-container div {
+  height: 30px;
+  width: 30px;
+  border-radius: 50px;
+  font-size: .7em;
+  padding: 1px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 4px 4px 7px #3d3f3f,
+             -4px -4px 5px #939597;
+}
+.duration-container {
+  height: 12%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.dur-inset {
+  height: 100%;
+  width: 90%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50px;
+  box-shadow: inset 5px 5px 15px #313232,
+              inset -5px -5px 5px #9fa2a4;
+}
+.dur-onset {
+  height: 40%;
+  width: 95%;
+  border-radius: 50px;
+  background: #63DEBC;
 }
 /* -----------Play Studio Buttons (TESTAUDIO)------------- */
 .button-icons-inset {
@@ -180,14 +288,14 @@ footer {
   justify-content: center;
   align-items: center;
   border-radius: 50%;
-  background: #ecf0f3;
-  box-shadow: inset -3px -3px 10px #ffffff, 
-              inset 3px 3px 10px #cbced1;
+  background: #686a6b;
+  box-shadow: inset 5px 5px 15px #313232, 
+              inset -5px -5px 15px #9fa2a4;
   transition: box-shadow .5s;
 }
 .button-icons-outset:active {
-  box-shadow: inset 2px 2px 4px #cbced1, 
-              inset -2px -2px 2px #ffffff;
+  box-shadow: inset 2px 2px 3px #313232, 
+              inset -2px -2px 3px #9fa2a4;
 }
 .button-icons-outset {
   height: 40px;
@@ -199,15 +307,15 @@ footer {
   display: flex;
   justify-content: center;
   align-items: center;
-  box-shadow: 4px 4px 8px #cbced1,
-             -4px -4px 8px #ffffff;
+  background: #686a6b;
+  box-shadow:  4px 4px 10px #3d3f3f,
+              -4px -4px 10px #939597;
 }
 .nav-list-play{
   display: flex;
-  height: 20%;
+  height: 55%;
   width: 100%;
-  background: #ecf0f3;
-  border-top: 4px solid #d0d0d0;
+  border-top: 1px solid #686a6b;
   align-items: center;
   justify-content: space-evenly;
   align-items: center;
@@ -219,7 +327,7 @@ footer {
 .bi-play {
   font-size: .9em;
 }
-
+/*-----------------------------HAMBURGER HAMBURGER HAMBURGER MENU MENU MENU-------------------------*/
 #menuToggle {
   display: block;
   top: 50px;
@@ -317,4 +425,129 @@ footer {
 }
 #menuToggle input:checked ~ ul {
   transform: none;
+}
+/*------------------------------HOME HOME HOME HOME HOME HOME HOME HOME PAGE----------------------------*/
+.Home {
+  height: 100%;
+}
+.img-panel-container {
+  height: 60%;
+  background-image: url('./images/hero-image-1.png');
+  background-size: cover;
+  background-position-x: center;
+}
+.bottom-directories {
+  height: 40%;
+  background: #686a6b;
+  border-top: 1px solid #d0d0d0;
+}
+.bm-dir-container {
+  height: 33%;
+  display: flex;
+}
+.dir-route {
+  width: 70%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.dir-icon {
+  width: 30%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.route-outset, .route-inset, .route-double-inset, .icon-outset, .icon-inset, .icon-double-inset {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50px;
+}
+@keyframes insetButtons {
+  from {
+    box-shadow: none
+  }
+  to {
+    box-shadow: inset 5px 5px 5px #505050, 
+                inset -2px -2px 5px #9fa2a4;
+  }
+}
+@keyframes outsetButtons {
+  from {
+    box-shadow: none
+  }
+  to {
+    box-shadow: 3px 3px 5px #abacad, 
+               -3px -3px 4px #ffffff;
+  }
+}
+.dr-1 .route-outset,
+.dr-3 .route-outset {
+  height: 85%;
+  width: 90%;
+  animation: insetButtons .5s linear forwards;
+}
+.dr-1 .route-inset,
+.dr-3 .route-inset {
+  height: 70%;
+  width: 85%;
+  animation: insetButtons .5s .5s linear forwards;
+}
+.dr-1 .route-double-inset,
+.dr-3 .route-double-inset  {
+  height: 55%;
+  width: 80%;
+  animation: insetButtons .5s 1s linear forwards;
+}
+.bdc-2 {
+  background: #ecf0f3;
+}
+.route-o2 {
+  height: 85%;
+  width: 90%;
+  animation: outsetButtons .5s linear forwards;
+}
+.route-i2 {
+  height: 70%;
+  width: 85%;
+  animation: outsetButtons .5s .5s linear forwards;
+}
+.route-di2 {
+  height: 55%;
+  width: 80%;
+  animation: outsetButtons .5s 1s linear forwards;
+}
+
+.di-1 .icon-outset,
+.di-3 .icon-outset {
+  height: 70%;
+  width: 70%;
+  animation: insetButtons .5s linear forwards;
+}
+.di-1 .icon-inset,
+.di-3 .icon-inset {
+  height: 75%;
+  width: 75%;
+  animation: insetButtons .5s .5s linear forwards;
+}
+.di-1 .icon-double-inset,
+.di-3 .icon-double-inset  {
+  height: 60%;
+  width: 60%;
+  animation: insetButtons .5s 1s linear forwards;
+}
+.io-2 {
+  height: 70%;
+  width: 70%;
+  animation: outsetButtons .5s linear forwards;
+}
+.ii-2 {
+  height: 75%;
+  width: 75%;
+  animation: outsetButtons .5s .5s linear forwards;
+}
+.idi-2 {
+  height: 60%;
+  width: 60%;
+  animation: outsetButtons .5s 1s linear forwards;
 }

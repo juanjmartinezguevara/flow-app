@@ -46,18 +46,18 @@ function AudioCanvas(props) {
         
         
         for (var i = 0; i < bufferLength; i++) {
-          barHeight = dataArray[i];
+          barHeight = dataArray[i]*0.6;
       
 
             
             ///topcanvas
             // barHeight + (10 * (i/bufferLength));
           var b = 50 + (2 * (i/bufferLength))
-          var g = 150 * (5 * (i/bufferLength));
-          var r = 50;
+          var g = 150 * (3 * (i/bufferLength));
+          var r = 150;
         
           ctx.fillStyle = "rgb(" + r + "," + g + "," + b + ")";
-          ctx.fillRect(x, HEIGHT - barHeight, barWidth, barHeight);
+          ctx.fillRect(x, (HEIGHT - barHeight)*0.5, barWidth, barHeight);
   
           x += barWidth + 1;
         

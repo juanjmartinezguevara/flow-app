@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import actions from '../api'
+import NavBar from './NavBar.js'
 
 function AddPost(props) {
 
@@ -30,7 +31,11 @@ function AddPost(props) {
                 <input onChange={handleChange} type="text" name="post" placeholder="Make a post..." />
                 <button>📬</button>
             </form>
-
+        <NavBar height = '8vh'
+                row = 'row'
+                display = 'none'
+                shadowDisplay = 'none'
+                 />
         </>
     );
 }
