@@ -69,19 +69,17 @@ function AudioCanvas(props) {
       renderFrame();
   })
 
-   
-    
-      
 }
 
-      
+
+      displayCanvas()
    
 
       return (
         <div className="canvas-container">
-          <canvas id="canvas" onClick={displayCanvas}></canvas>
+          <canvas id="canvas" ></canvas>
          
         </div>
           )
 }
-export default AudioCanvas;
+export default React.memo(AudioCanvas);
