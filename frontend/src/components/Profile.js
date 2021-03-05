@@ -45,6 +45,7 @@ function Profile(props) {
         <div className='header-bio'>
           <h1>@blah</h1>
           <p>Optional profile bio goes here</p>
+          <button>Edit profile</button>
         </div>
         <img
           className="profile-header-propic"
@@ -55,7 +56,7 @@ function Profile(props) {
       <div className='profile-post-feed'>
         {showPosts()}
       </div>
-      <NavBar/>
+      {/* <NavBar/> */}
     </div>
   );
 }

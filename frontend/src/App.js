@@ -14,6 +14,7 @@ import TestAudio from './components/TestAudio'
 import Comments from './components/Comments'
 import Likes from './components/Likes'
 import UploadFile from './components/UploadFile'
+import EditProfile from './components/EditProfile'
 
 function App() {
 
@@ -60,6 +61,7 @@ function App() {
         <Route exact path="/comments" render={(props) => <Comments {...props} />} />
         <Route exact path="/likes" render={(props) => <Likes {...props} />} />
         <Route exact path="/uploadFile" render={(props) => <UploadFile {...props} />} />
+        <Route exact path="/editprofile" render={(props) => <EditProfile {...props} />} />
       </Switch>
     </div>
   );
