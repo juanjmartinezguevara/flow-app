@@ -13,6 +13,7 @@ exports.sign_s3 = (req,res) => {
   const s3 = new aws.S3();  // Create a new instance of S3
   const fileName = req.body.fileName;
   const fileType = req.body.fileType;
+
 // Set up the payload of what we are sending to the S3 api
   const s3Params = {
     Bucket: S3_BUCKET,

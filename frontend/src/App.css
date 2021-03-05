@@ -24,6 +24,7 @@ nav {
   /* font-size: 13px; */
   display: block;
   position: fixed;
+  z-index:-50;
 }
 /* --------FOOTER NAV BAR--------- */
 footer {

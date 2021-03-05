@@ -4,7 +4,6 @@ import actions from '../api'
 console.log(process.env)
 
 const Auth = (props) => {
-
     const onResponse = (response) => {
         console.log(response)
         actions
@@ -17,13 +16,17 @@ const Auth = (props) => {
     }
 
     return (
-        <GoogleLogin
+        <div style={{ height:"50%", zIndex:'1000'}}>
+            <GoogleLogin
+            
             clientId={process.env.REACT_APP_GOOGLEID}
             buttonText="Signup"
             onSuccess={onResponse}
             onFailure={onResponse}
             cookiePolicy={"single_host_origin"}
         />
+        </div>
+        
     );
 }
 

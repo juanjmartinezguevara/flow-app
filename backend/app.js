@@ -6,17 +6,12 @@ const bodyParser = require('body-parser');
 const path = require('path')
 const app = express()
 
-
-
 const MONGODB_URI = process.env.MONGODB_URI || `mongodb://localhost/localIronPlate`
 
 mongoose
     .connect(MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true })
     .then((x) => console.log(`Connected to Mongo! Database name: "${x.connections[0].name}"`))
     .catch((err) => console.error('Error connecting to mongo', err));
-
-
-
 
 app.use(
     cors({
@@ -30,26 +25,12 @@ app.use(bodyParser.json());
 
 app.use(express.static(path.join(__dirname, '../frontend/build')))
 
-
 app.use('/api', require('./routes'))
 
-
 const PORT = process.env.PORT || 5000
-
 
 app.get('*', (req, res, next) => {
     res.sendFile(path.join(__dirname, '../frontend/build/index.html'))
 })
 
-
 app.listen(PORT, () => console.log(`Listening to port ${PORT}`))
-
-//AWS CODE
-// app.use(cors());
-// app.use(express.json({limit: '50mb'}));
-
-// var sign_s3 = require('./sign_s3');
-// app.use('/sign_s3', sign_s3.sign_s3);
-// app.listen(PORT, function(){
-//     console.log("Server is running on Port: " +PORT);
-// })
