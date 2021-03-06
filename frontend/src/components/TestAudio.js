@@ -18,15 +18,13 @@ function TestAudio(props) {
 
   const userRec=useRef()
    
-    const [recordings,setRecordings] = useState((<li>Track 1<audio ref={userRec} id='userRecording'></audio></li>))
+    const [recordings,setRecordings] = useState((<audio ref={userRec} id='userRecording'></audio>))
     const [rhymes,setRhymes] = useState([])
     const { transcript, resetTranscript } = useSpeechRecognition()
     const [silent,setSilent] = useState(false)
     const [lock,setLock] = useState([])
     const [keyCounter,setKeyCounter] = useState(0)
 
-   
-    
     const [tracks,setTracks] =
      useState([
         { song: beat1,
@@ -338,19 +336,21 @@ function TimeSlider() {
                       <div className="tracks-container">
                         <div className="tracks-inset">
                           <div className="tracks-onset">
-                          <select id='selectBox' onChange={loadTrack}>
+                            <select id='selectBox' onChange={loadTrack}>
                               {chooseTrack()}
                             </select>
-                         
-                              
-                            
                           </div>
                         </div>
                       </div>
                       <div className="selected-container">
-                            <div><img className="button-icons" src={replay}></img></div>
-                            <div><img className="button-icons" src={stop}></img></div>
                             <div><img className="button-icons" src={save}></img></div>
+                      </div>
+                      <div className="tracks-container">
+                        <div className="tracks-inset">
+                          <div className="tracks-onset">
+                            {/*---Put it here daddy---*/}
+                          </div>
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -367,7 +367,6 @@ function TimeSlider() {
                           <img className="button-icons bi-play" src={play}></img>
                         </div>
                       </div>
-                    
                       <div className="button-icons-inset">
                         <div className="button-icons-outset" id="record-stop" onClick={handleRecStop}>
                           <img className="button-icons bi-record" id="record-stop-img" src={mic}></img>

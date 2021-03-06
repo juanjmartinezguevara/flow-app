@@ -20,11 +20,28 @@ function NavBar(props) {
                 </div>
             </div>
             <div className="nav-buttons" style={{boxShadow: `${props.shadowDisplay}`}}>
-                <div className="nav-list">
-                    <div><img className="button-icons" src={mic}></img></div>
+                {/* <div className="nav-list">
                     <div><img className="button-icons" src={social2}></img></div>
+                    <div><img className="button-icons" src={mic}></img></div>
                     <div><img className="button-icons" src={avatar2}></img></div>
-                </div>
+                </div> */}
+                <div className="nav-list">
+                      <div className="nav-buttons-outset">
+                        <div className="nav-buttons-inset">
+                          <img className="button-icons" src={social2}></img>
+                        </div>
+                      </div>
+                      <div className="nav-buttons-outset">
+                        <div className="nav-buttons-inset">
+                          <img className="button-icons" src={mic}></img>
+                        </div>
+                      </div>
+                      <div className="nav-buttons-outset">
+                        <div className="nav-buttons-inset">
+                          <img className="button-icons" src={avatar2}></img>
+                        </div>
+                      </div>
+                  </div>
             </div>
         </footer>
     );
