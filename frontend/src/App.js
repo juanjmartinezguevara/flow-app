@@ -1,15 +1,16 @@
 import { useEffect, useState } from 'react'
+import { Switch, Route, Link } from 'react-router-dom'
 import logo from './logo.svg';
 import './App.css';
 import './otherstyles.css';
+import actions from './api'
 import Home from './components/Home'
 import AddPost from './components/AddPost'
 import AllPosts from './components/AllPosts'
 import Auth from './components/Auth'
 import Profile from './components/Profile'
 import TempHome from './components/TempHome'
-import actions from './api'
-import { Switch, Route, Link } from 'react-router-dom'
+import SocialFeed from './components/SocialFeed'
 import TestAudio from './components/TestAudio'
 import Comments from './components/Comments'
 import Likes from './components/Likes'
@@ -38,7 +39,7 @@ function App() {
     else {
       document.querySelector('nav').style.height = "325px"
       document.querySelector('nav').style.transition = "height .5s"
-      document.querySelector('nav').style.animation = "massiveMenuAnimation 1s .5s linear forwards"
+      document.querySelector('nav').style.animation = "massiveMenuAnimation .7s .3s linear forwards"
       document.querySelector('.menu').style.opacity = '1'
       setNavDisplayed(true)
     }
@@ -135,6 +136,7 @@ function App() {
         <Route exact path="/likes" render={(props) => <Likes {...props} />} />
         <Route exact path="/uploadFile" render={(props) => <UploadFile {...props} />} />
         <Route exact path="/editprofile" render={(props) => <EditProfile {...props} />} />
+        <Route exact path="/social-feed" render={(props) => <SocialFeed {...props} />} />
       </Switch>
     </div>
     </TheContext.Provider>
