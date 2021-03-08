@@ -47,7 +47,7 @@ function EditProfile(props) {
   };
 
   return (
-    <div>
+    <div className="EditProfile">
       <h1>Edit Profile</h1>
       <form onSubmit={submit}>
         <label>
@@ -109,3 +109,4 @@ function EditProfile(props) {
 }
 
 export default EditProfile;
+

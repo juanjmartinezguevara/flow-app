@@ -15,6 +15,7 @@ import TestAudio from './components/TestAudio'
 import Comments from './components/Comments'
 import Likes from './components/Likes'
 import UploadFile from './components/UploadFile'
+import EditProfileScreen from './components/EditProfileScreen'
 import EditProfile from './components/EditProfile'
 import TheContext from './TheContext'
 
@@ -74,7 +75,7 @@ function App() {
             <div className="menu-route mr-3">
               <div className="menu-outset mo-3">
                 <div className="menu-inset mi-3">
-                <Link to="add-posts" onClick={hideNavBar}>Add Post</Link>
+                <Link to="editprofile-screen" onClick={hideNavBar}>Edit Profile</Link>
                 </div>
               </div>
             </div>
@@ -120,6 +121,7 @@ function App() {
         <Route exact path="/comments" render={(props) => <Comments {...props} />} />
         <Route exact path="/likes" render={(props) => <Likes {...props} />} />
         <Route exact path="/uploadFile" render={(props) => <UploadFile {...props} />} />
+        <Route exact path="/editprofile-screen" render={(props) => <EditProfileScreen {...props} />} />
         <Route exact path="/editprofile" render={(props) => <EditProfile {...props} />} />
         <Route exact path="/social-feed" render={(props) => <SocialFeed {...props} />} />
       </Switch>

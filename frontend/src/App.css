@@ -122,10 +122,11 @@ html, body, #root {
 .App {
   height: 100%;
   width: 100%;
+  margin-top: -5px;
   text-align: center;
 }
 .TestAudio {
-  height: 96.6%;
+  height: 97.2%;
   width: 100%;
 }
 .SocialFeed {
@@ -133,7 +134,13 @@ html, body, #root {
   width: 100%;
 }
 .LogIn {
-  height: 99%;
+  height: 100%;
+  width: 100%;
+  z-index: 100;
+  position: fixed;
+}
+.EditProfileScreen {
+  height: 100%;
   width: 100%;
 }
 #timeSlider{
@@ -575,7 +582,7 @@ nav {
   height: 60px;
   width: 60px;
   position: fixed;
-  top: 4px;
+  top: 1px;
   z-index: 99;
   background: rgba(255, 255, 255, 0);
 }
@@ -704,7 +711,7 @@ nav {
 
 /*------------------------------HOME HOME HOME HOME HOME HOME HOME HOME PAGE----------------------------*/
 .Home {
-  height: 99%;
+  height: 100%;
 }
 .img-panel-container {
   height: 60%;
@@ -1001,15 +1008,20 @@ nav {
   box-shadow: inset 2px 2px 3px #bbbaba, inset -2px -2px 3px #ffffff
 }
 .login-button {
-  height: 15%;
-  width: 85%;
-  color: white;
+  height: 100%;
+  width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
   background: rgb(46, 194, 145);
   border-radius: 20px;
   box-shadow: 3px 4px 8px #a9a9a9, -1px 1px 3px #fdfeff;
+}
+.login-link {
+  text-decoration: none;
+  color: white;
+  height: 15%;
+  width: 85%
 }
 .user-text {
   width: 90%;
@@ -1034,3 +1046,4 @@ nav {
   border-radius: 20px;
   box-shadow: inset 3px 3px 4px #c5c5c5, inset -3px -3px 5px #ffffff;
 }
+/*-----------------------------EDIT PROFILE EDIT EDIT EDIT PROFILE PROFILE EDIT EDIT ----------------------------------------------*/
