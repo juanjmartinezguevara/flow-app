@@ -9,7 +9,8 @@ const Songs = model('Songs', new Schema({
     songPBR: Number,
     songLyricsStr: [String],
     songLyricsAudio: String,
-    songBG: String
+    songBG: String,
+    songCaption: String
 
 }))
 
