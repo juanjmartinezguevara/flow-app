@@ -17,6 +17,7 @@ import Likes from './components/Likes'
 import UploadFile from './components/UploadFile'
 import EditProfile from './components/EditProfile'
 import TheContext from './TheContext'
+import ExploreFeed from './components/ExploreFeed'
 
 function App() {
   const [navDisplayed, setNavDisplayed] = useState(false)
@@ -137,6 +138,7 @@ function App() {
         <Route exact path="/uploadFile" render={(props) => <UploadFile {...props} />} />
         <Route exact path="/editprofile" render={(props) => <EditProfile {...props} />} />
         <Route exact path="/social-feed" render={(props) => <SocialFeed {...props} />} />
+        <Route exact path="/explore-feed" render={(props) => <ExploreFeed {...props} />} />
       </Switch>
     </div>
     </TheContext.Provider>

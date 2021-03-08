@@ -1,18 +1,20 @@
 import React, { useState, useEffect } from "react";
+import { Link } from 'react-router-dom'
 // import actions from '../api'
-import axios from "axios";
-import NavBar from "./NavBar";
+// import axios from "axios";
 import TheContext from '../TheContext';
-
-// TO USE CONTEXT DATA
-// from inside a function
-// const { user } = useContext(TheContext)
+import actions from "../api";
 
 function Profile(props) {
   // const [myPosts, setMyPosts] = useState([])
-  const [posts, setPosts] = useState([]);
+  // const [posts, setPosts] = useState([]);
 
-  const { user } = React.useContext(TheContext)
+  const { user } = React.useContext(TheContext);
+  console.log("USER DATA FROM CONTEXT", user);
+
+  const { user } = React.useContext(TheContext);
+
+  const [thisUser, setThisUser] = useState([user]);
 
   // useEffect(() => {
   //     console.log(props)
@@ -30,18 +32,15 @@ function Profile(props) {
   //     })
   // }
 
-  useEffect(() => {
-    axios.get("https://rickandmortyapi.com/api/character").then((res) => {
-      console.log(res.data.results);
-      setPosts(res.data.results);
-    });
-  }, []);
-
-
+  // useEffect(() => {
+  //   axios.get("https://rickandmortyapi.com/api/character").then((res) => {
+  //     console.log(res.data.results);
+  //     setPosts(res.data.results);
+  //   });
+  // }, []);
 
   const showPosts = () => {
-    return posts.map((eachPost) => {
-
+    return thisUser.map((eachPost) => {
       return <img className="profile-post" src={eachPost.image} alt="" />;
     });
   };
@@ -53,18 +52,18 @@ function Profile(props) {
             {showPosts()} */}
       <header className="profile-header">
         <div className='header-bio'>
-          <h1>@blah</h1>
-          <p>Optional profile bio goes here</p>
-          <button>Edit profile</button>
+          <h1>{thisUser.userName}</h1>
+          <p>{thisUser.userAbout}</p>
+          <Link to='/editprofile'>Edit Profile</Link>
         </div>
         <img
           className="profile-header-propic"
-          src="https://assets.capitalxtra.com/2017/47/nicki-minaj-1511527250-view-0.jpg"
+          src={thisUser.picture}
           alt=""
         />
       </header>
       <div className='profile-post-feed'>
-        {showPosts()}
+        {/* {showPosts()} */}
       </div>
       {/* <NavBar/> */}
     </div>
