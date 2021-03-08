@@ -14,11 +14,12 @@ import trashbin from '../images/trashbin.svg'
 import save from '../images/save.svg'
 import replay from '../images/replay.svg'
 import AudioCanvas from './AudioCanvas'
+import TheContext from '../TheContext'
 
 function TestAudio(props) {
 
   
-
+  const {user} = React.useContext(TheContext)
 
   
    
@@ -51,7 +52,7 @@ function TestAudio(props) {
       constructor(songmix)
         {
           this.date=null;
-          this.user=null;
+          this.user=user;
           this.songmix=songmix;
           this.lyrics=null;
           this.background=null;
@@ -369,11 +370,11 @@ const chooseTake =()=>{
 }
 
 const saveFile=()=>{
-
+if(allTakes.length===0){}else{
  allTakes[0].setName();
 
-console.log(allTakes)
-
+console.log(allTakes[0])
+  }
 }
 
 
