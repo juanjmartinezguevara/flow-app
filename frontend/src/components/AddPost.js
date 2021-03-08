@@ -29,6 +29,7 @@ function AddPost(props) {
 
             <form onSubmit={handleSubmit}>
                 <input onChange={handleChange} type="text" name="post" placeholder="Make a post..." />
+                <input onChange={handleChange} type="text" name="name" placeholder="Make a post..." />
                 <button>📬</button>
             </form>
         <NavBar height = '8vh'

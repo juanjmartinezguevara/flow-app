@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import heart from '../images/heart.svg'
 import mic from '../images/mic.svg'
 import avatar2 from '../images/avatar2.svg'
+import TheContext from '../TheContext'
 
 function Home(props) {
     // useEffect(() => {
@@ -11,6 +12,13 @@ function Home(props) {
     //     document.querySelector('.dr-3').style.transform = 'none'
 
     // }, [])
+
+    const { user, setUser, userViewed, setUserViewed  } = React.useContext(TheContext)
+
+    setUserViewed(user)  
+
+    console.log("HOME - userViewed", userViewed)
+
     return (
         <div className="Home">
             <div className="img-panel-container">
@@ -44,9 +52,11 @@ function Home(props) {
                         <div className="icon-outset io-2">
                             <div className="icon-inset ii-2">
                                 <div className="icon-double-inset idi-2">
-                                    <Link to="/recordingBooth">
+                                { userViewed.id ? (<Link to="/recordingBooth">
                                         <img className="button-icons home-record" src={mic}></img>
-                                    </Link>
+                                    </Link>) : (<Link to="/auth">
+                                        <img className="button-icons home-record" src={mic}></img>
+                                    </Link>) }
                                 </div>
                             </div>
                         </div>
@@ -66,9 +76,12 @@ function Home(props) {
                         <div className="icon-outset io-3">
                             <div className="icon-inset ii-3">
                                 <div className="icon-double-inset idi-3">
-                                    <Link to="/profile">
+
+                                { user.id ? (<Link to="/profile">
                                         <img className="button-icons home-avatar" src={avatar2}></img>
-                                    </Link>
+                                    </Link>) : (<Link to="/auth">
+                                        <img className="button-icons home-avatar" src={avatar2}></img>
+                                    </Link>)}
                                 </div>
                             </div>
                         </div>

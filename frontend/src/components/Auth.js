@@ -1,12 +1,15 @@
+import React from 'react';
 import { GoogleLogin } from 'react-google-login'
-
+import { Link } from 'react-router-dom'
+import Home from './Home'
 import actions from '../api'
-
-console.log(process.env)
+import TheContext from '../TheContext'
 
 const Auth = (props) => {
+
+    const { user, setUser } = React.useContext(TheContext)
+
     const onResponse = (response) => {
-        console.log(response)
         actions
             .logIn(response)
             .then(res => {
@@ -15,7 +18,6 @@ const Auth = (props) => {
             })
             .catch(console.error)
     }
-
     return (
         <div className="LogIn">
             <div className="page-container">
@@ -46,9 +48,11 @@ const Auth = (props) => {
                                             <input className="user-text" type="text" placeholder="Password"></input>
                                         </form>
                                     </div>
-                                    <div className="login-button">
-                                        <h4>Log In</h4>
-                                    </div>
+                                    <Link to ="/" className="login-link">
+                                        <div className="login-button">
+                                                <h4>Log In</h4>
+                                        </div>
+                                    </Link>
                                     <GoogleLogin 
                                             clientId={process.env.REACT_APP_GOOGLEID}
                                             buttonText="Signup"
