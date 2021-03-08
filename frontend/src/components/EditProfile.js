@@ -3,14 +3,10 @@ import axios from "axios";
 import { useHistory } from "react-router";
 import TheContext from "../TheContext";
 import actions from "../api";
-// import User from "../../../backend/models/User";
 
 function EditProfile(props) {
-  // const history = useHistory();
 
   const { user } = React.useContext(TheContext);
-
-  console.log(user)
 
   const [thisUser, setThisUser] = useState([user]);
 
@@ -25,7 +21,6 @@ function EditProfile(props) {
     actions
       .getOneUser()
       .then((thisUserDbData) => {
-        console.log("THIS USER DB DATA", thisUserDbData);
         setThisUser(thisUserDbData.data);
       })
       .catch(console.error);
@@ -34,13 +29,12 @@ function EditProfile(props) {
   const submit = (e) => {
     e.preventDefault();
 
-    console.log(thisUser, "from inside submit function");
-
     actions.addUserProf(thisUser)
     .then(newUserUpdate => {
-        console.log('new new user update!', newUserUpdate)
+        // console.log('new new user update!', newUserUpdate)
         //Redirect to all-posts page
         alert('Profile Saved')
+        
     }).catch(console.error)
   };
 

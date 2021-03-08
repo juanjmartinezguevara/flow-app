@@ -13,6 +13,9 @@ function Profile(props) {
 
   const { user, setUser, userViewed, setUserViewed } = React.useContext(TheContext)
 
+  console.log("USER FROM PROFILE",user)
+  console.log("USERVIEWED FROOM PROFILE", userViewed)
+
   const [thisUser, setThisUser] = useState([userViewed]);
 
   useEffect(() => {
