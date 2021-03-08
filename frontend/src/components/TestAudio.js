@@ -17,14 +17,20 @@ import AudioCanvas from './AudioCanvas'
 
 function TestAudio(props) {
 
-  const userRec=useRef()
+  
+
+
+  
    
-    const [recordings,setRecordings] = useState((<audio ref={userRec} id='userRecording'></audio>))
+    const [recordings,setRecordings] = useState((<audio id='userRecording'></audio>))
     const [rhymes,setRhymes] = useState([])
     const { transcript, resetTranscript } = useSpeechRecognition()
     const [silent,setSilent] = useState(false)
     const [lock,setLock] = useState([])
     const [keyCounter,setKeyCounter] = useState(0)
+    const [takes,setTakes] = useState([])
+    const [allTakes,setAllTakes]= useState([])
+    let [fullTranscript,setFullTranscript]= useState('')
 
     const [tracks,setTracks] =
      useState([
@@ -41,6 +47,32 @@ function TestAudio(props) {
         ])
 
     //const [words,setWords] =useState()
+    class SongData{
+      constructor(songmix)
+        {
+          this.date=null;
+          this.user=null;
+          this.songmix=songmix;
+          this.lyrics=null;
+          this.background=null;
+          this.name=null
+        }
+        setLyrics(){
+
+          this.lyrics= lyricsArr
+
+        }
+        setDate(){
+          var today = new Date();
+         
+          this.date = today;
+        }
+        setName(){
+          this.name= prompt("What's the name of your song?","song name")
+        }
+        
+    }
+  
 
     useEffect(()=>{
         const lastWord = transcript.split(' ')[transcript.split(' ').length-1]
@@ -77,6 +109,11 @@ function TestAudio(props) {
       document.getElementById('song').src=selectedValue
     }
 
+    const loadTake=()=>{
+      let selectedTake=document.getElementById('takes');
+      let selectedTakeValue= selectedTake.options[selectedTake.selectedIndex].value;
+      document.getElementById('userRecording').src=selectedTakeValue
+    }
 
     const chooseTrack =()=>{
       return tracks.map((element)=>{
@@ -131,14 +168,14 @@ function TestAudio(props) {
 
 
       function onSilence() {
-        console.log('silence')
+        ////console.log('silence')
         setSilent(true)
         
 
 
       }
       function onSpeak() {
-        console.log('speaking');
+        //console.log('speaking');
         setSilent(false)
       }
       
@@ -163,8 +200,10 @@ function TestAudio(props) {
 const addRec =(blobby,name)=>{
   
     const copyRec = (<audio src={blobby} id={'userRecording'} key={name}></audio>)
-    
+    const songObject= new SongData(blobby)
+    allTakes.push(songObject)
     setRecordings(copyRec)
+   takes.push(blobby)
 }
 
 function mergeStreams(stream1,stream2){
@@ -180,14 +219,14 @@ function mergeStreams(stream1,stream2){
      
         const recorder = new MediaRecorder(dest.stream);
         recorder.start()
-        console.log('started recording')
+        //console.log('started recording')
          
         let chunks = [];
         
       
         recorder.ondataavailable = (event) => {       
             chunks.push(event.data); 
-            console.log(chunks)
+            //console.log(chunks)
             go(chunks[0])
             SpeechRecognition.stopListening()
             
@@ -196,7 +235,7 @@ function mergeStreams(stream1,stream2){
         document.getElementById('fixer').onclick=()=>{
             recorder.stop()
             cancelAnimationFrame(myReq)
-            console.log('stopped recording')
+            //console.log('stopped recording')
         }
   
 }
@@ -206,27 +245,32 @@ function go(blob){
 
   const url = window.URL.createObjectURL(blob);
   key++
+  
   addRec(url,`take ${key}`)
-
+  
 }
+
 
 
 const stopRecording=()=>{
     document.getElementById('song').pause()
     document.getElementById('song').currentTime=0
+    
 }
 //currently there exists a delay that needs to be offset when merged.!!!!!!!
-
+let [lyricsArr,setLyricsArr]=useState([])
 
 const songLine =()=>{
     const lastLine= transcript
+    lyricsArr.push(lastLine)
+    setLyricsArr(lyricsArr);
     setKeyCounter(keyCounter+1)
    return (
    <p key={keyCounter} style={{color:'white'}}>{lastLine}</p>
 )
 }
 
-const [line,setLine]=useState([])
+let [line,setLine]=useState([])
 
 const addSongLine=()=>{
     const copyLine= [...line]
@@ -277,7 +321,7 @@ function TimeSlider() {
 
     useEffect(()=>{
       document.getElementById('userRecording').currentTime=time
-     console.log(userRec)
+     
     },[time])
   //change stuff here
    
@@ -296,6 +340,40 @@ function TimeSlider() {
           />
         </section>
     )
+}
+const displayTake =()=>{
+  if(takes.length===0){}else{
+  let selectedTake=document.getElementById('takes');
+  selectedTake.selectedIndex=takes.length-1;
+  const freshTrack= allTakes[takes.length-1]
+    freshTrack.setDate();
+    freshTrack.setLyrics();
+  }
+}
+
+const chooseTake =()=>{
+  // //map through takes, 
+  
+  if(takes.length===0){
+    return (
+      <option>No record</option>
+    )
+  }else{
+    const takesHolder= takes.map((element,index)=>{
+      return <option value={element}>Take {index+1}</option>
+    })
+    displayTake();
+    return takesHolder;
+  }
+
+}
+
+const saveFile=()=>{
+
+ allTakes[0].setName();
+
+console.log(allTakes)
+
 }
 
 
@@ -347,13 +425,15 @@ function TimeSlider() {
                           </div>
                         </div>
                       </div>
-                      <div className="selected-container">
+                      <div className="selected-container" onClick={saveFile}>
                             <div><img className="button-icons" src={save}></img></div>
                       </div>
                       <div className="tracks-container">
                         <div className="tracks-inset">
                           <div className="tracks-onset">
-                            {/*---Put it here daddy---*/}
+                            <select id='takes' onChange={loadTake}>
+                              {chooseTake()}
+                            </select>
                           </div>
                         </div>
                       </div>
