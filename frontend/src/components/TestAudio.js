@@ -8,6 +8,7 @@ import SpeechRecognition, { useSpeechRecognition } from 'react-speech-recognitio
 import datamuse from 'datamuse'
 import mic from '../images/mic.svg'
 import play from '../images/play.svg'
+import pause from '../images/pause.svg'
 import stop from '../images/stop.svg'
 import trashbin from '../images/trashbin.svg'
 import save from '../images/save.svg'
@@ -242,9 +243,11 @@ const lockSuggestion=()=>{
 const handlePlayPause=()=>{
   if(document.getElementById('userRecording').paused)
   {
+    document.getElementById('play-stop-img').src = pause
     document.getElementById('userRecording').play();
     
   }else{
+    document.getElementById('play-stop-img').src = play
     document.getElementById('userRecording').pause();
   }
 }
@@ -364,7 +367,7 @@ function TimeSlider() {
                   <div className="nav-list-play">
                       <div className="button-icons-inset">
                         <div className="button-icons-outset" onClick={handlePlayPause} id='playButton'>
-                          <img className="button-icons bi-play" src={play}></img>
+                          <img className="button-icons bi-play" id='play-stop-img' src={play}></img>
                         </div>
                       </div>
                       <div className="button-icons-inset">

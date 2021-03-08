@@ -29,18 +29,17 @@ function App() {
   }, [])
 
   const navDisplayCheck = () => {
-    console.log("ok")
     if (navDisplayed == true) {
       document.querySelector('nav').style.height = "0px"
       document.querySelector('nav').style.animation = 'none'
-      document.querySelector('.menu').style.opacity = '0'
+      // document.querySelector('.menu').style.opacity = '0'
       setNavDisplayed(false)
     }
     else {
       document.querySelector('nav').style.height = "325px"
       document.querySelector('nav').style.transition = "height .5s"
-      document.querySelector('nav').style.animation = "massiveMenuAnimation .7s .3s linear forwards"
-      document.querySelector('.menu').style.opacity = '1'
+      document.querySelector('nav').style.animation = "massiveMenu .8s linear forwards"
+      // document.querySelector('.menu').style.opacity = '1'
       setNavDisplayed(true)
     }
   }
@@ -48,7 +47,7 @@ function App() {
     if (navDisplayed == true) {
       document.querySelector('nav').style.height = "0px"
       document.querySelector('nav').style.animation = 'none'
-      document.querySelector('.menu').style.opacity = '0'
+      // document.querySelector('.menu').style.opacity = '0'
       setNavDisplayed(false)
     }    
   }
@@ -100,20 +99,6 @@ function App() {
                 </div>
               </div>
             </div>
-            {/* <div className="menu-route mr-7">
-              <div className="menu-outset mo-7">
-                <div className="menu-inset mi-7">
-                <Link to="/comments" onClick={hideNavBar}>TEMP Comments</Link>
-                </div>
-              </div>
-            </div>
-            <div className="menu-route mr-8">
-              <div className="menu-outset mo-8">
-                <div className="menu-inset mi-8">
-                <Link to="/likes" onClick={hideNavBar}>TEMP Likes</Link>
-                </div>
-              </div>
-            </div> */}
           </div>
       </nav>
       <div className="hamburger-button" onClick={navDisplayCheck}>
