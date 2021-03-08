@@ -1,4 +1,5 @@
 import { GoogleLogin } from 'react-google-login'
+
 import actions from '../api'
 
 console.log(process.env)
@@ -16,17 +17,58 @@ const Auth = (props) => {
     }
 
     return (
-        <div style={{ height:"50%", zIndex:'1000'}}>
-            <GoogleLogin
-            
-            clientId={process.env.REACT_APP_GOOGLEID}
-            buttonText="Signup"
-            onSuccess={onResponse}
-            onFailure={onResponse}
-            cookiePolicy={"single_host_origin"}
-        />
+        <div className="LogIn">
+            <div className="page-container">
+                <div className="upper-container">
+                    <div className="upper-outset">
+                        <div className="upper-inset">
+                            <div></div>
+                            <div></div>
+                            <div></div>
+                        </div>
+                    </div>
+                </div> 
+                <div className="middle-container">
+                    <div className="mid-outset">
+                        <div className="mid-inset">
+                            <div className="login-container">
+                                <div className="title-container">
+                                    <h1>FLOW</h1>
+                                </div>
+                                <div className="user-input-container">
+                                    <div className="user-input">
+                                        <form>
+                                            <input className="user-text" type="text" placeholder="Username"></input>
+                                        </form>
+                                    </div>
+                                    <div className="user-input">
+                                        <form>
+                                            <input className="user-text" type="text" placeholder="Password"></input>
+                                        </form>
+                                    </div>
+                                    <div className="login-button">
+                                        <h4>Log In</h4>
+                                    </div>
+                                    <GoogleLogin 
+                                            clientId={process.env.REACT_APP_GOOGLEID}
+                                            buttonText="Signup"
+                                            onSuccess={onResponse}
+                                            onFailure={onResponse}
+                                            cookiePolicy={"single_host_origin"}
+                                            />
+                                </div>
+                                <div className="bottom-filler-space"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div className="bottom-container">
+                    <div className="useless-bars"></div>
+                    <div className="useless-bars"></div>
+                    <div className="useless-bars"></div>
+                </div>
+            </div>
         </div>
-        
     );
 }
 

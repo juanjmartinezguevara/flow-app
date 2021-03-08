@@ -10,22 +10,34 @@ import heart from '../images/heart.svg'
 function NavBar(props) {
     return (
         <footer style={{height: `${props.height}`, flexDirection: `${props.row}`}}>
-            <div className="social-buttons" style={{display: `${props.display}`}}>
-                <div className="social-list">
-                    <div className="individual-btn"><img className="social-icons" src={avatar2}></img></div>
-                    <div className="like-comment-container">
-                        <div className="individual-btn"><img className="social-icons" src={heart}></img></div>
-                        <div className="individual-btn"><img className="social-icons" src={comment}></img></div>
-                    </div>
+          <div className="social-buttons" style={{display: `${props.display}`}}>
+              <div className="social-list">
+                  <div className="individual-btn"><img className="social-icons" src={avatar2}></img></div>
+                  <div className="like-comment-container">
+                      <div className="individual-btn"><img className="social-icons" src={heart}></img></div>
+                      <div className="individual-btn" onClick={props.comments}><img className="social-icons" src={comment}></img></div>
+                  </div>
+              </div>
+          </div>
+          <div className="nav-buttons" style={{boxShadow: `${props.shadowDisplay}`}}>
+            <div className="nav-list">
+              <div className="nav-buttons-outset">
+                <div className="nav-buttons-inset">
+                  <img className="button-icons" src={social2}></img>
                 </div>
-            </div>
-            <div className="nav-buttons" style={{boxShadow: `${props.shadowDisplay}`}}>
-                <div className="nav-list">
-                    <div><img className="button-icons" src={mic}></img></div>
-                    <div><img className="button-icons" src={social2}></img></div>
-                    <div><img className="button-icons" src={avatar2}></img></div>
+              </div>
+              <div className="nav-buttons-outset">
+                <div className="nav-buttons-inset">
+                  <img className="button-icons" src={mic}></img>
                 </div>
+              </div>
+              <div className="nav-buttons-outset">
+                <div className="nav-buttons-inset">
+                  <img className="button-icons" src={avatar2}></img>
+                </div>
+              </div>
             </div>
+          </div>
         </footer>
     );
 }

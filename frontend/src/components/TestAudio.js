@@ -8,6 +8,7 @@ import SpeechRecognition, { useSpeechRecognition } from 'react-speech-recognitio
 import datamuse from 'datamuse'
 import mic from '../images/mic.svg'
 import play from '../images/play.svg'
+import pause from '../images/pause.svg'
 import stop from '../images/stop.svg'
 import trashbin from '../images/trashbin.svg'
 import save from '../images/save.svg'
@@ -18,15 +19,13 @@ function TestAudio(props) {
 
   const userRec=useRef()
    
-    const [recordings,setRecordings] = useState((<li>Track 1<audio ref={userRec} id='userRecording'></audio></li>))
+    const [recordings,setRecordings] = useState((<audio ref={userRec} id='userRecording'></audio>))
     const [rhymes,setRhymes] = useState([])
     const { transcript, resetTranscript } = useSpeechRecognition()
     const [silent,setSilent] = useState(false)
     const [lock,setLock] = useState([])
     const [keyCounter,setKeyCounter] = useState(0)
 
-   
-    
     const [tracks,setTracks] =
      useState([
         { song: beat1,
@@ -244,9 +243,11 @@ const lockSuggestion=()=>{
 const handlePlayPause=()=>{
   if(document.getElementById('userRecording').paused)
   {
+    document.getElementById('play-stop-img').src = pause
     document.getElementById('userRecording').play();
     
   }else{
+    document.getElementById('play-stop-img').src = play
     document.getElementById('userRecording').pause();
   }
 }
@@ -340,19 +341,21 @@ function TimeSlider() {
                       <div className="tracks-container">
                         <div className="tracks-inset">
                           <div className="tracks-onset">
-                          <select id='selectBox' onChange={loadTrack}>
+                            <select id='selectBox' onChange={loadTrack}>
                               {chooseTrack()}
                             </select>
-                         
-                              
-                            
                           </div>
                         </div>
                       </div>
                       <div className="selected-container">
-                            <div><img className="button-icons" src={replay}></img></div>
-                            <div><img className="button-icons" src={stop}></img></div>
                             <div><img className="button-icons" src={save}></img></div>
+                      </div>
+                      <div className="tracks-container">
+                        <div className="tracks-inset">
+                          <div className="tracks-onset">
+                            {/*---Put it here daddy---*/}
+                          </div>
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -366,10 +369,9 @@ function TimeSlider() {
                   <div className="nav-list-play">
                       <div className="button-icons-inset">
                         <div className="button-icons-outset" onClick={handlePlayPause} id='playButton'>
-                          <img className="button-icons bi-play" src={play}></img>
+                          <img className="button-icons bi-play" id='play-stop-img' src={play}></img>
                         </div>
                       </div>
-                    
                       <div className="button-icons-inset">
                         <div className="button-icons-outset" id="record-stop" onClick={handleRecStop}>
                           <img className="button-icons bi-record" id="record-stop-img" src={mic}></img>

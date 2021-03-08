@@ -1,15 +1,16 @@
 import { useEffect, useState } from 'react'
+import { Switch, Route, Link } from 'react-router-dom'
 import logo from './logo.svg';
 import './App.css';
 import './otherstyles.css';
+import actions from './api'
 import Home from './components/Home'
 import AddPost from './components/AddPost'
 import AllPosts from './components/AllPosts'
 import Auth from './components/Auth'
 import Profile from './components/Profile'
 import TempHome from './components/TempHome'
-import actions from './api'
-import { Switch, Route, Link } from 'react-router-dom'
+import SocialFeed from './components/SocialFeed'
 import TestAudio from './components/TestAudio'
 import Comments from './components/Comments'
 import Likes from './components/Likes'
@@ -28,18 +29,17 @@ function App() {
   }, [])
 
   const navDisplayCheck = () => {
-    console.log("ok")
     if (navDisplayed == true) {
       document.querySelector('nav').style.height = "0px"
       document.querySelector('nav').style.animation = 'none'
-      document.querySelector('.menu').style.opacity = '0'
+      // document.querySelector('.menu').style.opacity = '0'
       setNavDisplayed(false)
     }
     else {
       document.querySelector('nav').style.height = "325px"
       document.querySelector('nav').style.transition = "height .5s"
-      document.querySelector('nav').style.animation = "massiveMenuAnimation 1s .5s linear forwards"
-      document.querySelector('.menu').style.opacity = '1'
+      document.querySelector('nav').style.animation = "massiveMenu .8s linear forwards"
+      // document.querySelector('.menu').style.opacity = '1'
       setNavDisplayed(true)
     }
   }
@@ -47,7 +47,7 @@ function App() {
     if (navDisplayed == true) {
       document.querySelector('nav').style.height = "0px"
       document.querySelector('nav').style.animation = 'none'
-      document.querySelector('.menu').style.opacity = '0'
+      // document.querySelector('.menu').style.opacity = '0'
       setNavDisplayed(false)
     }    
   }
@@ -99,20 +99,6 @@ function App() {
                 </div>
               </div>
             </div>
-            {/* <div className="menu-route mr-7">
-              <div className="menu-outset mo-7">
-                <div className="menu-inset mi-7">
-                <Link to="/comments" onClick={hideNavBar}>TEMP Comments</Link>
-                </div>
-              </div>
-            </div>
-            <div className="menu-route mr-8">
-              <div className="menu-outset mo-8">
-                <div className="menu-inset mi-8">
-                <Link to="/likes" onClick={hideNavBar}>TEMP Likes</Link>
-                </div>
-              </div>
-            </div> */}
           </div>
       </nav>
       <div className="hamburger-button" onClick={navDisplayCheck}>
@@ -135,6 +121,7 @@ function App() {
         <Route exact path="/likes" render={(props) => <Likes {...props} />} />
         <Route exact path="/uploadFile" render={(props) => <UploadFile {...props} />} />
         <Route exact path="/editprofile" render={(props) => <EditProfile {...props} />} />
+        <Route exact path="/social-feed" render={(props) => <SocialFeed {...props} />} />
       </Switch>
     </div>
     </TheContext.Provider>
