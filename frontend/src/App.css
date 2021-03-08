@@ -1047,3 +1047,84 @@ nav {
   box-shadow: inset 3px 3px 4px #c5c5c5, inset -3px -3px 5px #ffffff;
 }
 /*-----------------------------EDIT PROFILE EDIT EDIT EDIT PROFILE PROFILE EDIT EDIT ----------------------------------------------*/
+.profile-pc, .profile-uo, .profile-mc, .profile-mi, .profile-lc {
+  background: #686a6b;
+}
+.profile-ui div {
+  box-shadow: 4px 4px 5px #3d3f3f, -2px -2px 3px #939597;
+}
+.profile-mi {
+  height: 80%;
+}
+.profile-mc{
+  box-shadow: 4px 4px 5px #3d3f3f, -2px -2px 3px #939597;
+}
+
+.profile-uic {
+  height: 85%;
+  box-shadow: 3px 3px 4px #525252, -2px -2px 3px #939597;
+}
+.profile-uo, .profile-ui, .profile-ub {
+  box-shadow: inset 3px 3px 4px #484b4c, inset -3px -3px 4px #8c8f90;
+}
+.profile-uo {
+  width: 70%;
+}
+.profile-ui {
+  width: 92.5%;
+  color: #ec6aa0;
+}
+.profile-lc {
+  box-shadow: inset 3px 3px 4px #4f5050, inset -3px -3px 4px #8c8f90;
+}
+.profile-mo {
+  border: 1px solid rgb(105 105 105);
+  background-image: url('https://media.giphy.com/media/320D33H2y2BW3U3GKL/source.gif')
+}
+.profile-mi {
+  box-shadow: -7px 8px 9px #00000073, 0px 0px 0px #fdfeff;
+}
+
+.profile-user-i {
+  height: 100%;
+  width: 100%;
+  padding: 0px;
+  box-shadow: inset 3px 3px 4px #4f5050, inset -3px -3px 4px #8c8f90;
+}
+.profile-user-t {
+  background: none;
+  height: 80%;
+  width: 80%;
+}
+.profile-user-t:focus {
+  outline: none !important;
+  border: 2px solid white;
+  border-radius: 20px;
+}
+.input-sections {
+  font-size: 12px;
+  height: 11%;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.input-sections-container {
+  height: 90%;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  flex-direction: column;
+}
+.submit-button-edit {
+  border: none;
+  border-radius: 20px;
+  background: rgb(46, 194, 145);
+  width: 100%;
+  height: 8%;
+  color: white;
+  margin-top: 6%;
+  box-shadow: 2px 2px 4px #283e35, -1px -1px 1px #98efbf;
+}
