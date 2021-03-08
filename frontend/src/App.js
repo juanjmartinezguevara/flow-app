@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react'
 import { Switch, Route, Link } from 'react-router-dom'
-import logo from './logo.svg';
 import './App.css';
 import './otherstyles.css';
 import actions from './api'
@@ -9,7 +8,6 @@ import AddPost from './components/AddPost'
 import AllPosts from './components/AllPosts'
 import Auth from './components/Auth'
 import Profile from './components/Profile'
-import TempHome from './components/TempHome'
 import SocialFeed from './components/SocialFeed'
 import TestAudio from './components/TestAudio'
 import Comments from './components/Comments'
@@ -22,6 +20,7 @@ import ExploreFeed from './components/ExploreFeed'
 function App() {
   const [navDisplayed, setNavDisplayed] = useState(false)
   const [user, setUser] = useState({})
+  const [userViewed, setUserViewed] = useState({})
 
   useEffect(() => {
     actions.getUser().then(res => {
@@ -34,14 +33,12 @@ function App() {
     if (navDisplayed == true) {
       document.querySelector('nav').style.height = "0px"
       document.querySelector('nav').style.animation = 'none'
-      document.querySelector('.menu').style.opacity = '0'
       setNavDisplayed(false)
     }
     else {
       document.querySelector('nav').style.height = "325px"
       document.querySelector('nav').style.transition = "height .5s"
-      document.querySelector('nav').style.animation = "massiveMenuAnimation .7s .3s linear forwards"
-      document.querySelector('.menu').style.opacity = '1'
+      document.querySelector('nav').style.animation = "massiveMenu .8s linear forwards"
       setNavDisplayed(true)
     }
   }
@@ -49,12 +46,11 @@ function App() {
     if (navDisplayed == true) {
       document.querySelector('nav').style.height = "0px"
       document.querySelector('nav').style.animation = 'none'
-      document.querySelector('.menu').style.opacity = '0'
       setNavDisplayed(false)
     }    
   }
   return (
-    <TheContext.Provider value={{user}}>
+    <TheContext.Provider value={{user, setUser, userViewed, setUserViewed}}>
     <div className="App">
       {/* <h4>{user.email}</h4> */}
       <nav className="navigation">
@@ -90,7 +86,8 @@ function App() {
             <div className="menu-route mr-5">
               <div className="menu-outset mo-5">
                 <div className="menu-inset mi-5">
-                <Link to="/profile" onClick={hideNavBar}>Profile</Link>
+                {user._id ? (<Link to="/profile" onClick={hideNavBar}>Profile</Link>) : (<Link to="/auth" onClick={hideNavBar}>Profile</Link>) }
+                {/* <Link to="/profile" onClick={hideNavBar}>Profile</Link> */}
                 </div>
               </div>
             </div>
@@ -101,20 +98,6 @@ function App() {
                 </div>
               </div>
             </div>
-            {/* <div className="menu-route mr-7">
-              <div className="menu-outset mo-7">
-                <div className="menu-inset mi-7">
-                <Link to="/comments" onClick={hideNavBar}>TEMP Comments</Link>
-                </div>
-              </div>
-            </div>
-            <div className="menu-route mr-8">
-              <div className="menu-outset mo-8">
-                <div className="menu-inset mi-8">
-                <Link to="/likes" onClick={hideNavBar}>TEMP Likes</Link>
-                </div>
-              </div>
-            </div> */}
           </div>
       </nav>
       <div className="hamburger-button" onClick={navDisplayCheck}>
@@ -128,11 +111,8 @@ function App() {
         <Route exact path="/all-posts" render={(props) => <AllPosts {...props} />} />
         <Route exact path="/add-posts" render={(props) => <AddPost {...props} />} />
         <Route exact path="/auth" render={(props) => <Auth setUser={setUser} {...props} />} />
-        {/* <Route exact path="/auth" render={(props) => <Auth {...props} />} /> */}
         <Route exact path="/profile" render={(props) => <Profile user={user} {...props} />} />
-        {/* <Route exact path="/profile" render={(props) => <Profile {...props} />} /> */}
         <Route exact path="/recordingBooth" render={(props) => <TestAudio {...props} />} />
-        <Route exact path="/tempHome" render={(props) => <TempHome {...props} />} />
         <Route exact path="/comments" render={(props) => <Comments {...props} />} />
         <Route exact path="/likes" render={(props) => <Likes {...props} />} />
         <Route exact path="/uploadFile" render={(props) => <UploadFile {...props} />} />
