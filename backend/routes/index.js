@@ -214,6 +214,8 @@ router.post("/sign_s3", verifyToken, (req, res) => {
       const fileName = req.body.fileName;
       const fileType = req.body.fileType;
       const file = req.body.file;
+      const kind = req.body.kind;
+    
       // Set up the payload of what we are sending to the S3 api
       const s3Params = {
         Bucket: S3_BUCKET,
@@ -235,7 +237,15 @@ router.post("/sign_s3", verifyToken, (req, res) => {
         };
         console.log("AWS FILE SAVE RESULTS>>>>>>>>>", returnData);
         console.log(authData.user);
+        console.log("pancakes", req.body, kind)
 
+        if (kind == "song") {
+            // Songs.create(  PASS IN DATA  )
+        } else if (kind=="profilePic") {
+            // User.update (  PASS IN DATA  )
+        } else if (kind=="beatTrack") {
+            // Beats.create(  PASS IN DATA  )
+        }
         res.json({ data: { returnData } });
       });
     }

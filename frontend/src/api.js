@@ -121,7 +121,7 @@ const actions = {
     axios
       .post(`${baseURL}/sign_s3`, {
         fileName: fileName,
-        fileType: fileType,
+        fileType: fileType, kind: kind
       }, resetHead())
       .then((response) => {
         var returnData = response.data.data.returnData;
