@@ -21,6 +21,9 @@ import TheContext from './TheContext'
 function App() {
   const [navDisplayed, setNavDisplayed] = useState(false)
   const [user, setUser] = useState({})
+  const [userViewed, setUserViewed] = useState({})
+
+  console.log('user variable context from insode app.js', user)
 
   useEffect(() => {
     actions.getUser().then(res => {
@@ -53,7 +56,7 @@ function App() {
     }    
   }
   return (
-    <TheContext.Provider value={{user}}>
+    <TheContext.Provider value={{user, setUser, userViewed, setUserViewed}}>
     <div className="App">
       {/* <h4>{user.email}</h4> */}
       <nav className="navigation">
@@ -89,7 +92,8 @@ function App() {
             <div className="menu-route mr-5">
               <div className="menu-outset mo-5">
                 <div className="menu-inset mi-5">
-                <Link to="/profile" onClick={hideNavBar}>Profile</Link>
+                {user._id ? (<Link to="/profile" onClick={hideNavBar}>Profile</Link>) : (<Link to="/auth" onClick={hideNavBar}>Profile</Link>) }
+                {/* <Link to="/profile" onClick={hideNavBar}>Profile</Link> */}
                 </div>
               </div>
             </div>

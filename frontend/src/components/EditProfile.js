@@ -6,10 +6,11 @@ import actions from "../api";
 // import User from "../../../backend/models/User";
 
 function EditProfile(props) {
-  const history = useHistory();
+  // const history = useHistory();
 
   const { user } = React.useContext(TheContext);
-  console.log("USER DATA FROM CONTEXT", user);
+
+  console.log(user)
 
   const [thisUser, setThisUser] = useState([user]);
 
@@ -30,11 +31,8 @@ function EditProfile(props) {
       .catch(console.error);
   }, []);
 
-  console.log("after getting from DB and setting state", thisUser);
-
   const submit = (e) => {
     e.preventDefault();
-
 
     console.log(thisUser, "from inside submit function");
 

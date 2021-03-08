@@ -1,11 +1,13 @@
+import React from 'react';
 import { GoogleLogin } from 'react-google-login'
 import actions from '../api'
-
-console.log(process.env)
+import TheContext from '../TheContext'
 
 const Auth = (props) => {
+
+    const { user, setUser } = React.useContext(TheContext)
+
     const onResponse = (response) => {
-        console.log(response)
         actions
             .logIn(response)
             .then(res => {
@@ -18,7 +20,6 @@ const Auth = (props) => {
     return (
         <div style={{ height:"50%", zIndex:'1000'}}>
             <GoogleLogin
-            
             clientId={process.env.REACT_APP_GOOGLEID}
             buttonText="Signup"
             onSuccess={onResponse}
@@ -26,7 +27,6 @@ const Auth = (props) => {
             cookiePolicy={"single_host_origin"}
         />
         </div>
-        
     );
 }
 

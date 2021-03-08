@@ -1,6 +1,9 @@
 import React from 'react';
+import TheContext from '../TheContext';
+const { user } = React.useContext(TheContext)
 
 function HamburgerMenu(props) {
+
     <div className="hamburger-button" onClick={navDisplayCheck}>
     <div></div>
     <div></div>
@@ -47,7 +50,7 @@ function HamburgerMenu(props) {
           <div className="menu-route mr-5">
             <div className="menu-outset mo-5">
               <div className="menu-inset mi-5">
-              <Link to="/profile" onClick={hideNavBar}><li>Profile</li></Link>
+              <Link to={`/profile/${user._id}`} onClick={hideNavBar} ><li>Profile</li></Link>
               </div>
             </div>
           </div>
