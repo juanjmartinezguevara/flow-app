@@ -267,6 +267,8 @@ const handleRecStop = () => {
   }
 }
 
+
+
 // //make a time slider
 function TimeSlider() {
 

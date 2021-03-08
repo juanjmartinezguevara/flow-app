@@ -1,13 +1,15 @@
+import React from 'react';
 import { GoogleLogin } from 'react-google-login'
 import { Link } from 'react-router-dom'
 import Home from './Home'
 import actions from '../api'
-
-console.log(process.env)
+import TheContext from '../TheContext'
 
 const Auth = (props) => {
+
+    const { user, setUser } = React.useContext(TheContext)
+
     const onResponse = (response) => {
-        console.log(response)
         actions
             .logIn(response)
             .then(res => {

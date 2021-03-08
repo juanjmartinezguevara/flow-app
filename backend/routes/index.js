@@ -45,9 +45,6 @@ router.post(`/addUserProfRT`, verifyToken, async (req, res, next) => {
     if (err) {
       res.status(403).json(err);
     } else {
-      console.log("Hello from the route at the backend", req.body);
-
-
       User.findByIdAndUpdate(authData.user._id, req.body)
         .then((ppl) => {
           res.status(200).json(ppl);

@@ -1,18 +1,42 @@
 import React, { useState, useEffect } from "react";
-// import actions from '../api'
+import { Link } from 'react-router-dom'
+import actions from '../api'
 import axios from "axios";
-import NavBar from "./NavBar";
 import TheContext from '../TheContext';
 
-// TO USE CONTEXT DATA
-// from inside a function
-// const { user } = useContext(TheContext)
 
 function Profile(props) {
-  // const [myPosts, setMyPosts] = useState([])
+
   const [posts, setPosts] = useState([]);
 
-  const { user } = React.useContext(TheContext)
+  const { user, setUser, userViewed, setUserViewed } = React.useContext(TheContext)
+
+  console.log("USER FROM PROFILE",user)
+  console.log("USERVIEWED FROOM PROFILE", userViewed)
+
+  const [thisUser, setThisUser] = useState([userViewed]);
+
+  useEffect(() => {
+    actions
+      .getOneUser()
+      .then((thisUserDbData) => {
+        setThisUser(thisUserDbData.data);
+      })
+      .catch(console.error);
+  }, []);
+
+  const showProfileDetails = () => {
+    return (
+      <div>
+
+      <h1>User Name {thisUser.userName}</h1>
+      <p>About {thisUser.userAbout}</p>
+      <p>Instagram {thisUser.Instagram}</p>
+      <p>Twitter {thisUser.userTwitter}</p>
+      <p>SoundCloud {thisUser.userSoundCloud}</p>
+      </div>
+    )
+  }
 
   // useEffect(() => {
   //     console.log(props)
@@ -32,16 +56,19 @@ function Profile(props) {
 
   useEffect(() => {
     axios.get("https://rickandmortyapi.com/api/character").then((res) => {
-      console.log(res.data.results);
       setPosts(res.data.results);
     });
   }, []);
 
-
+const logout = () => {
+  setUser({})
+  setThisUser({})
+  setUserViewed({})
+  localStorage.clear()
+}
 
   const showPosts = () => {
-    return posts.map((eachPost) => {
-
+    return thisUser.map((eachPost) => {
       return <img className="profile-post" src={eachPost.image} alt="" />;
     });
   };
@@ -53,18 +80,27 @@ function Profile(props) {
             {showPosts()} */}
       <header className="profile-header">
         <div className='header-bio'>
+        {showProfileDetails()}
           <h1>@blah</h1>
           <p>Optional profile bio goes here</p>
-          <button>Edit profile</button>
+          { user.id === userViewed.id ? (<Link  to="/editProfile">
+          <button>Edit profile</button></Link>) : (null)}
+          {/* <Link  to="/editProfile">
+          <button>Edit profile</button></Link> */}
+
+            { user.id && userViewed.id && user.id === userViewed.id ? (<button onClick={logout}>Logout</button>) : (null) }
+
+          <button onClick={logout}>Logout</button>
         </div>
         <img
           className="profile-header-propic"
-          src="https://assets.capitalxtra.com/2017/47/nicki-minaj-1511527250-view-0.jpg"
+          // src="https://assets.capitalxtra.com/2017/47/nicki-minaj-1511527250-view-0.jpg"
+          src={thisUser.picture}
           alt=""
         />
       </header>
       <div className='profile-post-feed'>
-        {showPosts()}
+        {/* {showPosts()} */}
       </div>
       {/* <NavBar/> */}
     </div>
