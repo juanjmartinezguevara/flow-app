@@ -127,7 +127,8 @@ const actions = {
     return resFromOurDB;
   },
 
-  uploadFile: async ({ fileName, fileType, file, kind }) => {
+  uploadFile: async ({ fileName, fileType, file, kind },songData) => {
+    console.log(songData)
     axios
       .post(
         `${baseURL}/sign_s3`,
@@ -158,7 +159,18 @@ const actions = {
             if (kind === "song") {
               return await axios.post(
                 `${baseURL}/addSongRT`,
-                { url },
+                { songName: songData.name,
+                  songCaption: null,
+                  songBG: null,
+                  songLyricsAudio: null,
+                  songLyricsStr: songData.lyrics,
+                  songPBR: null,
+                  songURL: url,
+                  songTotLikes: 0,
+                  songUser: songData.user._id,
+                  songDate: songData.date,
+                  songBeatTrack: null
+                  },
                 resetHead()
               );
             }
