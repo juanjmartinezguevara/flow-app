@@ -17,7 +17,10 @@ function Home(props) {
 
     const { user, setUser, userViewed, setUserViewed  } = React.useContext(TheContext)
 
+
     setUserViewed(user)  
+
+    console.log("HOME - user", user)
 
     console.log("HOME - userViewed", userViewed)
 
@@ -61,7 +64,7 @@ function Home(props) {
                         <div className="icon-outset io-2">
                             <div className="icon-inset ii-2">
                                 <div className="icon-double-inset idi-2">
-                                { userViewed.id ? (<Link to="/recordingBooth">
+                                { userViewed._id ? (<Link to="/recordingBooth">
                                         <img className="button-icons home-record" src={mic}></img>
                                     </Link>) : (<Link to="/auth">
                                         <img className="button-icons home-record" src={mic}></img>
@@ -85,7 +88,6 @@ function Home(props) {
                         <div className="icon-outset io-3">
                             <div className="icon-inset ii-3">
                                 <div className="icon-double-inset idi-3">
-
                                 { user.id ? (<Link to="/profile">
                                         <img className="button-icons home-avatar" src={avatar3}></img>
                                     </Link>) : (<Link to="/auth">

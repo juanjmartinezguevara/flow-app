@@ -30,8 +30,9 @@ const actions = {
     return await axios.get(`${baseURL}/getBeatRT`, resetHead());
   },
 
-  getUserSongs: async () => {
-    return await axios.get(`${baseURL}/getUserSongsRT`, resetHead());
+  getUserSongs: async (theUser) => {
+      console.log('from api theuser', theUser._id)
+    return await axios.get(`${baseURL}/getUserSongsRT`, theUser, resetHead());
   },
 
   getSong: async () => {
@@ -47,15 +48,25 @@ const actions = {
   },
 
   addLike: async () => {
-    return await axios.get(`${baseURL}/addLikeRT`, resetHead());
+    return await axios.post(`${baseURL}/addLikeRT`, resetHead());
   },
 
-  addSong: async () => {
-    return await axios.get(`${baseURL}/addSongRT`, resetHead());
+  addFollow: async (followDat) => {
+    console.log('from API Follow user', followDat)
+    return await axios.post(`${baseURL}/addFollowRT`, followDat, resetHead())
+  },
+
+  addSong: async (song) => {
+      console.log('song variable from api.js', song)
+    return await axios.post(`${baseURL}/addSongRT`, song, resetHead());
+  },
+
+  addBeat: async () => {
+    return await axios.post(`${baseURL}/addBeatRT`, resetHead());
   },
 
   addSongBG: async () => {
-    return await axios.get(`${baseURL}/addSongBGRT`, resetHead());
+    return await axios.post(`${baseURL}/addSongBGRT`, resetHead());
   },
 
   getOneUser: async () => {
@@ -63,13 +74,12 @@ const actions = {
   },
 
   addUserProf: async (person) => {
-    console.log('hello from the action')
+    console.log("hello from the action");
     return await axios.post(`${baseURL}/addUserProfRT`, person, resetHead());
-    
   },
 
   addUserPhoto: async () => {
-    return await axios.get(`${baseURL}/addUserPhotoRT`, resetHead());
+    return await axios.post(`${baseURL}/addUserPhotoRT`, resetHead());
   },
 
   getUsersFollowed: async () => {
@@ -81,7 +91,7 @@ const actions = {
   },
 
   addComment: async () => {
-    return await axios.get(`${baseURL}/addCommentRT`, resetHead());
+    return await axios.post(`${baseURL}/addCommentRT`, resetHead());
   },
 
   getUserComments: async () => {
@@ -117,12 +127,18 @@ const actions = {
     return resFromOurDB;
   },
 
-  uploadFile: async ({ fileName, fileType, file, kind }) => {
+  uploadFile: async ({ fileName, fileType, file, kind },songData) => {
+    console.log(songData)
     axios
-      .post(`${baseURL}/sign_s3`, {
-        fileName: fileName,
-        fileType: fileType,
-      }, resetHead())
+      .post(
+        `${baseURL}/sign_s3`,
+        {
+          fileName: fileName,
+          fileType: fileType,
+          kind: kind,
+        },
+        resetHead()
+      )
       .then((response) => {
         var returnData = response.data.data.returnData;
         var signedRequest = returnData.signedRequest;
@@ -134,20 +150,37 @@ const actions = {
         };
         console.log(response);
 
-
-
         // return response
 
         axios
           .put(signedRequest, file, options)
           .then(async (result) => {
-              console.log(result, ' kindddd', kind, url )
-              if(kind === 'song'){
-                return await axios.post(`${baseURL}/addSongRT`, {  url }, resetHead())
-              }
-              if(kind === 'beat'){
-
-              }
+            console.log(result, " kindddd", kind, url);
+            if (kind === "song") {
+              return await axios.post(
+                `${baseURL}/addSongRT`,
+                { songName: songData.name,
+                  songCaption: null,
+                  songBG: null,
+                  songLyricsAudio: null,
+                  songLyricsStr: songData.lyrics,
+                  songPBR: null,
+                  songURL: url,
+                  songTotLikes: 0,
+                  songUser: songData.user._id,
+                  songDate: songData.date,
+                  songBeatTrack: null
+                  },
+                resetHead()
+              );
+            }
+            if (kind === "beatTrack") {
+                return await axios.post(
+                    `${baseURL}/addSongRT`,
+                    { url },
+                    resetHead()
+                  );
+            }
             //this.setState({ audio: url }, () => console.log(this.state.audio));
             //post url to mongoose here??  or better do it from backend index.js before sending response to here???
             alert("File uploaded");

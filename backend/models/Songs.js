@@ -10,8 +10,9 @@ const Songs = model('Songs', new Schema({
     songLyricsStr: [String],
     songLyricsAudio: String,
     songBG: String,
-    songCaption: String
-
+    songCaption: String,
+    songName: String
+    
 }))
 
 module.exports = Songs 

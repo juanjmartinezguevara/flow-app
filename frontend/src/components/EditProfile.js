@@ -5,7 +5,6 @@ import TheContext from "../TheContext";
 import actions from "../api";
 
 function EditProfile(props) {
-
   const { user } = React.useContext(TheContext);
 
   const [thisUser, setThisUser] = useState([user]);
@@ -29,13 +28,14 @@ function EditProfile(props) {
   const submit = (e) => {
     e.preventDefault();
 
-    actions.addUserProf(thisUser)
-    .then(newUserUpdate => {
+    actions
+      .addUserProf(thisUser)
+      .then((newUserUpdate) => {
         // console.log('new new user update!', newUserUpdate)
         //Redirect to all-posts page
-        alert('Profile Saved')
-        
-    }).catch(console.error)
+        alert("Profile Saved");
+      })
+      .catch(console.error);
   };
 
   return (
