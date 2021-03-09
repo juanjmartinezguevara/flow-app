@@ -30,8 +30,9 @@ const actions = {
     return await axios.get(`${baseURL}/getBeatRT`, resetHead());
   },
 
-  getUserSongs: async () => {
-    return await axios.get(`${baseURL}/getUserSongsRT`, resetHead());
+  getUserSongs: async (theUser) => {
+      console.log('from api theuser', theUser._id)
+    return await axios.get(`${baseURL}/getUserSongsRT`, theUser, resetHead());
   },
 
   getSong: async () => {
@@ -48,6 +49,11 @@ const actions = {
 
   addLike: async () => {
     return await axios.post(`${baseURL}/addLikeRT`, resetHead());
+  },
+
+  addFollow: async (followDat) => {
+    console.log('from API Follow user', followDat)
+    return await axios.post(`${baseURL}/addFollowRT`, followDat, resetHead())
   },
 
   addSong: async (song) => {

@@ -40,6 +40,31 @@ router.get(`/getOneUserRT`, verifyToken, async (req, res, next) => {
   });
 });
 
+router.get(`/getUserSongsRT`, async (req, res, next) => {
+    console.log('getUserSongs Route', req)
+    Songs.find({ })
+    .then((songs) => {
+        res.status(200).json(songs);
+    })
+    .catch((err) => res.status(500).json(err))
+})
+
+router.post(`/addFollowRT`, verifyToken, async (req, res, next) => {
+  jwt.verify(req.token, "secretkey", (err, authData) => {
+    if (err) {
+      res.status(403).json(err);
+    } else {
+      let follow = {followed: req.body.user2, follower: req.body.user1}
+      Follows.create(follow)
+        .then((foll) => {
+          res.status(200).json(foll);
+        })
+        .catch((err) => res.status(500).json(err));
+    }
+  });
+});
+
+
 router.post(`/addUserProfRT`, verifyToken, async (req, res, next) => {
   jwt.verify(req.token, "secretkey", (err, authData) => {
     if (err) {
@@ -145,8 +170,6 @@ router.get(`/allPosts`, async (req, res, next) => {
 
 router.post(`/logMeIn`, async (req, res, next) => {
   const tokenId = req.header("X-Google-Token");
-  console.log(tokenId);
-
   if (!tokenId) {
     res.status(401).json({ msg: "Mising Google JWT" });
   }
