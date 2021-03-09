@@ -67,6 +67,19 @@ router.post(`/addAPost`, verifyToken, async (req, res, next) => {
   });
 });
 
+router.get(`/getMostLikedSongsRT`, verifyToken, async (req, res, next) => {
+  jwt.verify(req.token, "secretkey", async (err, authData) => {
+    if (err) {
+      res.status(403).json(err);
+    } else {
+      let body = req.body;
+      body.userId = authData.user._id;
+      let songs = await Songs.find({$sort: {"songTotLikes": -1}});
+      res.status(200).json(songs);
+    }
+  });
+});
+
 router.post(`/addSongRT`, verifyToken, async (req, res, next) => {
   jwt.verify(req.token, "secretkey", (err, authData) => {
     if (err) {
