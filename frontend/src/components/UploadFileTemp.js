@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import axios from "axios";
 import actions from "../api";
 
-class UploadFile extends Component {
+class TempUploadFile extends Component {
   state = {
     // Initially, no file is selected
     selectedFile: null,
@@ -16,7 +16,7 @@ class UploadFile extends Component {
   };
 
   onFileUpload = (pr) => {
-    console.log("PR", this);
+    console.log("PR", pr);
     let file = this.state.selectedFile;
     let fileName = this.state.selectedFile.name;
     let fileType = this.state.selectedFile.type;
@@ -69,4 +69,4 @@ class UploadFile extends Component {
   }
 }
 
-export default UploadFile;
+export default TempUploadFile;

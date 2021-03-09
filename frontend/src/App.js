@@ -118,6 +118,7 @@ function App() {
         <Route exact path="/likes" render={(props) => <Likes {...props} />} />
         <Route exact path="/uploadFile" render={(props) => <UploadFile {...props} kind='song' />} />
         <Route exact path="/uploadProfilePic" render={(props) => <UploadFile {...props} kind='profilePic' />} />
+        <Route exact path="/uploadBeatTrack" render={(props) => <UploadFile {...props} kind='beatTrack' />} />
         <Route exact path="/editprofile-screen" render={(props) => <EditProfileScreen {...props} />} />
         <Route exact path="/editprofile" render={(props) => <EditProfile {...props} />} />
         <Route exact path="/social-feed" render={(props) => <SocialFeed {...props} />} />

@@ -12,8 +12,7 @@ const Songs = model('Songs', new Schema({
     songBG: String,
     songCaption: String,
     songName: String
-
-
+    
 }))
 
 module.exports = Songs 
