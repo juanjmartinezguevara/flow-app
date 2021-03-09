@@ -377,18 +377,80 @@ console.log(allTakes[0])
   }
 }
 
+const modalPopup = () => {
+  const modal = document.querySelector(".modal");
+  const closeBtn = document.querySelector(".close-btn");
+  const helpBtn = document.querySelector(".help-btn");
+  modal.style.display = "block";
+  helpBtn.style.display = "none";
+  closeBtn.addEventListener("click", () => {
+    modal.style.display = "none";
+    helpBtn.style.display = "block";
+  });
+};
 
     return (
-        <div className="TestAudio">
-          <audio id='song' src={beat1} loop={true} ></audio>
-          <p id='fixer'></p>
-          <div className="scroll-rhymes-container" id='currentTranscript'>
-            {line}
-            <p style={{color:'rgb(0 255 220)'}}>{transcript}</p>
-          </div>
+      <div className="TestAudio">
+      <audio id='song' src={beat1} loop={true} ></audio>
+      <p id='fixer'></p>
+      {/* --- MODAL BUTTON BEGINS HERE --- */}
+      <button style={{zIndex: '100', position: 'fixed', top: '1vw', right: '1vw'}} className="help-btn" onClick={modalPopup}>Help</button>
+      {/* --- MODAL BUTTON ENDS HERE --- */}
+      <div className="scroll-rhymes-container" id='currentTranscript'>
+        {line}
+        <p style={{color:'rgb(0 255 220)'}}>{transcript}</p>
+      </div>
+
+            {/* --- MODAL CODE BEGINS HERE --- */}
+    <div
+      className="modal"
+      style={{
+        backgroundColor: 'gray',
+        width: '100vw',
+        height: '100vh',
+        position:'fixed',
+        zIndex: '100',
+        margin: '10vw auto',
+        display: "none",
+        justifyContent: 'center',
+        alignItems: 'center',
+      }}
+    >
+      <div
+      className='modal-info'
+      style={{
+        backgroundColor: 'lightgray',
+        display: 'flex',
+        flexDirection: 'column',
+        width: '80vw',
+        margin: '5vw auto',
+      }}
+      >
+      <ol>
+    <li>Hit the mic button to begin recording your track.</li>
+    <li>The lyrics you rap will populate the top of the screen.</li>
+    <li>
+      You will also receive suggestions in the first of the two boxes
+      located at the center. You can tap on a set of lyrics to pin them to
+      the second box for later or to mix up the rhyme scheme.
+    </li>
+    <li>
+      After recording your song, you can hit the play button to play it
+      back, or the trash button to trash it and start over.
+    </li>
+    <li>
+      Finally, you can hit the download button to save your track to your
+      device. Happy sharing!
+    </li>
+  </ol>
+  <button className="close-btn" type="button">
+    Close
+  </button>
+      </div>
+</div>
+  {/* --- MODAL CODE ENDS HERE --- */}
 
               <div className="nav-buttons-play">
-
                 <div className="suggestions-container">
                   <div className="suggestions sug-1">
                     <div className="custom-rhyme">
@@ -461,7 +523,7 @@ console.log(allTakes[0])
                       <div className="button-icons-inset">
                         <div className="button-icons-outset">
                           <img className="button-icons bi-play" src={trashbin}></img>
-                      </div>
+                          </div>
                     </div>
                   </div>
                 </div>

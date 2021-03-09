@@ -1,40 +1,34 @@
 import React, { useEffect, useState } from "react";
+import { useHistory } from "react-router-dom";
 import TheContext from "../TheContext";
 import actions from "../api";
 
 function ExploreFeed(props) {
-//   const { user } = React.useContext(TheContext);
-  const { post } = React.useContext(TheContext);
-
-//   const [thisUser, setThisUser] = useState([user]);
-  const [posts, setPosts] = useState(post);
+  const { songs } = React.useContext(TheContext);
+  const [songz, setSongz] = useState([{ songs }]);
 
   useEffect(() => {
     actions
-      .getAllPosts()
-      .then((allPosts) => {
-        console.log("Showing posts from database...", allPosts);
-        setPosts(allPosts.data);
+      .getMostLikedSongs()
+      .then((allSongs) => {
+        console.log("Showing posts from database...", allSongs);
+        setSongz(allSongs.data);
       })
       .catch(console.error);
   }, []);
 
   const showPosts = () => {
-      return posts.map(eachPost => {
-          return (
-            <div>
-                CAPTION: {eachPost.post}
-            </div>
-          )
-      })
-  }
+    return songz.map((eachSong) => {
+      return <div>SongURL: {eachSong.songURL}</div>;
+    });
+  };
 
   return (
     <div>
-        <h1>Explore</h1>
-        {showPosts()}
+      <h1>Explore</h1>
+      {showPosts()}
     </div>
-  )
+  );
 }
 
 export default ExploreFeed;

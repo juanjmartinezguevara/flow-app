@@ -323,7 +323,7 @@ input::placeholder {
 }
 .social-panel {
   height: 100%;
-  background: url('./images/music-loop.gif');
+  /* background: url('./images/music-loop.gif'); */
   background-size: cover;
   background-position-x: center;
   position: relative;
