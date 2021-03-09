@@ -72,15 +72,33 @@ router.post(`/addSongRT`, verifyToken, async (req, res, next) => {
     if (err) {
       res.status(403).json(err);
     } else {
-      let song = { songUser: authData.user._id, songURL: req.body.url };
+        // console.log('body variable from the backend', body)
+        console.log('req data from backend', req.body)
+        let song = { songUser: authData.user._id, songBG: req.body.background, songDate: req.body.date, songName: req.body.name, songLyricsStr: req.body.lyrics, songPBR: null, songBPM: null, songTotLikes: 0, songCaption: null, songBeatTrack: null };
+        console.log('song variable from backend', song)
       Songs.create(song)
-        .then((user) => {
-          res.status(200).json(user);
+        .then((theSong) => {
+          res.status(200).json(theSong);
         })
         .catch((err) => res.status(500).json(err));
     }
   });
 });
+
+router.post(`/addBeatRT`, verifyToken, async (req, res, next) => {
+    jwt.verify(req.token, "secretkey", (err, authData) => {
+      if (err) {
+        res.status(403).json(err);
+      } else {
+        let beat = { beatUser: authData.user._id, beatURL: req.body.url };
+        Beats.create(beat)
+          .then((beet) => {
+            res.status(200).json(beet);
+          })
+          .catch((err) => res.status(500).json(err));
+      }
+    });
+  });
 
 // router.get(`/getAllBeats`, verifyToken, async (req, res, next) => {
 //     jwt.verify(req.token, 'secretkey', (err, authData) => {
@@ -241,9 +259,9 @@ router.post("/sign_s3", verifyToken, (req, res) => {
 
         if (kind == "song") {
             // Songs.create(  PASS IN DATA  )
-        } else if (kind=="profilePic") {
+        } else if (kind == "profilePic") {
             // User.update (  PASS IN DATA  )
-        } else if (kind=="beatTrack") {
+        } else if (kind == "beatTrack") {
             // Beats.create(  PASS IN DATA  )
         }
         res.json({ data: { returnData } });

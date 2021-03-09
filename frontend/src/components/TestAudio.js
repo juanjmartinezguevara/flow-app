@@ -15,6 +15,7 @@ import save from '../images/save.svg'
 import replay from '../images/replay.svg'
 import AudioCanvas from './AudioCanvas'
 import TheContext from '../TheContext'
+import actions from '../api';
 
 function TestAudio(props) {
 
@@ -374,7 +375,14 @@ if(allTakes.length===0){}else{
  allTakes[0].setName();
 
 console.log(allTakes[0])
-  }
+actions
+.addSong(allTakes[0])
+.then((newSongUpdate) => {
+  console.log('New Song has been added', newSongUpdate)
+  alert('song saved');
+})
+.catch(console.error)  ;
+}
 }
 
 
