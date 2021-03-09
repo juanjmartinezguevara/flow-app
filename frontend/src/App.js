@@ -66,7 +66,7 @@ function App() {
             <div className="menu-route mr-2">
               <div className="menu-outset mo-2">
                 <div className="menu-inset mi-2">
-                <Link to="all-posts" onClick={hideNavBar}>All Posts</Link>
+                <Link to="social-feed" onClick={hideNavBar}>Social</Link>
                 </div>
               </div>
             </div>
