@@ -36,7 +36,7 @@ function SocialFeed(props) {
             opacityRef2.current.style.opacity = 1 
             opacityRef3.current.style.opacity = 1 
             popUpRef.current.style.height = '50%'
-            windowRef.current.style.bottom = '57%'
+            windowRef.current.style.bottom = '46%'
             trackInfo.current.style.bottom = '8%'
             setPoppedUp(true)
         }
@@ -163,11 +163,6 @@ function SocialFeed(props) {
                             <div className="transparent-test">
                                 <div className="user-details-container">
                                     <div className="user-details-inset">
-                                        <div className="text-container">
-                                            <h5 className="ud-text udt-1"><span style={{color: '#ec6aa0'}}>@Usernamesernamese</span> - Super Dope Track Super Dope Track Super</h5>
-                                            <h6 className="ud-text udt-2">User stating that this is dopeUser stating that this is dopeUse</h6>
-                                            <h6 className="ud-text udt-3">caption</h6>
-                                        </div>
                                     </div>
                                 </div>
                                 <div className="user-profile-image">
@@ -178,6 +173,11 @@ function SocialFeed(props) {
                                     </div>
                                 </div>
                             </div>
+                        </div>
+                        <div className="text-container">
+                            <h5 className="ud-text udt-1"><span style={{color: '#ec6aa0'}}>@Usernamesernamese</span> - Super Dope Track Super Dope Track Super</h5>
+                            <h6 className="ud-text udt-2">User stating that this is dopeUser stating that this is dopeUse</h6>
+                            <h6 className="ud-text udt-3">caption</h6>
                         </div>
                     </li>
                     <li className="video-pane" style={{backgroundImage: `url('${gradientbg}'), url('https://media.giphy.com/media/RLQaZ8LeuqrTx0Eeat/source.gif')`}}>
