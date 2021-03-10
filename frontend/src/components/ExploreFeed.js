@@ -1,25 +1,28 @@
 import React, { useEffect, useState } from "react";
-import { useHistory } from "react-router-dom";
 import TheContext from "../TheContext";
 import actions from "../api";
 
 function ExploreFeed(props) {
   const { songs } = React.useContext(TheContext);
-  const [songz, setSongz] = useState([{ songs }]);
+  const [mostLikedSongs, setMostLikedSongs] = useState([{ songs }]);
 
   useEffect(() => {
     actions
       .getMostLikedSongs()
       .then((allSongs) => {
         console.log("Showing posts from database...", allSongs);
-        setSongz(allSongs.data);
+        setMostLikedSongs(allSongs.data);
       })
       .catch(console.error);
   }, []);
 
   const showPosts = () => {
-    return songz.map((eachSong) => {
-      return <div>SongURL: {eachSong.songURL}</div>;
+    return mostLikedSongs.sort((a, b) => b - a).map((eachSong) => {
+      return (
+      <audio controls>
+      <source src={eachSong.songURL} type='audio/mp3'/>
+      </audio>
+    )
     });
   };
 

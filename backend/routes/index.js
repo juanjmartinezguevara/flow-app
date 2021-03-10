@@ -10,7 +10,6 @@ const Follows = require("../models/Follows");
 const axios = require("axios");
 const jwt = require("jsonwebtoken");
 
-
 router.get(`/user`, verifyToken, async (req, res, next) => {
   //GETTING OUR USER
   jwt.verify(req.token, "secretkey", (err, authData) => {
@@ -93,18 +92,22 @@ router.post(`/addAPost`, verifyToken, async (req, res, next) => {
   });
 });
 
-router.get(`/getMostLikedSongsRT`, verifyToken, async (req, res, next) => {
-  jwt.verify(req.token, "secretkey", async (err, authData) => {
-    if (err) {
-      res.status(403).json(err);
-    } else {
-      let body = req.body;
-      body.userId = authData.user._id;
-      let songs = await Songs.find({$sort: {"songTotLikes": -1}});
-      res.status(200).json(songs);
-    }
+router.post(`/getMostLikedSongsRT`, (req, res, next) => {
+  // Songs.find({$sort: {"songTotLikes": -1}})
+  Songs.find({})
+  .then(songs => {
+    res.status(200).json(songs)
+    console.log(songs)
+  })
+  .catch(err => res.status(500).json(err))
+
+    // if (err) {
+    //   res.status(403).json(err);
+    // } else {
+    //   let songPosts = await Songs.find({$sort: {"songTotLikes": -1}});
+    //   res.status(200).json(songPosts)
+    // }
   });
-});
 
 router.post(`/addSongRT`, verifyToken, async (req, res, next) => {
   jwt.verify(req.token, "secretkey", (err, authData) => {

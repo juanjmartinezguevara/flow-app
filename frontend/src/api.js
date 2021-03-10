@@ -43,8 +43,8 @@ const actions = {
     return await axios.get(`${baseURL}/getUserLikedSongsRT`, resetHead());
   },
 
-  getMostLikedSongs: async () => {
-    return await axios.get(`${baseURL}/getMostLikedSongsRT`, resetHead());
+  getMostLikedSongs: async (songPosts) => {
+    return await axios.post(`${baseURL}/getMostLikedSongsRT`, songPosts, resetHead());
   },
 
   addLike: async () => {
