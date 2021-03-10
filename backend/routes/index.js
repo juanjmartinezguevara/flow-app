@@ -41,9 +41,9 @@ router.get(`/getOneUserRT`, verifyToken, async (req, res, next) => {
   });
 });
 
-router.get(`/getUserSongsRT`, async (req, res, next) => {
-    console.log('getUserSongs Route', req)
-    Songs.find({ })
+router.post(`/getUserSongsRT`, async (req, res, next) => {
+  console.log('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>getUserSongs req.body', req.body)
+    Songs.find({ songUser: req.body._id})
     .then((songs) => {
         res.status(200).json(songs);
     })
@@ -92,6 +92,18 @@ router.post(`/addAPost`, verifyToken, async (req, res, next) => {
     }
   });
 });
+
+router.get(`/getUserLikedSongsRT`, verifyToken, async (req, res, next) => {
+  jwt.verify(req.token, "secretkey", async (err, authData) => {
+    if (err) {
+      res.status(403).json(err);
+    } else {
+      let songLikes = await Likes.find({ likeUser: authData.user._id })
+      console.log('these are the likes from the DB that this user liked', songLikes )
+      res.status(200).json(songLikes)
+    }
+  })
+})
 
 router.get(`/getMostLikedSongsRT`, verifyToken, async (req, res, next) => {
   jwt.verify(req.token, "secretkey", async (err, authData) => {

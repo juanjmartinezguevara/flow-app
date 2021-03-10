@@ -17,8 +17,9 @@ function Home(props) {
 
     const { user, setUser, userViewed, setUserViewed  } = React.useContext(TheContext)
 
+    user ? setUserViewed(user) : setUser({})
 
-    setUserViewed(user)  
+    // setUserViewed(user)  
 
     console.log("HOME - user", user)
 
@@ -88,7 +89,7 @@ function Home(props) {
                         <div className="icon-outset io-3">
                             <div className="icon-inset ii-3">
                                 <div className="icon-double-inset idi-3">
-                                { user.id ? (<Link to="/profile">
+                                { user._id ? (<Link to="/profile">
                                         <img className="button-icons home-avatar" src={avatar3}></img>
                                     </Link>) : (<Link to="/auth">
                                         <img className="button-icons home-avatar" src={avatar3}></img>

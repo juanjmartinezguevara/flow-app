@@ -29,6 +29,8 @@ function App() {
     }).catch(console.error)
   }, [])
 
+  console.log('app.js user', user)
+
   const navDisplayCheck = () => {
     console.log("ok")
     if (navDisplayed == true) {
