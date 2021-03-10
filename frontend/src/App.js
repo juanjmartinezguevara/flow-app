@@ -69,14 +69,14 @@ function App() {
             <div className="menu-route mr-2">
               <div className="menu-outset mo-2">
                 <div className="menu-inset mi-2">
-                <Link to="social-feed" onClick={hideNavBar}>Social</Link>
+                <Link to="/social-feed" onClick={hideNavBar}>Social</Link>
                 </div>
               </div>
             </div>
             <div className="menu-route mr-3">
               <div className="menu-outset mo-3">
                 <div className="menu-inset mi-3">
-                <Link to="editprofile-screen" onClick={hideNavBar}>Edit Profile</Link>
+                <Link to="/editprofile-screen" onClick={hideNavBar}>Edit Profile</Link>
                 </div>
               </div>
             </div>
@@ -90,7 +90,7 @@ function App() {
             <div className="menu-route mr-5">
               <div className="menu-outset mo-5">
                 <div className="menu-inset mi-5">
-                {user._id ? (<Link to={`/profile/${user._id}`} onClick={hideNavBar && console.log('profile button',user._id)}>Profile</Link>) : (<Link to="/auth" onClick={hideNavBar}>Profile</Link>) }
+                {user._id ? (<Link to={`/profile/${user._id}`} onClick={hideNavBar}>Profile</Link>) : (<Link to="/auth" onClick={hideNavBar}>Profile</Link>) }
                 {/* <Link to="/profile" onClick={hideNavBar}>Profile</Link> */}
                 </div>
               </div>
