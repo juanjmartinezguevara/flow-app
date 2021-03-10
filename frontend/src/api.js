@@ -1,5 +1,6 @@
 import axios from "axios";
 
+
 const baseURL = `http://localhost:5000/api`;
 const token = localStorage.getItem("token");
 
@@ -34,6 +35,11 @@ const actions = {
       console.log('from api theuser', theUser._id)
     return await axios.post(`${baseURL}/getUserSongsRT`, theUser, resetHead());
   },
+  //search bar bobby
+  getManyUsers: async (searchStr)=> {
+    
+    return await axios.post(`${baseURL}/getManyUsersRT`, searchStr, resetHead());
+  },
 
   getSong: async () => {
     return await axios.get(`${baseURL}/getSongRT`, resetHead());
@@ -45,8 +51,8 @@ const actions = {
     return await axios.get(`${baseURL}/getUserLikedSongsRT`, resetHead());
   },
 
-  getMostLikedSongs: async () => {
-    return await axios.get(`${baseURL}/getMostLikedSongsRT`, resetHead());
+  getMostLikedSongs: async (songPosts) => {
+    return await axios.post(`${baseURL}/getMostLikedSongsRT`, songPosts, resetHead());
   },
 
   addLike: async () => {
