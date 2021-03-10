@@ -7,6 +7,7 @@ import comment from '../images/comment.svg'
 import heart2 from '../images/heart2.svg'
 import explore from '../images/explore.svg'
 
+
 function NavBar(props) {
     return (
         <footer style={{height: `${props.height}`, flexDirection: `${props.row}`}}>
@@ -27,34 +28,34 @@ function NavBar(props) {
 
           <div className="nav-buttons" style={{boxShadow: `${props.shadowDisplay}`}}>
             <div className="nav-list">
-              <div className="nav-buttons-rim">
-                <div className="nav-buttons-outset">
-                  <div className="nav-buttons-inset">
-                    <img className="button-icons bi-record" src={mic}></img>
-                  </div>
+            <div className="nav-buttons-rim">
+              <div className="nav-buttons-outset">
+                <div className="nav-buttons-inset">
+                  <img className="button-icons bi-record" src={mic}></img>
                 </div>
               </div>
-              <div className="nav-buttons-rim">
-                <div className="nav-buttons-outset">
-                  <div className="nav-buttons-inset">
-                    <img className="button-icons" src={explore}></img>
-                  </div>
+            </div>
+            <div className="nav-buttons-rim">
+              <div className="nav-buttons-outset">
+                <div className="nav-buttons-inset">
+                  <img className="button-icons" src={explore}></img>
                 </div>
               </div>
-              <div className="nav-buttons-rim">
-                <div className="nav-buttons-outset">
-                  <div className="nav-buttons-inset">
-                    <img className="button-icons" src={social}></img>
-                  </div>
+            </div>
+            <div className="nav-buttons-rim">
+              <div className="nav-buttons-outset">
+                <div className="nav-buttons-inset">
+                  <img className="button-icons" src={social}></img>
                 </div>
               </div>
-              <div className="nav-buttons-rim">
-                <div className="nav-buttons-outset">
-                  <div className="nav-buttons-inset">
-                    <img className="button-icons" src={avatar3}></img>
-                  </div>
+            </div>
+            <div className="nav-buttons-rim">
+              <div className="nav-buttons-outset">
+                <div className="nav-buttons-inset">
+                  <img className="button-icons" src={avatar3}></img>
                 </div>
               </div>
+            </div>
             </div>
           </div>
         </footer>
