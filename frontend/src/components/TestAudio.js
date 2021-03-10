@@ -33,7 +33,7 @@ function TestAudio(props) {
   const [takes, setTakes] = useState([]);
   const [allTakes, setAllTakes] = useState([]);
   let [fullTranscript, setFullTranscript] = useState("");
-
+  const theTakes=useRef()
   const [tracks, setTracks] = useState([
     { song: beat1, name: "After Dark" },
     { song: beat2, name: "Futurology" },
@@ -329,16 +329,15 @@ function TestAudio(props) {
     }
   };
 
+
+
+
   const saveFile = () => {
     if (allTakes.length === 0) {
     } else {
-      allTakes[0].setName();
 
-      let selUpload = allTakes[0];
-      console.log(allTakes[0]);
-      // let fileUrl = allTakes[0].songmix
-      //  let actualUrl= fileUrl.substr(fileUrl.indexOf('h'),fileUrl.length)
-      //   allTakes[0].songmix=actualUrl
+      let selUpload = allTakes[theTakes.current.selectedIndex];
+      selUpload.setName();
 
       let chosenFile = selUpload.user._id + selUpload.name.replaceAll(" ", "-");
 
@@ -459,7 +458,7 @@ function TestAudio(props) {
         <div className="canvas-anim-box">
           <div className="canvas-outset">
             <div className="canvas-inset">
-              <AudioCanvas />
+              {/* <AudioCanvas /> */}
             </div>
           </div>
         </div>
@@ -469,7 +468,7 @@ function TestAudio(props) {
               <div className="tracks-container">
                 <div className="tracks-inset">
                   <div className="tracks-onset">
-                    <select id="selectBox" onChange={loadTrack}>
+                    <select id="selectBox" className="track-select" onChange={loadTrack}>
                       {chooseTrack()}
                     </select>
                   </div>
@@ -483,7 +482,7 @@ function TestAudio(props) {
               <div className="tracks-container">
                 <div className="tracks-inset">
                   <div className="tracks-onset">
-                    <select id="takes" onChange={loadTake}>
+                    <select ref={theTakes} id="takes" className="track-select" onChange={loadTake}>
                       {chooseTake()}
                     </select>
                   </div>
