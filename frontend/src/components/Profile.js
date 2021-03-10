@@ -14,12 +14,16 @@ function Profile(props) {
   const [thisUser, setThisUser] = useState([userViewed]);
 
   useEffect(() => {
+    if(props.location.profileInfo){
+   setThisUser(props.location.profileInfo)
+    }else{
     actions
       .getOneUser()
       .then((thisUserDbData) => {
         setThisUser(thisUserDbData.data);
       })
       .catch(console.error);
+    }
   }, []);
 
   const showProfileDetails = () => {
@@ -70,6 +74,7 @@ function Profile(props) {
 
     })
   }
+  
 
   const followUser = () => {
     console.log(user, userViewed)

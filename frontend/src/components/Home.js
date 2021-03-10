@@ -6,6 +6,7 @@ import avatar3 from '../images/avatar3.svg'
 import TheContext from '../TheContext'
 import gradientbg from '../images/gradient-bg-2.png'
 import backgroundFrame from '../images/bg-frame-2.png'
+import Search from './Search'
 
 function Home(props) {
     // useEffect(() => {
@@ -36,6 +37,7 @@ function Home(props) {
                     </li>
                 </ul>
             </div>
+            <Search />
             <div className="bottom-directories">
                 <div className="bm-dir-container bdc-1">
                     <div className="dir-icon di-1">

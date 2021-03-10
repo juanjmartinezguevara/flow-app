@@ -17,6 +17,7 @@ import EditProfileScreen from './components/EditProfileScreen'
 import EditProfile from './components/EditProfile'
 import TheContext from './TheContext'
 import ExploreFeed from './components/ExploreFeed'
+import Notification from './components/Notification'
 
 function App() {
   const [navDisplayed, setNavDisplayed] = useState(false)
@@ -87,7 +88,7 @@ function App() {
             <div className="menu-route mr-5">
               <div className="menu-outset mo-5">
                 <div className="menu-inset mi-5">
-                {user._id ? (<Link to="/profile" onClick={hideNavBar}>Profile</Link>) : (<Link to="/auth" onClick={hideNavBar}>Profile</Link>) }
+                {user._id ? (<Link to={`/profile/${user._id}`} onClick={hideNavBar && console.log('profile button',user._id)}>Profile</Link>) : (<Link to="/auth" onClick={hideNavBar}>Profile</Link>) }
                 {/* <Link to="/profile" onClick={hideNavBar}>Profile</Link> */}
                 </div>
               </div>
@@ -106,13 +107,13 @@ function App() {
         <div></div>
         <div></div>
       </div>
-
+      <Notification/>
       <Switch>
         <Route exact path="/" render={(props) => <Home {...props} />} />
         <Route exact path="/all-posts" render={(props) => <AllPosts {...props} />} />
         <Route exact path="/add-posts" render={(props) => <AddPost {...props} />} />
         <Route exact path="/auth" render={(props) => <Auth setUser={setUser} {...props} />} />
-        <Route exact path="/profile" render={(props) => <Profile user={user} {...props} />} />
+        <Route exact path="/profile/:id" render={(props) => <Profile user={user} {...props} />} />
         <Route exact path="/recordingBooth" render={(props) => <TestAudio {...props} />} />
         <Route exact path="/comments" render={(props) => <Comments {...props} />} />
         <Route exact path="/likes" render={(props) => <Likes {...props} />} />
