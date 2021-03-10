@@ -173,24 +173,30 @@ footer {
   margin: 0 auto;
 }
 .social-list {
-  display: flex;
+  height: 100%;
   width: 100%;
+  display: flex;
+  align-items: center;
   justify-content: space-between;
 }
 .nav-buttons-outset {
-  height: 80%;
+  height: 75%;
   width: 20%;
   border-radius: 50%;
   box-shadow: inset 3px 3px 9px #b7b7b7,
                inset -4px -4px 7px #ffffff;
 }
 .nav-buttons-inset {
-  height: 60%;
-  width: 60%;
+  height: 70%;
+  width: 70%;
   border-radius: 50%;
   box-shadow: 3px 3px 6px 0px #b0b1b3,
              -4px -4px 5px #ffffff;
 }
+/*--------------------------BUTTON ICONS AND COLORS BUTTON ICONS AND COLORS---------------------------------------------*/
+/* .follow, .heart, .comment {
+  filter: invert(82%) sepia(93%) saturate(326%) hue-rotate(89deg) brightness(81%) contrast(84%);
+} */
 .button-icons {
   height: 2.3em;
   width: 2.3em;
@@ -200,9 +206,32 @@ footer {
   width: 1.5em;
   filter: invert(42%) sepia(65%) saturate(2055%) hue-rotate(310deg) brightness(100%) contrast(98%);
 }
+.follow {
+  height: 1.4em;
+  width: 1.4em;
+}
+.heart {
+  height: 1.7em;
+  width: 1.7em;
+}
+.bi-play {
+  margin-left: 3px;
+}
+.bi-record {
+  height: 2.2em;
+  width: 2.2em;
+  margin: 1px 0px 0px 1px;
+  filter: invert(69%) sepia(43%) saturate(437%) hue-rotate(103deg) brightness(91%) contrast(89%);
+}
+.home-record {
+  height: 2.2em;
+  width: 2.2em;
+  filter: invert(80%) sepia(14%) saturate(1272%) hue-rotate(111deg) brightness(96%) contrast(89%);
+}
+/*--------------------------------------------------------------------------*/
 .social-buttons {
   width: 100%;
-  height: 38%;
+  height: 40%;
   /* height: 38%; */
   border-bottom: 1px solid #616161;
   box-shadow: 5px 5px solid gray;
@@ -224,14 +253,22 @@ footer {
   
 }
 .individual-btn {
-  height: 30px;
-  width: 35px;
+  height: 40px;
+  width: 40px;
   color: #ec6aa0;
   list-style-type: none;
   margin: 0px 10px 0px 10px;
-  border-radius: 10px;
-  box-shadow: 3px 3px 5px #3d3f3f,
-             -3px -3px 5px #939597;
+  border-radius: 50px;
+  box-shadow: 3px 3px 5px #3d3f3f, -2px -2px 3px #939597;
+}
+.individual-profile-pic {
+  height: 85%;
+  width: 85%;
+  background-size: cover;
+  overflow: hidden;
+  background-position: center;
+  border-radius: 50px;
+  box-shadow: inset 2px 2px 3px #3d3f3f, inset -2px -2px 3px #989898;
 }
 .individual-btn:active {
   box-shadow: inset 2px 2px 3px #3d3f3f, inset -2px -2px 3px #989898;
@@ -323,12 +360,98 @@ input::placeholder {
 }
 .social-panel {
   height: 100%;
-  /* background: url('./images/music-loop.gif'); */
-  background-size: cover;
-  background-position-x: center;
   position: relative;
   bottom: 0;
   transition: bottom .5s;
+}
+.video-scroll-container {
+  height: 100%; 
+  width: 100%;
+  scroll-snap-type: y mandatory;
+  overflow-y: scroll;
+}
+.video-pane {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+  /* background-image: url('./images/gradient-bg-2.png'),
+                    url('https://media.giphy.com/media/l3b01SFaxG0V0GqV6N/source.gif'); */
+  background-size: cover;
+  background-position-x: center;
+}
+.video-details-container {
+  height: 130px;
+  width: 356px;
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 55px;
+  background-image: url('./images/bg-transparent2.png');
+  background-size: cover;
+  background-position: center;
+  bottom: 3%;
+  box-shadow: 0px 8px 20px 0px #00000099;
+}
+.transparent-test {
+  height: 90%;
+  width: 96.5%;
+  border-radius: 49px;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  box-shadow: inset 3px 3px 6px #353535, inset -2px -2px 3px #8c8f90;
+}
+.user-details-container {
+  height: 70%;
+  width: 70%;
+  margin-left: 5%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 15px;
+  background-position: 24% 50%;
+  box-shadow: 2px 2px 5px #2a2a2b, -2px -2px 2px #7b7b7b;
+}
+.user-details-inset {
+  height: 80%;
+  width: 92%;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  color: white;
+  border: 2px solid #5a5a5a;
+  box-shadow: inset 3px 3px 4px #2d2d2d, inset -2px -2px 3px #8c8f90;
+}
+.user-details-inset h5, h6 {
+  margin-left: 2%;
+}
+.user-profile-inset {
+  height: 80%;
+  width: 90%;
+  margin-right: 3%;
+  border-radius: 50%;
+  box-shadow: 2px 2px 5px #2a2a2b, -2px -2px 3px #7b7b7b;
+}
+.user-profile-image {
+  height: 70%;
+  width: 20%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.social-p {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+}
+.inset-social-p {
+  box-shadow: 2px 2px 5px #2a2a2b, -2px -2px 3px #7b7b7b;
 }
 /* -----------------------------------------------Customize Rhymes Section--------------------------------------------------- */
 .TestAudio p {
@@ -719,6 +842,31 @@ nav {
   background-size: cover;
   background-position-x: center;
 }
+.vp-home {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+  background-size: 100% 100%;
+}
+.test-transparent {
+  height: 84.9%;
+  width: 84.9%;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  border-radius: 45px;
+  box-shadow: inset 3px 3px 2px #0000007a, inset -2px -2px 5px #ffffff61;
+}
+.test-transparent h5 {
+  position: relative;
+  color: white;
+  bottom: -85%;
+  left: 25%;
+}
 .bottom-directories {
   height: 40%;
   background: #686a6b;
@@ -775,6 +923,15 @@ nav {
                -3px -3px 4px #ffffff;
   }
 }
+@keyframes outsetButtonsException {
+  from {
+    box-shadow: none
+  }
+  to {
+    box-shadow: inset 2px 2px 3px #abacad, inset -2px -2px 3px #ffffff;
+  }
+}
+
 @keyframes iconButtons {
   from {
     box-shadow: none
@@ -890,7 +1047,7 @@ nav {
 .idi-2 {
   height: 60%;
   width: 60%;
-  animation: outsetButtons .3s .6s linear forwards, buttonOpacity .3s .8s linear forwards;
+  animation: outsetButtonsException .3s .6s linear forwards, buttonOpacity .3s .8s linear forwards;
 }
 /* ----------------------------AUTH AUTH AUTH AUTH LOG IN LOG IN LOG IN LOG IN ------------------------------------------------*/
 .page-container {
@@ -932,7 +1089,7 @@ nav {
   border-radius: 100%;
   width: 22px;
   height: 22px;
-  box-shadow: inset 2px 2px 3px #b5b5b5, inset -2px -2px 3px #ffffff;
+  box-shadow: 2px 2px 3px #b5b5b5, -2px -2px 3px #ffffff;
 }
 .middle-container {
   height: 75%;
@@ -1056,10 +1213,13 @@ nav {
 .profile-mi {
   height: 80%;
 }
-.profile-mc{
+.profile-mc {
+  height: 85%;
   box-shadow: 4px 4px 5px #3d3f3f, -2px -2px 3px #939597;
 }
-
+.profile-bc {
+  height: 10%;
+}
 .profile-uic {
   height: 85%;
   box-shadow: 3px 3px 4px #525252, -2px -2px 3px #939597;
@@ -1127,4 +1287,7 @@ nav {
   color: white;
   margin-top: 6%;
   box-shadow: 2px 2px 4px #283e35, -1px -1px 1px #98efbf;
+}
+.follow {
+  font-size: 2.5em;
 }

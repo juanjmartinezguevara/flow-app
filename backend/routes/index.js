@@ -10,6 +10,7 @@ const Follows = require("../models/Follows");
 const axios = require("axios");
 const jwt = require("jsonwebtoken");
 
+
 router.get(`/user`, verifyToken, async (req, res, next) => {
   //GETTING OUR USER
   jwt.verify(req.token, "secretkey", (err, authData) => {
@@ -39,6 +40,31 @@ router.get(`/getOneUserRT`, verifyToken, async (req, res, next) => {
     }
   });
 });
+
+router.get(`/getUserSongsRT`, async (req, res, next) => {
+    console.log('getUserSongs Route', req)
+    Songs.find({ })
+    .then((songs) => {
+        res.status(200).json(songs);
+    })
+    .catch((err) => res.status(500).json(err))
+})
+
+router.post(`/addFollowRT`, verifyToken, async (req, res, next) => {
+  jwt.verify(req.token, "secretkey", (err, authData) => {
+    if (err) {
+      res.status(403).json(err);
+    } else {
+      let follow = {followed: req.body.user2, follower: req.body.user1}
+      Follows.create(follow)
+        .then((foll) => {
+          res.status(200).json(foll);
+        })
+        .catch((err) => res.status(500).json(err));
+    }
+  });
+});
+
 
 router.post(`/addUserProfRT`, verifyToken, async (req, res, next) => {
   jwt.verify(req.token, "secretkey", (err, authData) => {
@@ -85,10 +111,43 @@ router.post(`/addSongRT`, verifyToken, async (req, res, next) => {
     if (err) {
       res.status(403).json(err);
     } else {
-      let song = { songUser: authData.user._id, songURL: req.body.url };
+      // console.log('body variable from the backend', body)
+      console.log('req data from backend', req.body)
+      let song = {
+        songURL: req.body.songURL,
+        songUser: req.body.songUser,
+        songBG: req.body.songBG,
+        songDate: req.body.songDate,
+        songName: req.body.songName,
+        songLyricsStr: req.body.songLyricsStr,
+        songPBR: req.body.songPBR,
+        songBPM: null,
+        songTotLikes: req.body.songTotLikes,
+        songCaption: req.body.songCaption,
+        songBeatTrack: req.body.songBeatTrack,
+      };
+      // console.log('song variable from backend', song)
+     
       Songs.create(song)
-        .then((user) => {
-          res.status(200).json(user);
+        .then((theSong) => {
+          
+          res.status(200).json(theSong);
+          console.log('pineapple',theSong)
+        })
+        .catch((err) => res.status(500).json(err));
+    }
+  });
+});
+
+router.post(`/addBeatRT`, verifyToken, async (req, res, next) => {
+  jwt.verify(req.token, "secretkey", (err, authData) => {
+    if (err) {
+      res.status(403).json(err);
+    } else {
+      let beat = { beatUser: authData.user._id, beatURL: req.body.url };
+      Beats.create(beat)
+        .then((beet) => {
+          res.status(200).json(beet);
         })
         .catch((err) => res.status(500).json(err));
     }
@@ -140,8 +199,6 @@ router.get(`/allPosts`, async (req, res, next) => {
 
 router.post(`/logMeIn`, async (req, res, next) => {
   const tokenId = req.header("X-Google-Token");
-  console.log(tokenId);
-
   if (!tokenId) {
     res.status(401).json({ msg: "Mising Google JWT" });
   }
@@ -219,6 +276,8 @@ console.log(process.env);
 // Now lets export this function so we can call it from somewhere else
 // exports.sign_s3 = (req,res) => {
 router.post("/sign_s3", verifyToken, (req, res) => {
+  let incoming= req.body
+  console.log(incoming,'THhhhhhhhhhhhhhhhere!!!')
   jwt.verify(req.token, "secretkey", async (err, authData) => {
     if (err) {
       res.status(403).json(err);
@@ -228,7 +287,7 @@ router.post("/sign_s3", verifyToken, (req, res) => {
       const fileType = req.body.fileType;
       const file = req.body.file;
       const kind = req.body.kind;
-    
+
       // Set up the payload of what we are sending to the S3 api
       const s3Params = {
         Bucket: S3_BUCKET,
@@ -250,14 +309,14 @@ router.post("/sign_s3", verifyToken, (req, res) => {
         };
         console.log("AWS FILE SAVE RESULTS>>>>>>>>>", returnData);
         console.log(authData.user);
-        console.log("pancakes", req.body, kind)
+        console.log("pancakes", req.body, kind);
 
         if (kind == "song") {
-            // Songs.create(  PASS IN DATA  )
-        } else if (kind=="profilePic") {
-            // User.update (  PASS IN DATA  )
-        } else if (kind=="beatTrack") {
-            // Beats.create(  PASS IN DATA  )
+          // Songs.create(  PASS IN DATA  )
+        } else if (kind == "profilePic") {
+          // User.update (  PASS IN DATA  )
+        } else if (kind == "beatTrack") {
+          // Beats.create(  PASS IN DATA  )
         }
         res.json({ data: { returnData } });
       });

@@ -1,9 +1,11 @@
 import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom'
 import heart from '../images/heart.svg'
-import mic from '../images/mic.svg'
-import avatar2 from '../images/avatar2.svg'
+import mic from '../images/record2.svg'
+import avatar3 from '../images/avatar3.svg'
 import TheContext from '../TheContext'
+import gradientbg from '../images/gradient-bg-2.png'
+import backgroundFrame from '../images/bg-frame-2.png'
 
 function Home(props) {
     // useEffect(() => {
@@ -25,7 +27,14 @@ function Home(props) {
     return (
         <div className="Home">
             <div className="img-panel-container">
-
+                <ul className="video-scroll-container">
+                    <li className="video-pane vp-home" style={{backgroundImage: `url('${backgroundFrame}'), url('https://media.giphy.com/media/3o7bu9IXcehrF9ENUY/source.gif')`}}>
+                        <div className="test-transparent">
+                            <h5>@username</h5>
+                            <h5>Supermassivedopetrack</h5>
+                        </div>
+                    </li>
+                </ul>
             </div>
             <div className="bottom-directories">
                 <div className="bm-dir-container bdc-1">
@@ -79,11 +88,10 @@ function Home(props) {
                         <div className="icon-outset io-3">
                             <div className="icon-inset ii-3">
                                 <div className="icon-double-inset idi-3">
-
-                                { user._id ? (<Link to="/profile">
-                                        <img className="button-icons home-avatar" src={avatar2}></img>
+                                { user.id ? (<Link to="/profile">
+                                        <img className="button-icons home-avatar" src={avatar3}></img>
                                     </Link>) : (<Link to="/auth">
-                                        <img className="button-icons home-avatar" src={avatar2}></img>
+                                        <img className="button-icons home-avatar" src={avatar3}></img>
                                     </Link>)}
                                 </div>
                             </div>
