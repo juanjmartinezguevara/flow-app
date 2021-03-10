@@ -33,7 +33,7 @@ const actions = {
 
   getUserSongs: async (theUser) => {
       console.log('from api theuser', theUser._id)
-    return await axios.get(`${baseURL}/getUserSongsRT`, theUser, resetHead());
+    return await axios.post(`${baseURL}/getUserSongsRT`, theUser, resetHead());
   },
   //search bar bobby
   getManyUsers: async (searchStr)=> {
@@ -45,12 +45,14 @@ const actions = {
     return await axios.get(`${baseURL}/getSongRT`, resetHead());
   },
 
+
+
   getUserLikedSongs: async () => {
     return await axios.get(`${baseURL}/getUserLikedSongsRT`, resetHead());
   },
 
-  getMostLikedSongs: async () => {
-    return await axios.get(`${baseURL}/getMostLikedSongsRT`, resetHead());
+  getMostLikedSongs: async (songPosts) => {
+    return await axios.post(`${baseURL}/getMostLikedSongsRT`, songPosts, resetHead());
   },
 
   addLike: async () => {

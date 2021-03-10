@@ -10,7 +10,6 @@ const Follows = require("../models/Follows");
 const axios = require("axios");
 const jwt = require("jsonwebtoken");
 
-
 router.get(`/user`, verifyToken, async (req, res, next) => {
   //GETTING OUR USER
   jwt.verify(req.token, "secretkey", (err, authData) => {
@@ -52,9 +51,9 @@ router.post('/getManyUsersRT', async (req,res,next)=> {
   })
 
 
-router.get(`/getUserSongsRT`, async (req, res, next) => {
-    console.log('getUserSongs Route', req)
-    Songs.find({ })
+router.post(`/getUserSongsRT`, async (req, res, next) => {
+  console.log('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>getUserSongs req.body', req.body)
+    Songs.find({ songUser: req.body._id})
     .then((songs) => {
         res.status(200).json(songs);
     })
@@ -104,18 +103,34 @@ router.post(`/addAPost`, verifyToken, async (req, res, next) => {
   });
 });
 
-router.get(`/getMostLikedSongsRT`, verifyToken, async (req, res, next) => {
+router.get(`/getUserLikedSongsRT`, verifyToken, async (req, res, next) => {
   jwt.verify(req.token, "secretkey", async (err, authData) => {
     if (err) {
       res.status(403).json(err);
     } else {
-      let body = req.body;
-      body.userId = authData.user._id;
-      let songs = await Songs.find({$sort: {"songTotLikes": -1}});
-      res.status(200).json(songs);
+      let songLikes = await Likes.find({ likeUser: authData.user._id })
+      console.log('these are the likes from the DB that this user liked', songLikes )
+      res.status(200).json(songLikes)
     }
+  })
+})
+
+router.post(`/getMostLikedSongsRT`, (req, res, next) => {
+  // Songs.find({$sort: {"songTotLikes": -1}})
+  Songs.find({})
+  .then(songs => {
+    res.status(200).json(songs)
+    console.log(songs)
+  })
+  .catch(err => res.status(500).json(err))
+
+    // if (err) {
+    //   res.status(403).json(err);
+    // } else {
+    //   let songPosts = await Songs.find({$sort: {"songTotLikes": -1}});
+    //   res.status(200).json(songPosts)
+    // }
   });
-});
 
 router.post(`/addSongRT`, verifyToken, async (req, res, next) => {
   jwt.verify(req.token, "secretkey", (err, authData) => {

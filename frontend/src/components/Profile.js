@@ -11,6 +11,8 @@ function Profile(props) {
     TheContext
   );
 
+  console.log(user, userViewed)
+
   const [thisUser, setThisUser] = useState([userViewed]);
 
   useEffect(() => {
@@ -54,6 +56,7 @@ function Profile(props) {
   const [thisUserSongs, setThisUserSongs] = useState([]);
 
   useEffect(() => {
+    console.log('profile.js line 53 ', user)
     actions
       .getUserSongs(user)
       .then((usersSongs) => {

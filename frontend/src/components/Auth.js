@@ -19,6 +19,8 @@ const Auth = (props) => {
             })
             .catch(console.error)
     }
+
+    console.log('ice cream', user)
     return (
         <div className="LogIn">
             <div className="page-container">
