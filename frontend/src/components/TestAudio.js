@@ -1,21 +1,23 @@
-import React, {useRef,useState,useEffect} from 'react';
-import beat1 from '../assets/beatsTrack1.m4a'
-import beat2 from '../assets/beatsTrack2.m4a'
-import beat3 from '../assets/beatsTrack3.m4a'
-import beat4 from '../assets/beatsTrack4.m4a'
-import beat5 from '../assets/beatsTrack5.m4a'
-import SpeechRecognition, { useSpeechRecognition } from 'react-speech-recognition'
-import datamuse from 'datamuse'
-import mic from '../images/record2.svg'
-import play from '../images/play.svg'
-import pause from '../images/pause.svg'
-import stop from '../images/stop.svg'
-import trashbin from '../images/trashbin.svg'
-import save from '../images/save.svg'
-import replay from '../images/replay.svg'
-import AudioCanvas from './AudioCanvas'
-import TheContext from '../TheContext'
-import actions from "../api"
+import React, { useRef, useState, useEffect } from "react";
+import beat1 from "../assets/beatsTrack1.m4a";
+import beat2 from "../assets/beatsTrack2.m4a";
+import beat3 from "../assets/beatsTrack3.m4a";
+import beat4 from "../assets/beatsTrack4.m4a";
+import beat5 from "../assets/beatsTrack5.m4a";
+import SpeechRecognition, {
+  useSpeechRecognition,
+} from "react-speech-recognition";
+import datamuse from "datamuse";
+import mic from "../images/record2.svg";
+import play from "../images/play.svg";
+import pause from "../images/pause.svg";
+import stop from "../images/stop.svg";
+import trashbin from "../images/trashbin.svg";
+import save from "../images/save.svg";
+import replay from "../images/replay.svg";
+import AudioCanvas from "./AudioCanvas";
+import TheContext from "../TheContext";
+import actions from "../api";
 
 function TestAudio(props) {
   const { user } = React.useContext(TheContext);
@@ -31,7 +33,7 @@ function TestAudio(props) {
   const [takes, setTakes] = useState([]);
   const [allTakes, setAllTakes] = useState([]);
   let [fullTranscript, setFullTranscript] = useState("");
-
+  const theTakes=useRef()
   const [tracks, setTracks] = useState([
     { song: beat1, name: "After Dark" },
     { song: beat2, name: "Futurology" },
@@ -327,80 +329,111 @@ function TestAudio(props) {
     }
   };
 
+
+
+
   const saveFile = () => {
     if (allTakes.length === 0) {
     } else {
-      allTakes[0].setName();
 
-      let selUpload = allTakes[0]
-      console.log(allTakes[0]);
-      // let fileUrl = allTakes[0].songmix
-      //  let actualUrl= fileUrl.substr(fileUrl.indexOf('h'),fileUrl.length)
-      //   allTakes[0].songmix=actualUrl
+      let selUpload = allTakes[theTakes.current.selectedIndex];
+      selUpload.setName();
 
+      let chosenFile = selUpload.user._id + selUpload.name.replaceAll(" ", "-");
 
-
-
-      let chosenFile = selUpload.user._id + selUpload.name.replaceAll(' ','-');
-
-
-
-        
-        actions
-          .uploadFile({
+      actions
+        .uploadFile(
+          {
             fileName: chosenFile,
             fileType: "audio/mpeg-3",
             file: selUpload.songBlob,
             kind: "song",
-          },selUpload)
-          .then(console.log)
-          .catch(console.log);
-
-    //   actions
-    //     .addSong(selUpload)
-    //     .then((newSongUpdate) => {
-    //       console.log("New Song has been added", newSongUpdate);
-    //       alert("song saved");
-    //     })
-    //     .catch(console.error);
-        }
+          },
+          selUpload
+        )
+        .then(console.log)
+        .catch(console.log);
+    }
   };
 
-  // const altSaveFile = () => {
-  //   if (allTakes.length === 0) {
-  //   } else {
-  //     allTakes[0].setName();
-
-  //     let fileUrl = allTakes[0].songmix;
-  //     let actualUrl = fileUrl.substr(fileUrl.indexOf("h"), fileUrl.length);
-  //     console.log(fileUrl, allTakes);
-
-  //     var process = new ffmpeg(`${actualUrl}/blob/file`);
-  //     process.then(
-  //       function (audio) {
-  //         audio.fnExtractSoundToMP3(
-  //           `${actualUrl}/new/file/mp3`,
-  //           function (error, file) {
-  //             if (!error) console.log("Audio file: " + file);
-  //           }
-  //         );
-  //       },
-  //       function (err) {
-  //         console.log("Error" + err);
-  //       }
-  //     );
-  //   }
-  // };
+  const modalPopup = () => {
+    const modal = document.querySelector(".modal");
+    const closeBtn = document.querySelector(".close-btn");
+    const helpBtn = document.querySelector(".help-btn");
+    modal.style.display = "block";
+    helpBtn.style.display = "none";
+    closeBtn.addEventListener("click", () => {
+      modal.style.display = "none";
+      helpBtn.style.display = "block";
+    });
+  };
 
   return (
     <div className="TestAudio">
       <audio id="song" src={beat1} loop={true}></audio>
       <p id="fixer"></p>
+      {/* --- MODAL BUTTON BEGINS HERE --- */}
+      <button
+        style={{ zIndex: "100", position: "fixed", top: "1vw", right: "1vw" }}
+        className="help-btn"
+        onClick={modalPopup}
+      >
+        Help
+      </button>
+      {/* --- MODAL BUTTON ENDS HERE --- */}
       <div className="scroll-rhymes-container" id="currentTranscript">
         {line}
         <p style={{ color: "rgb(0 255 220)" }}>{transcript}</p>
       </div>
 
+      {/* --- MODAL CODE BEGINS HERE --- */}
+      <div
+        className="modal"
+        style={{
+          backgroundColor: "gray",
+          width: "100vw",
+          height: "100vh",
+          position: "fixed",
+          zIndex: "100",
+          margin: "10vw auto",
+          display: "none",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
+        <div
+          className="modal-info"
+          style={{
+            backgroundColor: "lightgray",
+            display: "flex",
+            flexDirection: "column",
+            width: "80vw",
+            margin: "5vw auto",
+          }}
+        >
+          <ol>
+            <li>Hit the mic button to begin recording your track.</li>
+            <li>The lyrics you rap will populate the top of the screen.</li>
+            <li>
+              You will also receive suggestions in the first of the two boxes
+              located at the center. You can tap on a set of lyrics to pin them
+              to the second box for later or to mix up the rhyme scheme.
+            </li>
+            <li>
+              After recording your song, you can hit the play button to play it
+              back, or the trash button to trash it and start over.
+            </li>
+            <li>
+              Finally, you can hit the download button to save your track to
+              your device. Happy sharing!
+            </li>
+          </ol>
+          <button className="close-btn" type="button">
+            Close
+          </button>
+        </div>
+      </div>
+      {/* --- MODAL CODE ENDS HERE --- */}
       <div className="nav-buttons-play">
         <div className="suggestions-container">
           <div className="suggestions sug-1">
@@ -422,7 +455,6 @@ function TestAudio(props) {
             </div>
           </div>
         </div>
-
         <div className="canvas-anim-box">
           <div className="canvas-outset">
             <div className="canvas-inset">
@@ -430,7 +462,6 @@ function TestAudio(props) {
             </div>
           </div>
         </div>
-
         <div className="playback-controls-panel">
           <div className="playback-container">
             <div className="playback-wrapper">
@@ -451,7 +482,7 @@ function TestAudio(props) {
               <div className="tracks-container">
                 <div className="tracks-inset">
                   <div className="tracks-onset">
-                    <select id="takes" className="track-select" onChange={loadTake}>
+                    <select ref={theTakes} id="takes" className="track-select" onChange={loadTake}>
                       {chooseTake()}
                     </select>
                   </div>
@@ -505,5 +536,4 @@ function TestAudio(props) {
     </div>
   );
 }
-
 export default TestAudio;

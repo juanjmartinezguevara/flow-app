@@ -113,6 +113,7 @@
 * {
   margin: 0;
   padding: 0;
+  overflow: hidden;
 }
 html, body, #root {
   height: 100vh;
@@ -124,6 +125,30 @@ html, body, #root {
   width: 100%;
   margin-top: -5px;
   text-align: center;
+  
+}
+@keyframes notify{
+  0% {width:0vw;
+      margin-left: 100vw;}
+  50% {width:25vw;
+      margin-left:75vw}
+  100%{width:0vw;
+      margin-left: 100vw;}
+}
+@keyframes hideNotify{
+  from {width:25vw}
+  to {width:0vw}
+}
+.notification {
+  z-index: 200;
+  position:absolute;
+  margin-left:100vw;
+  margin-top:10vh;
+  height:10vh;
+  width:0vw;
+  background-color: white;
+  border-radius: 20px;
+  
 }
 .TestAudio {
   height: 97.2%;
@@ -713,6 +738,16 @@ canvas {
 .track-select:focus {
   outline: none !important;
 }
+
+#takes{
+  background-color: #383838;
+  color: white;
+  border-color: #383838;
+}
+#takes:focus {
+  outline: none !important;
+}
+
 .selected-container {
   width: 20%;
   display: flex;

@@ -40,6 +40,17 @@ router.get(`/getOneUserRT`, verifyToken, async (req, res, next) => {
     }
   });
 });
+//search bar bobby
+router.post('/getManyUsersRT', async (req,res,next)=> {
+      await User.find({userName: {$regex: req.body.search, $options: "$i"}})
+      .then((user)=>{
+        res.status(200).json(user)
+        console.log('yo its ya boi' + user)
+      })
+      .catch((err)=> res.status(500).json(err));
+    
+  })
+
 
 router.get(`/getUserSongsRT`, async (req, res, next) => {
     console.log('getUserSongs Route', req)
@@ -93,6 +104,18 @@ router.post(`/addAPost`, verifyToken, async (req, res, next) => {
   });
 });
 
+router.get(`/getMostLikedSongsRT`, verifyToken, async (req, res, next) => {
+  jwt.verify(req.token, "secretkey", async (err, authData) => {
+    if (err) {
+      res.status(403).json(err);
+    } else {
+      let body = req.body;
+      body.userId = authData.user._id;
+      let songs = await Songs.find({$sort: {"songTotLikes": -1}});
+      res.status(200).json(songs);
+    }
+  });
+});
 
 router.post(`/addSongRT`, verifyToken, async (req, res, next) => {
   jwt.verify(req.token, "secretkey", (err, authData) => {
