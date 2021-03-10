@@ -198,7 +198,6 @@ function SocialFeed(props) {
                                 </div>
                             </div>
                         </div>
-<<<<<<< HEAD
                         <div className="text-container">
                             <h5 className="ud-text udt-1"><span style={{color: '#ec6aa0'}}>@Usernamesernamese</span> - Super Dope Track Super Dope Track Super</h5>
                             <h6 className="ud-text udt-2">User stating that this is dopeUser stating that this is dopeUse</h6>
@@ -206,10 +205,6 @@ function SocialFeed(props) {
                         </div>
                     </li>
                     <li className="video-pane" style={{backgroundImage: `url('${gradientbg}'), url('https://media.giphy.com/media/RLQaZ8LeuqrTx0Eeat/source.gif')`}}>
-=======
-                    </li> */}
-                    {/* <li className="video-pane" style={{backgroundImage: `url('${gradientbg}'), url('https://media.giphy.com/media/RLQaZ8LeuqrTx0Eeat/source.gif')`}}>
->>>>>>> cb8b49c12273130779fc785e6c97651ed3e6e822
 
                     </li>
                     <li className="video-pane" style={{backgroundImage: `url('${gradientbg}'), url('https://media.giphy.com/media/s2fB8Mv2UYBPLC041d/source.gif')`}}>
