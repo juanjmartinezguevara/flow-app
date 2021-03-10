@@ -71,14 +71,14 @@ function SocialFeed(props) {
         return thisFeedSongs.map((eachSong) => {
             return (
                 <li className="video-pane" style={{backgroundImage: `url('${gradientbg}'), url('https://media.giphy.com/media/l3b01SFaxG0V0GqV6N/source.gif')`}}>
-                <div ref={trackInfo} className="video-details-container">
+                <div ref={trackInfo} style={{ position: "relative" }} className="video-details-container">
                     <div className="transparent-test">
                         <div className="user-details-container">
                             <div className="user-details-inset">
                                 <div className="text-container">
                                     <h5 className="ud-text udt-1"><span style={{color: '#ec6aa0'}}>@Usernamesernamese</span> - Super Dope Track Super Dope Track Super</h5>
-                                    <h6 className="ud-text udt-2">User stating that this is dopeUser stating that this is dopeUse</h6>
-                                    <h6 className="ud-text udt-3">caption</h6>
+                                    <h6 className="ud-text udt-2">{eachSong.songName}</h6>
+                                    <h6 className="ud-text udt-3">{eachSong.songCaption}</h6>
                                 </div>
                             </div>
                         </div>
@@ -181,7 +181,7 @@ function SocialFeed(props) {
         <div className="SocialFeed">
             <div ref={windowRef} className="social-panel">
                 <ul className="video-scroll-container">
-                    {showSongs}
+                    {showSongs()}
                     {/* <li className="video-pane" style={{backgroundImage: `url('${gradientbg}'), url('https://media.giphy.com/media/l3b01SFaxG0V0GqV6N/source.gif')`}}>
                         <div ref={trackInfo} className="video-details-container">
                             <div className="transparent-test">
@@ -204,7 +204,7 @@ function SocialFeed(props) {
                             </div>
                         </div>
                     </li> */}
-                    <li className="video-pane" style={{backgroundImage: `url('${gradientbg}'), url('https://media.giphy.com/media/RLQaZ8LeuqrTx0Eeat/source.gif')`}}>
+                    {/* <li className="video-pane" style={{backgroundImage: `url('${gradientbg}'), url('https://media.giphy.com/media/RLQaZ8LeuqrTx0Eeat/source.gif')`}}>
 
                     </li>
                     <li className="video-pane" style={{backgroundImage: `url('${gradientbg}'), url('https://media.giphy.com/media/s2fB8Mv2UYBPLC041d/source.gif')`}}>
@@ -221,7 +221,7 @@ function SocialFeed(props) {
                     </li>
                     <li className="video-pane" style={{backgroundImage: `url('${gradientbg}'), url('https://media.giphy.com/media/t7QSxX3Ebs2OE9cOfG/source.gif')`}}>
 
-                    </li>
+                    </li> */}
                 </ul>
             </div>
             <div ref={popUpRef} className="comment-pop-out">
