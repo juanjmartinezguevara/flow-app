@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { Switch, Route, Link } from 'react-router-dom'
-import './App.css';
-import './otherstyles.css';
+import './App.css'
+import './otherstyles.css'
 import actions from './api'
 import Home from './components/Home'
 import AddPost from './components/AddPost'
@@ -106,7 +106,6 @@ function App() {
         <div></div>
         <div></div>
       </div>
-
       <Switch>
         <Route exact path="/" render={(props) => <Home {...props} />} />
         <Route exact path="/all-posts" render={(props) => <AllPosts {...props} />} />

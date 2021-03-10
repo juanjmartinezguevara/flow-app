@@ -426,7 +426,7 @@ function TestAudio(props) {
         <div className="canvas-anim-box">
           <div className="canvas-outset">
             <div className="canvas-inset">
-              <AudioCanvas />
+              {/* <AudioCanvas /> */}
             </div>
           </div>
         </div>
@@ -437,7 +437,7 @@ function TestAudio(props) {
               <div className="tracks-container">
                 <div className="tracks-inset">
                   <div className="tracks-onset">
-                    <select id="selectBox" onChange={loadTrack}>
+                    <select id="selectBox" className="track-select" onChange={loadTrack}>
                       {chooseTrack()}
                     </select>
                   </div>
@@ -451,7 +451,7 @@ function TestAudio(props) {
               <div className="tracks-container">
                 <div className="tracks-inset">
                   <div className="tracks-onset">
-                    <select id="takes" onChange={loadTake}>
+                    <select id="takes" className="track-select" onChange={loadTake}>
                       {chooseTake()}
                     </select>
                   </div>
