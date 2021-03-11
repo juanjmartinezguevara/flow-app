@@ -34,7 +34,6 @@ function ExploreFeed(props) {
   //   </audio>
 
   const showPosts = () => {
-<<<<<<< HEAD
     //   let videoPane = document.querySelector(".video-pane")
     return top10Songs
       .splice(0, 10)
@@ -100,52 +99,11 @@ function ExploreFeed(props) {
                   </div>
                   <div className="individual-btn" onClick={props.comments}>
                     <img className="social-icons comment" src={comment}></img>
-=======
-    return mostLikedSongs
-      .splice(0, 10)
-      .sort((a, b) => b - a)
-      .map((eachSong) => {
-        console.log(eachSong._id);
-        return (
-          <li
-            className="video-pane"
-            style={{
-              backgroundColor: `rgba(${Math.random() * 255},${
-                Math.random() * 255
-              },${Math.random() * 255},1.0)`,
-            }}
-          >
-            <div
-              className="video-details-container"
-              style={{ position: "relative" }}
-            >
-              <div className="transparent-test">
-                <div className="user-details-container">
-                  <div className="user-details-inset">
-                    <h5>
-                      <span style={{ color: "#ec6aa0", fontSize: "10px" }}>
-                        {eachSong._id}
-                      </span>
-                    </h5>
-                    {/* <h6>User stating that this is dope</h6> */}
-                    <h6>Caption</h6>
-                  </div>
-                </div>
-                <div className="user-profile-image">
-                  <div className="user-profile-inset social-p">
-                    <div className="nav-buttons-inset inset-social-p">
-                      <img className="button-icons bi-play" alt=""></img>
-                    </div>
->>>>>>> 503204b7a1c598eb0971cf27c16a8998c13dcd0d
                   </div>
                 </div>
               </div>
             </div>
-<<<<<<< HEAD
           </div>
-=======
-          </li>
->>>>>>> 503204b7a1c598eb0971cf27c16a8998c13dcd0d
         );
       });
   };
@@ -153,7 +111,6 @@ function ExploreFeed(props) {
     <div className="SocialFeed">
       {/* <div ref={windowRef} className="social-panel"> */}
       <div className="social-panel">
-<<<<<<< HEAD
         <ul className="video-scroll-container">{showPosts()}</ul>
         <div
           className="nav-buttons"
@@ -190,12 +147,10 @@ function ExploreFeed(props) {
             </div>
           </div>
         </div>
-=======
         <ul className="video-scroll-container">
           {showPosts()}
           <NavBar />
         </ul>
->>>>>>> 503204b7a1c598eb0971cf27c16a8998c13dcd0d
       </div>
     </div>
   );
