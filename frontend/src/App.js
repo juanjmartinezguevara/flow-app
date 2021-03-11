@@ -18,6 +18,7 @@ import EditProfile from './components/EditProfile'
 import TheContext from './TheContext'
 import ExploreFeed from './components/ExploreFeed'
 import Notification from './components/Notification'
+import OtherProfile from './components/OtherProfile'
 
 function App() {
   const [navDisplayed, setNavDisplayed] = useState(false)
@@ -30,10 +31,14 @@ function App() {
     }).catch(console.error)
   }, [])
 
-  console.log('app.js user', user)
+  //console.log('app.js user', user)
+
+  const fixProfile =()=>{
+    hideNavBar()
+  }
 
   const navDisplayCheck = () => {
-    console.log("ok")
+    //console.log("ok")
     if (navDisplayed == true) {
       document.querySelector('nav').style.height = "0px"
       document.querySelector('nav').style.animation = 'none'
@@ -90,7 +95,7 @@ function App() {
             <div className="menu-route mr-5">
               <div className="menu-outset mo-5">
                 <div className="menu-inset mi-5">
-                {user._id ? (<Link to={`/profile/${user._id}`} onClick={hideNavBar}>Profile</Link>) : (<Link to="/auth" onClick={hideNavBar}>Profile</Link>) }
+                {user._id ? (<Link to={`/profile/${user._id}`} onClick={fixProfile}>Profile</Link>) : (<Link to="/auth" onClick={hideNavBar}>Profile</Link>) }
                 {/* <Link to="/profile" onClick={hideNavBar}>Profile</Link> */}
                 </div>
               </div>
@@ -126,6 +131,7 @@ function App() {
         <Route exact path="/editprofile" render={(props) => <EditProfile {...props} />} />
         <Route exact path="/social-feed" render={(props) => <SocialFeed {...props} />} />
         <Route exact path="/explore-feed" render={(props) => <ExploreFeed {...props} />} />
+        <Route exact path="/profile/other/:id" render={(props) => <OtherProfile {...props} />} />
       </Switch>
     </div>
     </TheContext.Provider>

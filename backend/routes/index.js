@@ -39,6 +39,17 @@ router.get(`/getOneUserRT`, verifyToken, async (req, res, next) => {
     }
   });
 });
+
+router.post(`/getAUserRT`, async (req, res, next) => {
+  //GETTING A PARTICULAR USER
+  console.log('hey hey hey hey hey ', req.body.songUser)
+      await User.findById(req.body.songUser)
+        .then((user) => {
+          res.status(200).json(user);
+        })
+        .catch((err) => res.status(500).json(err));
+});
+
 //search bar bobby
 router.post('/getManyUsersRT', async (req,res,next)=> {
       await User.find({userName: {$regex: req.body.search, $options: "$i"}})

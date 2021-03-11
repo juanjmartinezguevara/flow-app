@@ -18,6 +18,7 @@ let resetHead = () => {
   };
 };
 
+
 const actions = {
   getUser: async () => {
     //This will go get our user every time we refresh
@@ -80,6 +81,11 @@ const actions = {
 
   getOneUser: async () => {
     return await axios.get(`${baseURL}/getOneUserRT`, resetHead());
+  },
+
+  getAUser: async (userid) => {
+    console.log('HEY HEY EY HEY HEY from the API', userid)
+    return await axios.post(`${baseURL}/getAUserRT`, userid, resetHead());
   },
 
   addUserProf: async (person) => {

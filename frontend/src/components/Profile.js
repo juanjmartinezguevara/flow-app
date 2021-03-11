@@ -10,6 +10,8 @@ import social from '../images/social.svg'
 import follow from '../images/follow.svg'
 import comment from '../images/comment.svg'
 import heart2 from '../images/heart2.svg'
+import editicon from '../images/edit.svg'
+import logouticon from '../images/logout.svg'
 import explore from '../images/explore.svg'
 
 
@@ -20,21 +22,20 @@ function Profile(props) {
     TheContext
   );
 
-  console.log(user, userViewed)
-
   const [thisUser, setThisUser] = useState([userViewed]);
+  const [trigger, setTrigger] = useState(false)
 
+    
   useEffect(() => {
-    if(props.location.profileInfo){
-   setThisUser(props.location.profileInfo)
-    }else{
-    actions
-      .getOneUser()
-      .then((thisUserDbData) => {
-        setThisUser(thisUserDbData.data);
-      })
-      .catch(console.error);
-    }
+    
+      console.log(4)
+      actions
+        .getOneUser()
+        .then((thisUserDbData) => {
+          setThisUser(thisUserDbData.data);
+        })
+        .catch(console.error);
+    
   }, []);
 
   // const showProfileDetails = () => {
@@ -64,7 +65,7 @@ function Profile(props) {
   const [thisUserSongs, setThisUserSongs] = useState([]);
 
   useEffect(() => {
-    console.log('profile.js line 53 ', user)
+    console.log("profile.js line 53 ", user);
     actions
       .getUserSongs(user)
       .then((usersSongs) => {
@@ -84,12 +85,12 @@ function Profile(props) {
   const showSongs = () => {
     return thisUserSongs.map((eachSong) => {
       return (
-        <div className="your-track-container">
+        <li className="your-track-container">
           <h4>{eachSong.songName}</h4>
           <div className="lyrics-container">
             {showLyrics(eachSong.songLyricsStr)}
           </div>
-        </div>
+        </li>
       )
     })
   }
@@ -104,13 +105,15 @@ function Profile(props) {
           <div className="username-pic-outset">
             <div className="profile-pic-container">
               <div className="profile-pic-outset">
-                <img className="profile-pic" src={thisUser.picture}/>
+                <div className="profile-pic-inset">
+                  <img className="profile-pic" src={thisUser.picture}/>
+                </div>
               </div>
             </div>
             <div className="username-container">
               <div className="username-outset">
                 <div className="username-inset">
-                  <h3>User Name {thisUser.userName}</h3>
+                  <h3>{thisUser.userName}</h3>
                 </div>
               </div>
             </div>
@@ -120,10 +123,18 @@ function Profile(props) {
           <div className="users-details-container">
             <div className="users-details-outset">
               <div className="users-details-inset">
-                <p>About {thisUser.userAbout}</p>
-                <p>Instagram {thisUser.Instagram}</p>
-                <p>Twitter {thisUser.userTwitter}</p>
-                <p>SoundCloud {thisUser.userSoundCloud}</p>
+                <div className="users-details-each ude-1">
+                  <p><span style={{color: 'white', fontWeight: 'bold'}}>About: </span>{thisUser.userAbout}</p>
+                </div>
+                <div className="users-details-each ude-2">
+                  <p><span style={{color: 'white', fontWeight: 'bold'}}>Instagram: </span> {thisUser.Instagram}</p>
+                </div>
+                <div className="users-details-each ude-3">
+                  <p><span style={{color: 'white', fontWeight: 'bold'}}>Twitter: </span> {thisUser.userTwitter}</p>
+                </div>
+                <div className="users-details-each ude-4">
+                  <p><span style={{color: 'white', fontWeight: 'bold'}}>SoundCloud: </span> {thisUser.userSoundCloud}</p>
+                </div>
               </div>
             </div>
           </div>
@@ -132,7 +143,9 @@ function Profile(props) {
               <div className="edit-profile-outset">
                 <div className="edit-profile-inset">
                   <div className="edit-profile-button">
-                    edit
+                    <Link to="/editprofile-screen" className="profile-link">
+                      <img className="button-icons edit" src={editicon} />
+                    </Link>
                   </div>
                 </div>
               </div>
@@ -140,8 +153,8 @@ function Profile(props) {
             <div className="log-profile-container">
               <div className="log-profile-outset">
                 <div className="log-profile-inset">
-                  <div className="log-profile-button">
-                    log out
+                  <div className="edit-profile-button" onClick={logout}>
+                    <img className="button-icons logout" src={logouticon} />
                   </div>
                 </div>
               </div>
@@ -157,9 +170,9 @@ function Profile(props) {
       <div className="profile-post-feed">
         <div className="profile-post-inner">
           <div className="profile-post-inner-inner">
-            <div className="profile-post-innerest">
+            <ul className="profile-post-innerest">
               {showSongs()}
-            </div>
+            </ul>
           </div>
         </div>
       </div>
