@@ -11,20 +11,18 @@ function Profile(props) {
     TheContext
   );
 
-  const [thisUser, setThisUser] = useState([userViewed]);
-  const [trigger, setTrigger] = useState(false)
-
+  const [thisUser, setThisUser] = useState(props.location.profileInfo);
+  
+    console.log(props)
     
   useEffect(() => {
     
-      console.log(4)
-      actions
-        .getOneUser()
-        .then((thisUserDbData) => {
-          setThisUser(thisUserDbData.data);
-        })
-        .catch(console.error);
-    
+   
+   
+          setThisUser(props.location.profileInfo)
+      
+     
+   
   }, []);
 
   const showProfileDetails = () => {
