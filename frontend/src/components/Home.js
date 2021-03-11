@@ -22,9 +22,9 @@ function Home(props) {
 
     // setUserViewed(user)  
 
-    console.log("HOME - user", user)
+    //console.log("HOME - user", user)
 
-    console.log("HOME - userViewed", userViewed)
+    //console.log("HOME - userViewed", userViewed)
 
     return (
         <div className="Home">
@@ -38,7 +38,7 @@ function Home(props) {
                     </li>
                 </ul>
             </div>
-            <Search />
+            {/* <Search /> */}
             <div className="bottom-directories">
                 <div className="bm-dir-container bdc-1">
                     <div className="dir-icon di-1">
