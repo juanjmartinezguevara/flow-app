@@ -51,6 +51,7 @@ function SocialFeed(props) {
 
   const [thisFeedSongs, setThisFeedSongs] = useState([]);
   let [page, setPage] = useState(1);
+  let [userUser, setUserUser] = useState({})
 
   //TEMPORARY CODE TO SHOW ALL SONGS JUST TO GET SOME LIKES ADDED
   useEffect(() => {
@@ -64,8 +65,31 @@ function SocialFeed(props) {
 
   console.log("thisFeedSongs", thisFeedSongs);
 
+  const [userForSong, setUserForSong] = useState({})
+
+// const getSongUsers = (theUserId) => {
+//     console.log('HEY HEY HEY HEY HEY HEY', theUserId )
+//     actions
+//     .getAUser(theUserId)
+//     .then((useUser) => {
+//         setUserForSong(useUser.data)
+//     })
+//     .catch(console.error)
+// }
+
+// useEffect(() => {
+//     actions
+//     .getAUser(userUser)
+//     .then((useUser) => {
+//         setUserForSong(useUser.data)
+//     })
+//     .catch(console.error)
+// }, [userUser]);
+
   const showSongs = () => {
     return thisFeedSongs.map((eachSong) => {
+        // setUserUser(eachSong)
+        // console.log(userForSong)
       return (
         <li
           className="video-pane"
@@ -83,7 +107,7 @@ function SocialFeed(props) {
               <div className="user-profile-image">
                 <div className="user-profile-inset social-p">
                   <div className="nav-buttons-inset inset-social-p">
-                    <img className="button-icons bi-play" src={play}></img>
+                    <img className="button-icons bi-play" src={play} href='{eachSong.songURL}'></img>
                   </div>
                 </div>
               </div>
