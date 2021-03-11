@@ -1,14 +1,16 @@
 import React, { useState, useEffect } from "react";
 import { Link } from 'react-router-dom'
 import axios from "axios";
-import { useHistory } from "react-router";
+import { Redirect, useHistory } from "react-router";
 import TheContext from "../TheContext";
 import actions from "../api";
+import {Link} from 'react-router-dom';
 
 function EditProfile(props) {
   const { user } = React.useContext(TheContext);
 
   const [thisUser, setThisUser] = useState([user]);
+  let redirectRef=useRef()
 
   const handleChange = (e) => {
     setThisUser({
@@ -34,7 +36,8 @@ function EditProfile(props) {
       .then((newUserUpdate) => {
         // console.log('new new user update!', newUserUpdate)
         //Redirect to all-posts page
-        alert("Profile Saved");
+       redirectRef.current.click()
+
       })
       .catch(console.error);
 
@@ -96,6 +99,9 @@ function EditProfile(props) {
                     <button type="submit" className="submit-button-edit">
                         Submit
                     </button>
+                    <Link to={`/profile/${user._id}`}>
+                    <p style={{display: 'none'}} ref={redirectRef}></p>
+                    </Link>
                   </form>
               </div>
           </div>

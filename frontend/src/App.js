@@ -114,13 +114,14 @@ function App() {
         <div></div>
         <div></div>
       </div>
-      {/* <Notification/> */}
+      <Notification/>
       <Switch>
         <Route exact path="/" render={(props) => <Home {...props} />} />
         <Route exact path="/all-posts" render={(props) => <AllPosts {...props} />} />
         <Route exact path="/add-posts" render={(props) => <AddPost {...props} />} />
         <Route exact path="/auth" render={(props) => <Auth setUser={setUser} {...props} />} />
         <Route exact path="/profile/:id" render={(props) => <Profile user={user} {...props} />} />
+        <Route exact path="/profile" render={(props) => <Profile user={user} {...props} />} />
         <Route exact path="/recordingBooth" render={(props) => <TestAudio {...props} />} />
         <Route exact path="/comments" render={(props) => <Comments {...props} />} />
         <Route exact path="/likes" render={(props) => <Likes {...props} />} />
