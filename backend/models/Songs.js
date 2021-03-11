@@ -11,7 +11,8 @@ const Songs = model('Songs', new Schema({
     songLyricsAudio: String,
     songBG: String,
     songCaption: String,
-    songName: String
+    songName: String,
+    songComments: [{ type: Schema.Types.ObjectId, ref: 'Comments' }]
     
 }))
 

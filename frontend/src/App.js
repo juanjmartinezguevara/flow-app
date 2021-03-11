@@ -114,7 +114,7 @@ function App() {
         <div></div>
         <div></div>
       </div>
-      {/* <Notification/> */}
+      <Notification/>
       <Switch>
         <Route exact path="/" render={(props) => <Home {...props} />} />
         <Route exact path="/all-posts" render={(props) => <AllPosts {...props} />} />

@@ -1,9 +1,9 @@
 import React, {useRef,useState,useEffect} from 'react';
-
+import check from '../images/checkMark.jpeg'
 //
 
 function Notification(props) {
-    const [content,setContent] = useState('test')
+    const [content,setContent] = useState()
     const popUp=useRef()
 
     const notiFollow=()=>{
@@ -43,14 +43,15 @@ function Notification(props) {
 
     return (
         <div>
-        <div ref={popUp} className='notification'>
-            {content}
+        <div ref={popUp} style={{backgroundImage: `url(${check})`,
+                                 backgroundSize: 'contain',
+                                 backgroundRepeat: 'no-repeat'}} className='notification'>
         </div>
-        <button onClick={notiUnfollow}>Unfollow</button>
-        <button onClick={notiFollow}>Follow</button>
-        <button onClick={notiLike}>Like</button>
-        <button onClick={notiUnlike}>Unlike</button>
-        <button onClick={notify}>notify</button>
+        <button style={{display: 'none'}} id='unfollowN' onClick={notiUnfollow}>Unfollow</button>
+        <button style={{display: 'none'}} id='followN' onClick={notiFollow}>Follow</button>
+        <button style={{display: 'none'}} id='likeN' onClick={notiLike}>Like</button>
+        <button style={{display: 'none'}} id='unlikeN' onClick={notiUnlike}>Unlike</button>
+        <button style={{display: 'none'}} id='notify' onClick={notify}>notify</button>
         </div>
     );
 }

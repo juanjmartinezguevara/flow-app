@@ -127,10 +127,13 @@ html, body, #root {
 }
 @keyframes notify{
   0% {width:0vw;
+      height:0vh;
       margin-left: 100vw;}
-  50% {width:25vw;
-      margin-left:75vw}
+  50% {width:17vw;
+      height:8vh;
+      margin-left:83vw}
   100%{width:0vw;
+      height:0vh;
       margin-left: 100vw;}
 }
 @keyframes hideNotify{
@@ -141,8 +144,8 @@ html, body, #root {
   z-index: 200;
   position:absolute;
   margin-left:100vw;
-  margin-top:10vh;
-  height:10vh;
+  margin-top:0vh;
+  height:0vh;
   width:0vw;
   background-color: white;
   border-radius: 20px;
