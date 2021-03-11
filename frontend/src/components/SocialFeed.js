@@ -38,7 +38,7 @@ function SocialFeed(props) {
   const opacitySearchRef3 = useRef();
 
   const popUpComments = () => {
-    console.log(SONG)
+   
     if (poppedUp == false) {
       
       opacityRef1.current.style.opacity = 1;
@@ -119,16 +119,7 @@ function SocialFeed(props) {
 //     .catch(console.error)
 // }, [userUser]);
 
-const getUserName=(id)=>{
-  
-  actions
-  .getAUser(id)
-  .then((name)=>{
-   console.log( `@${name.data.userName}`)
-  })
-  .catch(console.error)
-  
-}
+
 
 //NIKO
 
@@ -138,11 +129,14 @@ function DisplaySong(eachSong) {
   });
   if(inView){
     // eachSong.setActiveSong(eachSong)
+    console.log(eachSong.i)
+    
+    
     SONG=eachSong
   }else{
 
   }
-  console.log("scrolling", inView, eachSong);
+  
   return (
     <li ref={ref}
           className="video-pane"
@@ -311,7 +305,53 @@ function DisplaySong(eachSong) {
     );
   };
 
-  
+  //prevent default
+
+  const handleSubmit =(e)=>{
+
+    e.preventDefault()
+    actions.addComment({comment,SONG})
+   
+  }
+
+
+  const [writer,setWriter]=useState()
+
+  const getCommentWriter=(num)=>{
+    actions
+    .getAUser({id: num})
+    .then((res)=>{
+      setWriter( `@${res.data.userName}`)
+      
+    }).catch((e)=>{
+      console.log('failed to get name')
+    })
+  }
+
+  const renderEachComment = ()=>{
+
+    console.log(SONG)
+    if(!SONG.songComments){
+
+    }else{
+
+    return SONG.songComments.map((each)=>{
+      getCommentWriter(each.commUser)
+      return (
+        <div className="comment-list">
+      <div className="comment-list-inner">
+      <p className="comment-username">
+          {writer}
+      </p>
+      <p className="comment-text">
+        {each.comment}
+      </p>
+    </div>
+    </div>
+    )
+  })
+}
+}
 
   const displayComments=()=>{
     return(
@@ -321,13 +361,14 @@ function DisplaySong(eachSong) {
         <div ref={opacityRef1} style={{opacity: '0'}} className="com-cont-1">
           <div className="input-container">
             <div className="input-inset">
-              <form className="social-comment-form" onSubmit={()=>{actions.addComment({comment, SONG})}}>
+              <form className="social-comment-form" onSubmit={handleSubmit}>
                 <input
                     className="social-comment-input" 
                     type='text' 
                     onChange={(e)=>setComment(e.target.value)}
                     placeholder='Drop yo comment' 
                     ></input>
+                  <button></button>
               </form>
             </div>
           </div>
@@ -336,21 +377,11 @@ function DisplaySong(eachSong) {
         <div ref={opacityRef2} style={{opacity: '0'}} className="com-cont-2">
           <div className="comments-container">
             <div className="comment-list-container">
-              <div className="comment-list">
+              
 
-                <div className="comment-list-inner">
-                  <p className="comment-username">
-                      @username
-                  </p>
-                  <p className="comment-date">
-                    12m
-                  </p>
-                  <p className="comment-text">
-                    {SONG._id,SONG.i,SONG.songName}
-                  </p>
-                </div>
+               {renderEachComment()}
 
-              </div>
+             
             </div>
           </div>
         </div>
@@ -375,7 +406,14 @@ function DisplaySong(eachSong) {
   //     .catch(console.error);
   // }, [page]);
 
-
+ const handlePlayPause=()=>{
+   if(document.querySelector('audio').paused){
+  document.querySelector('audio').play()
+   }else
+   {document.querySelector('audio').pause()
+  }
+  console.log(SONG)
+ }
  
 
   return (
@@ -396,7 +434,7 @@ function DisplaySong(eachSong) {
               <div className="user-profile-image">
                 <div className="user-profile-inset social-p">
                   <div className="nav-buttons-inset inset-social-p">
-                    <img className="button-icons bi-play" src={play}></img>
+                    <img className="button-icons bi-play" src={play} onClick={handlePlayPause}></img>
                   </div>
                 </div>
               </div>
@@ -408,6 +446,7 @@ function DisplaySong(eachSong) {
       {displayComments()}
       {displaySearch()}
       {showNavBar()}
+      <audio src={SONG.songURL}></audio>
       </div>
     );
   };
