@@ -91,29 +91,14 @@ function SocialFeed(props) {
 
   const [userForSong, setUserForSong] = useState({})
 
-<<<<<<< HEAD
 // const getSongUsers = (theUserId) => {
 //     console.log('HEY HEY HEY HEY HEY HEY', theUserId )
-=======
-  // const getSongUsers = (theUserId) => {
-  //     console.log('HEY HEY HEY HEY HEY HEY', theUserId )
-  //     actions
-  //     .getAUser(theUserId)
-  //     .then((useUser) => {
-  //         setUserForSong(useUser.data)
-  //     })
-  //     .catch(console.error)
-  // }
-  
-//   useEffect(() => {
->>>>>>> b1bae4786d8ee76ab69feae36379dd0972e9ed5a
 //     actions
 //     .getAUser(theUserId)
 //     .then((useUser) => {
 //         setUserForSong(useUser.data)
 //     })
 //     .catch(console.error)
-<<<<<<< HEAD
 // }
 
 // useEffect(() => {
@@ -129,14 +114,6 @@ function SocialFeed(props) {
     return thisFeedSongs.map((eachSong) => {
         // setUserUser(eachSong)
         // console.log(userForSong)
-=======
-// }, []);
-
-  const showSongs = () => {
-    return thisFeedSongs.map((eachSong) => {
-        //getSongUsers(eachSong)
-        console.log(userForSong)
->>>>>>> b1bae4786d8ee76ab69feae36379dd0972e9ed5a
       return (
         <li
           className="video-pane"
@@ -144,26 +121,7 @@ function SocialFeed(props) {
             backgroundImage: `url('${gradientbg}'), url('https://media.giphy.com/media/l3b01SFaxG0V0GqV6N/source.gif')`,
           }}
         >
-<<<<<<< HEAD
-          <div ref={trackInfo} className="video-details-container">
-            <div className="transparent-test">
-              <div className="user-details-container">
-                <div className="user-details-inset">
-                  
-                </div>
-              </div>
-              <div className="user-profile-image">
-                <div className="user-profile-inset social-p">
-                  <div className="nav-buttons-inset inset-social-p">
-                    <img className="button-icons bi-play" src={play} href='{eachSong.songURL}'></img>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-=======
         
->>>>>>> b1bae4786d8ee76ab69feae36379dd0972e9ed5a
           <div className="text-container">
                     <h5 className="ud-text udt-1">
                       <span style={{ color: "#ec6aa0" }}>
