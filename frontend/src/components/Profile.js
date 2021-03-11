@@ -193,7 +193,13 @@ function Profile(props) {
         <div className="nav-buttons-rim">
           <div className="nav-buttons-outset">
             <div className="nav-buttons-inset">
-              <img className="button-icons bi-record" src={mic}></img>
+
+            { userViewed._id ? (<Link to="/recordingBooth">
+                                        <img className="button-icons bi-record" src={mic}></img>
+                                    </Link>) : (<Link to="/auth">
+                                        <img className="button-icons bi-record" src={mic}></img>
+                                    </Link>) }
+              {/* <img className="button-icons bi-record" src={mic}></img> */}
             </div>
           </div>
         </div>
@@ -209,7 +215,12 @@ function Profile(props) {
         <div className="nav-buttons-rim">
           <div className="nav-buttons-outset">
             <div className="nav-buttons-inset">
-              <img className="button-icons" src={social}></img>
+            { user._id ? (<Link to="/social-feed">
+                                        <img className="button-icons" src={social}></img>
+                                    </Link>) : (<Link to="/auth">
+                                        <img className="button-icons" src={social}></img>
+                                    </Link>)}
+              {/* <img className="button-icons" src={social}></img> */}
             </div>
           </div>
         </div>
@@ -217,6 +228,7 @@ function Profile(props) {
         <div className="nav-buttons-rim">
           <div className="nav-buttons-outset">
             <div className="nav-buttons-inset">
+            
               <img className="button-icons" src={avatar3}></img>
             </div>
           </div>

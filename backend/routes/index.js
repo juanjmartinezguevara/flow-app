@@ -38,11 +38,12 @@ router.get(`/getOneUserRT`, verifyToken, async (req, res, next) => {
         .catch((err) => res.status(500).json(err));
     }
   });
+
 });
 
 router.post(`/getAUserRT`, async (req, res, next) => {
   //GETTING A PARTICULAR USER
-  console.log('hey hey hey hey hey ', req.body.songUser)
+  console.log('FROM THE BACK >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> ', req.body._id)
       await User.findById(req.body.songUser)
         .then((user) => {
           res.status(200).json(user);
@@ -61,9 +62,17 @@ router.post('/getManyUsersRT', async (req,res,next)=> {
     
   })
 
+  router.post(`/getCommentsRT`, async (req, res, next) => {
+
+    Comments.find({ CommSong: req.body._id})
+    .then((songs) => {
+        res.status(200).json(songs);
+    })
+    .catch((err) => res.status(500).json(err))
+})
 
 router.post(`/getUserSongsRT`, async (req, res, next) => {
-  console.log('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>getUserSongs req.body', req.body)
+
     Songs.find({ songUser: req.body._id})
     .then((songs) => {
         res.status(200).json(songs);
@@ -120,7 +129,7 @@ router.get(`/getUserLikedSongsRT`, verifyToken, async (req, res, next) => {
       res.status(403).json(err);
     } else {
       let songLikes = await Likes.find({ likeUser: authData.user._id })
-      console.log('these are the likes from the DB that this user liked', songLikes )
+
       res.status(200).json(songLikes)
     }
   })
@@ -131,7 +140,7 @@ router.post(`/getMostLikedSongsRT`, (req, res, next) => {
   Songs.find({})
   .then(songs => {
     res.status(200).json(songs)
-    console.log(songs)
+
   })
   .catch(err => res.status(500).json(err))
 
@@ -148,8 +157,7 @@ router.post(`/addSongRT`, verifyToken, async (req, res, next) => {
     if (err) {
       res.status(403).json(err);
     } else {
-      // console.log('body variable from the backend', body)
-      console.log('req data from backend', req.body)
+
       let song = {
         songURL: req.body.songURL,
         songUser: req.body.songUser,
@@ -163,13 +171,12 @@ router.post(`/addSongRT`, verifyToken, async (req, res, next) => {
         songCaption: req.body.songCaption,
         songBeatTrack: req.body.songBeatTrack,
       };
-      // console.log('song variable from backend', song)
+
      
       Songs.create(song)
         .then((theSong) => {
           
           res.status(200).json(theSong);
-          console.log('pineapple',theSong)
         })
         .catch((err) => res.status(500).json(err));
     }
@@ -254,7 +261,7 @@ router.post(`/logMeIn`, async (req, res, next) => {
     error_description,
   } = googleResponse.data;
   if (!email || error_description) {
-    // console.log('email', email, 'err', error_description)
+
     res.status(400).json({ msg: error_description });
   } else if (!email_verified) {
     res.status(401).json({ msg: "Email not verified with google" });
@@ -309,12 +316,12 @@ aws.config.update({
 });
 
 const S3_BUCKET = process.env.Bucket;
-console.log(process.env);
+
 // Now lets export this function so we can call it from somewhere else
 // exports.sign_s3 = (req,res) => {
 router.post("/sign_s3", verifyToken, (req, res) => {
   let incoming= req.body
-  console.log(incoming,'THhhhhhhhhhhhhhhhere!!!')
+
   jwt.verify(req.token, "secretkey", async (err, authData) => {
     if (err) {
       res.status(403).json(err);
@@ -344,9 +351,7 @@ router.post("/sign_s3", verifyToken, (req, res) => {
           signedRequest: data,
           url: `https://${S3_BUCKET}.s3.amazonaws.com/${fileName}`,
         };
-        console.log("AWS FILE SAVE RESULTS>>>>>>>>>", returnData);
-        console.log(authData.user);
-        console.log("pancakes", req.body, kind);
+
 
         if (kind == "song") {
           // Songs.create(  PASS IN DATA  )

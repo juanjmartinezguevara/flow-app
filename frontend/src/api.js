@@ -34,20 +34,16 @@ const actions = {
   },
 
   getUserSongs: async (theUser) => {
-      console.log('from api theuser', theUser._id)
     return await axios.post(`${baseURL}/getUserSongsRT`, theUser, resetHead());
   },
   //search bar bobby
   getManyUsers: async (searchStr)=> {
-    
     return await axios.post(`${baseURL}/getManyUsersRT`, searchStr, resetHead());
   },
 
   getSong: async () => {
     return await axios.get(`${baseURL}/getSongRT`, resetHead());
   },
-
-
 
   getUserLikedSongs: async () => {
     return await axios.get(`${baseURL}/getUserLikedSongsRT`, resetHead());
@@ -62,12 +58,11 @@ const actions = {
   },
 
   addFollow: async (followDat) => {
-    console.log('from API Follow user', followDat)
     return await axios.post(`${baseURL}/addFollowRT`, followDat, resetHead())
   },
 
   addSong: async (song) => {
-      console.log('song variable from api.js', song)
+
     return await axios.post(`${baseURL}/addSongRT`, song, resetHead());
   },
 
@@ -84,12 +79,11 @@ const actions = {
   },
 
   getAUser: async (userid) => {
-    console.log('HEY HEY EY HEY HEY from the API', userid)
+    console.log('HEY HEY EY HEY HEY from the getAUser  API', userid)
     return await axios.post(`${baseURL}/getAUserRT`, userid, resetHead());
   },
 
   addUserProf: async (person) => {
-    console.log("hello from the action");
     return await axios.post(`${baseURL}/addUserProfRT`, person, resetHead());
   },
 
@@ -101,8 +95,8 @@ const actions = {
     return await axios.get(`${baseURL}/getUsersFollowedRT`, resetHead());
   },
 
-  getComments: async () => {
-    return await axios.get(`${baseURL}/getCommentsRT`, resetHead());
+  getComments: async (dat) => {
+    return await axios.post(`${baseURL}/getCommentsRT`, dat, resetHead());
   },
 
   addComment: async () => {

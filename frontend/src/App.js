@@ -121,6 +121,7 @@ function App() {
         <Route exact path="/add-posts" render={(props) => <AddPost {...props} />} />
         <Route exact path="/auth" render={(props) => <Auth setUser={setUser} {...props} />} />
         <Route exact path="/profile/:id" render={(props) => <Profile user={user} {...props} />} />
+        <Route exact path="/profile" render={(props) => <Profile user={user} {...props} />} />
         <Route exact path="/recordingBooth" render={(props) => <TestAudio {...props} />} />
         <Route exact path="/comments" render={(props) => <Comments {...props} />} />
         <Route exact path="/likes" render={(props) => <Likes {...props} />} />
