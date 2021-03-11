@@ -1,8 +1,8 @@
 import axios from "axios";
 
 
-// const baseURL = `http://localhost:5000/api`;
-const baseURL = 'https://iron-flow.netlify.app/api'
+const baseURL = `http://localhost:5000/api`;
+// const baseURL = 'https://iron-flow.netlify.app/api'
 const token = localStorage.getItem("token");
 
 const API = axios.create({
@@ -17,6 +17,7 @@ let resetHead = () => {
     },
   };
 };
+
 
 const actions = {
   getUser: async () => {
