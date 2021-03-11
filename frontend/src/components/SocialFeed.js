@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef,useMemo } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import gradientbg from "../images/gradient-bg-2.png";
@@ -14,6 +14,9 @@ import search from '../images/search.svg'
 import heart2 from "../images/heart2.svg";
 import explore from "../images/explore.svg";
 import Search from "../components/Search";
+import { useInView } from "react-intersection-observer";
+
+let SONG={}
 
 function SocialFeed(props) {
   const { user, setUser, userViewed, setUserViewed } = React.useContext(
@@ -35,6 +38,7 @@ function SocialFeed(props) {
   const opacitySearchRef3 = useRef();
 
   const popUpComments = () => {
+    console.log(SONG)
     if (poppedUp == false) {
       
       opacityRef1.current.style.opacity = 1;
@@ -83,6 +87,7 @@ function SocialFeed(props) {
     actions
       .getUserSongs(user)
       .then((usersSongs) => {
+      
         setThisFeedSongs(usersSongs.data);
       })
       .catch(console.error);
@@ -92,6 +97,9 @@ function SocialFeed(props) {
 
   const [userForSong, setUserForSong] = useState({})
 
+  const [activeSong,setActiveSong]=useState({})
+
+  
 // const getSongUsers = (theUserId) => {
 //     console.log('HEY HEY HEY HEY HEY HEY', theUserId )
 //     actions
@@ -111,22 +119,43 @@ function SocialFeed(props) {
 //     .catch(console.error)
 // }, [userUser]);
 
-  const showSongs = () => {
-    return thisFeedSongs.map((eachSong) => {
-        // setUserUser(eachSong)
-        // console.log(userForSong)
-      return (
-        <li
+const getUserName=(id)=>{
+  
+  actions
+  .getAUser(id)
+  .then((name)=>{
+   console.log( `@${name.data.userName}`)
+  })
+  .catch(console.error)
+  
+}
+
+//NIKO
+
+function DisplaySong(eachSong) {
+  const [ref, inView] = useInView({
+    threshold: 0.5
+  });
+  if(inView){
+    // eachSong.setActiveSong(eachSong)
+    SONG=eachSong
+  }else{
+
+  }
+  console.log("scrolling", inView, eachSong);
+  return (
+    <li ref={ref}
           className="video-pane"
           style={{
-            backgroundImage: `url('${gradientbg}'), url('https://media.giphy.com/media/l3b01SFaxG0V0GqV6N/source.gif')`,
+            backgroundImage: `url('${gradientbg}'), url(https://avatars.dicebear.com/4.5/api/avataaars/${eachSong.i}.svg)`,
           }}
         >
         
           <div className="text-container">
             <h5 className="ud-text udt-1">
               <span style={{ color: "#ec6aa0" }}>
-                @Usernamesernamese
+                {eachSong.songUser.userName}
+                
               </span>{" "}
             </h5>
             <h6 className="ud-text udt-2">
@@ -135,6 +164,17 @@ function SocialFeed(props) {
             <h6 className="ud-text udt-3">{eachSong.caption ? (<p>{eachSong.caption}</p>) : (<p>NO CAPTION FOR THIS FLOW</p>) }</h6>
           </div>
         </li>
+  );
+}
+  
+
+  const showSongs = () => {
+    return thisFeedSongs.map((eachSong,i) => {
+        // setUserUser(eachSong)
+        // console.log(userForSong)
+      return (
+          <DisplaySong i={i}{...eachSong} />
+          
       );
     });
   };
@@ -154,6 +194,19 @@ function SocialFeed(props) {
     console.log("GET SOCIAL FEED SONGS FUNCTION");
   };
 
+  const followUser = () => {
+    console.log(user, userViewed);
+    document.getElementById('followN').click()
+    const followData = { user1: user.id, user2: userViewed.id };
+    console.log("profile follow user function ", followData);
+    actions
+      .addFollow(followData)
+      .then((somethingreturnedfromapi) => {
+     
+      document.getElementById('notify').click()
+      })
+      .catch(console.error);
+  };
 
   const showNavBar = () => {
     return (
@@ -168,7 +221,7 @@ function SocialFeed(props) {
               </div>
             </div>
             <div className="like-comment-container">
-              <div className="individual-btn">
+              <div className="individual-btn" onClick={followUser}>
                 <img className="social-icons follow" src={follow}></img>
               </div>
               <div className="individual-btn" onClick={popUpSearch}>
@@ -258,6 +311,7 @@ function SocialFeed(props) {
     );
   };
 
+  
 
   const displayComments=()=>{
     return(
@@ -267,11 +321,11 @@ function SocialFeed(props) {
         <div ref={opacityRef1} style={{opacity: '0'}} className="com-cont-1">
           <div className="input-container">
             <div className="input-inset">
-              <form className="social-comment-form">
+              <form className="social-comment-form" onSubmit={()=>{actions.addComment({comment, SONG})}}>
                 <input
                     className="social-comment-input" 
                     type='text' 
-                    value='' 
+                    onChange={(e)=>setComment(e.target.value)}
                     placeholder='Drop yo comment' 
                     ></input>
               </form>
@@ -292,9 +346,7 @@ function SocialFeed(props) {
                     12m
                   </p>
                   <p className="comment-text">
-                    Lorem Ipsum is simply dummy text of the printing and typesetting industry. 
-                    Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, 
-                    when an unknown printer took a galley of type and scrambled it to make a type specimen book.
+                    {SONG._id,SONG.i,SONG.songName}
                   </p>
                 </div>
 
@@ -330,43 +382,7 @@ function SocialFeed(props) {
     <div className="SocialFeed">
       <div ref={windowRef} className="social-panel">
         <ul className="video-scroll-container">
-          {showSongs()}
-          {/* <li className="video-pane" style={{backgroundImage: `url('${gradientbg}'), url('https://media.giphy.com/media/l3b01SFaxG0V0GqV6N/source.gif')`}}>
-                        <div ref={trackInfo} className="video-details-container">
-                            <div className="transparent-test">
-                                <div className="user-details-container">
-                                    <div className="user-details-inset">
-
-                                    </div>
-                                </div>
-                                <div className="user-profile-image">
-                                    <div className="user-profile-inset social-p">
-                                       <div className="nav-buttons-inset inset-social-p">
-                                         <img className="button-icons bi-play" src={play}></img>
-                                     </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </li> */}
-          {/* <li className="video-pane" style={{backgroundImage: `url('${gradientbg}'), url('https://media.giphy.com/media/RLQaZ8LeuqrTx0Eeat/source.gif')`}}>
-
-                    </li>
-                    <li className="video-pane" style={{backgroundImage: `url('${gradientbg}'), url('https://media.giphy.com/media/s2fB8Mv2UYBPLC041d/source.gif')`}}>
-
-                    </li>
-                    <li className="video-pane" style={{backgroundImage: `url('${gradientbg}'), url('https://media.giphy.com/media/2xDcfbqistol0Ox63h/source.gif')`}}>
-
-                    </li>
-                    <li className="video-pane" style={{backgroundImage: `url('${gradientbg}'), url('https://media.giphy.com/media/13hSJauZ5CUJ0c/source.gif')`}}>
-
-                    </li>
-                    <li className="video-pane" style={{backgroundImage: `url('${gradientbg}'), url('https://media.giphy.com/media/3o7btZxS1IFtwrgfQY/source.gif`}}>
-
-                    </li>
-                    <li className="video-pane" style={{backgroundImage: `url('${gradientbg}'), url('https://media.giphy.com/media/t7QSxX3Ebs2OE9cOfG/source.gif')`}}>
-
-                    </li> */}
+          {showSongs()}      
           <div className="video-details-container">
 
             <div className="transparent-test">

@@ -42,8 +42,8 @@ router.get(`/getOneUserRT`, verifyToken, async (req, res, next) => {
 
 router.post(`/getAUserRT`, async (req, res, next) => {
   //GETTING A PARTICULAR USER
-  console.log('hey hey hey hey hey ', req.body.songUser)
-      await User.findById(req.body.songUser)
+  console.log('hey hey hey hey hey ', req.body.id)
+      await User.findById(req.body.id)
         .then((user) => {
           res.status(200).json(user);
         })
@@ -65,6 +65,8 @@ router.post('/getManyUsersRT', async (req,res,next)=> {
 router.post(`/getUserSongsRT`, async (req, res, next) => {
   console.log('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>getUserSongs req.body', req.body)
     Songs.find({ songUser: req.body._id})
+    .populate('songUser')
+    .populate('songComments')
     .then((songs) => {
         res.status(200).json(songs);
     })
@@ -82,6 +84,27 @@ router.post(`/addFollowRT`, verifyToken, async (req, res, next) => {
           res.status(200).json(foll);
         })
         .catch((err) => res.status(500).json(err));
+    }
+  });
+});
+
+router.post(`/addCommentRT`, verifyToken, async (req, res, next) => {
+  jwt.verify(req.token, "secretkey", async (err, authData) => {
+    if (err) {
+      res.status(403).json(err);
+    } else {
+      console.log('Bodied',req.body)
+      let body = req.body;
+      body.commUser = authData.user._id;
+      console.log(1)
+      let comment = await Comments.create(body);
+      console.log(comment)
+      console.log(2)
+      let s = await Songs.findByIdAndUpdate(req.body.SONG._id,{$push:{songComments:comment._id}})
+      console.log(s)
+      console.log(3)
+
+      res.status(200).json(comment);
     }
   });
 });
