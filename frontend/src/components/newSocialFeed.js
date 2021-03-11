@@ -54,7 +54,6 @@ function SocialFeed(props) {
     const [thisFeedSongs, setThisFeedSongs] = useState([]);
     let [page, setPage] = useState(1);
 
-
     //TEMPORARY CODE TO SHOW ALL SONGS JUST TO GET SOME LIKES ADDED
     useEffect(() => {
         actions
