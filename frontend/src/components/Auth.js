@@ -41,15 +41,11 @@ const Auth = (props) => {
                                     <h1>FLOW</h1>
                                 </div>
                                 <div className="user-input-container">
-                                    <div className="user-input">
-                                        <form>
-                                            <input className="user-text" type="text" placeholder="Username"></input>
-                                        </form>
+                                    <div className="user-input ui-login-i">
+                                        <input className="user-text ui-login-t" type="text" placeholder="Username"></input>
                                     </div>
-                                    <div className="user-input">
-                                        <form>
-                                            <input className="user-text" type="text" placeholder="Password"></input>
-                                        </form>
+                                    <div className="user-input ui-login-i">
+                                        <input className="user-text ui-login-t" type="text" placeholder="Password"></input>
                                     </div>
                                     <Link to ="/" className="login-link">
                                         <div className="login-button">

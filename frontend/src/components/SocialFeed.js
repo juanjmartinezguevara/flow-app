@@ -270,8 +270,7 @@ function SocialFeed(props) {
               <form className="social-comment-form">
                 <input
                     className="social-comment-input" 
-                    type='text' 
-                    value='' 
+                    type='text'
                     placeholder='Drop yo comment' 
                     ></input>
               </form>
@@ -368,7 +367,6 @@ function SocialFeed(props) {
 
                     </li> */}
           <div className="video-details-container">
-
             <div className="transparent-test">
 
               <div className="user-details-container">

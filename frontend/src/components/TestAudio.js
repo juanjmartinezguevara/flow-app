@@ -236,8 +236,8 @@ function TestAudio(props) {
     setLyricsArr(lyricsArr);
     setKeyCounter(keyCounter + 1);
     return (
-      <p key={keyCounter} style={{ color: "white" }}>
-        {lastLine}
+      <p className="transcript-line-1" key={keyCounter}>
+        {lastLine}.
       </p>
     );
   };
@@ -381,11 +381,20 @@ function TestAudio(props) {
         Help
       </button>
       {/* --- MODAL BUTTON ENDS HERE --- */}
-      <div className="scroll-rhymes-container" id="currentTranscript">
-        {line}
-        <p style={{ color: "rgb(0 255 220)" }}>{transcript}</p>
+      <div className="scroll-rhymes-outer">
+        <div className="scroll-rhymes-container" id="currentTranscript">
+          {line}
+          {/* <p className="transcript-line-2">{transcript}</p> */}
+        </div>
+        <div className="scroll-rhymes-line">
+          <p className="transcript-line-2">
+          for his conduct at award shows, on social media, and in other 
+          public settings, as well as for his comments on the music and 
+          fashion industries, U.S. politics, and race. In 2020, he ran an u
+          e content company DONDA."
+            {transcript}</p>
+        </div>
       </div>
-
       {/* --- MODAL CODE BEGINS HERE --- */}
       <div
         className="modal"
@@ -443,14 +452,14 @@ function TestAudio(props) {
                 id="suggestion"
                 onClick={lockSuggestion}
               >
-                <p style={{ color: "rgb(255 63 143)" }}>{rhymes}</p>
+                <p className="transcript-line-3">{rhymes}</p>
               </div>
             </div>
           </div>
           <div className="suggestions sug-2">
             <div className="custom-rhyme">
               <div className="custom-rhyme-inner" id="lockedRhyme">
-                <p style={{ color: "rgb(94 202 253)" }}>{lock}</p>
+                <p className="transcript-line-4">{lock}</p>
               </div>
             </div>
           </div>
