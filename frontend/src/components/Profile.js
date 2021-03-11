@@ -98,10 +98,13 @@ function Profile(props) {
   return (
     <div className="Profile">
       <header className="profile-header">
+
         <div className="upper-filler">
           <div className="inner-filler"></div>
         </div>
+
         <div className="username-pic-container">
+
           <div className="username-pic-outset">
             <div className="profile-pic-container">
               <div className="profile-pic-outset">
@@ -110,6 +113,7 @@ function Profile(props) {
                 </div>
               </div>
             </div>
+
             <div className="username-container">
               <div className="username-outset">
                 <div className="username-inset">
@@ -119,26 +123,34 @@ function Profile(props) {
             </div>
           </div>
         </div>
+
         <div className="header-bio">
+
           <div className="users-details-container">
             <div className="users-details-outset">
               <div className="users-details-inset">
+
                 <div className="users-details-each ude-1">
                   <p><span style={{color: 'white', fontWeight: 'bold'}}>About: </span>{thisUser.userAbout}</p>
                 </div>
+
                 <div className="users-details-each ude-2">
                   <p><span style={{color: 'white', fontWeight: 'bold'}}>Instagram: </span> {thisUser.Instagram}</p>
                 </div>
+
                 <div className="users-details-each ude-3">
                   <p><span style={{color: 'white', fontWeight: 'bold'}}>Twitter: </span> {thisUser.userTwitter}</p>
                 </div>
+
                 <div className="users-details-each ude-4">
                   <p><span style={{color: 'white', fontWeight: 'bold'}}>SoundCloud: </span> {thisUser.userSoundCloud}</p>
                 </div>
               </div>
             </div>
           </div>
+
           <div className="edit-logout-container">
+            
             <div className="edit-profile-container">
               <div className="edit-profile-outset">
                 <div className="edit-profile-inset">
@@ -150,6 +162,7 @@ function Profile(props) {
                 </div>
               </div>
             </div>
+
             <div className="log-profile-container">
               <div className="log-profile-outset">
                 <div className="log-profile-inset">
@@ -159,12 +172,9 @@ function Profile(props) {
                 </div>
               </div>
             </div>
-            {/* <Link to="/editProfile">
-              <button>Edit profile</button>
-            </Link> */}
-            {/* <button onClick={logout}>Logout</button> */}
           </div>
         </div>
+
       </header>
 
       <div className="profile-post-feed">

@@ -124,16 +124,16 @@ function SocialFeed(props) {
         >
         
           <div className="text-container">
-                    <h5 className="ud-text udt-1">
-                      <span style={{ color: "#ec6aa0" }}>
-                        @Usernamesernamese
-                      </span>{" "}
-                    </h5>
-                    <h6 className="ud-text udt-2">
-                    {eachSong.songName}
-                    </h6>
-                    <h6 className="ud-text udt-3">{eachSong.caption ? (<p>{eachSong.caption}</p>) : (<p>NO CAPTION FOR THIS FLOW</p>) }</h6>
-                  </div>
+            <h5 className="ud-text udt-1">
+              <span style={{ color: "#ec6aa0" }}>
+                @Usernamesernamese
+              </span>{" "}
+            </h5>
+            <h6 className="ud-text udt-2">
+            {eachSong.songName}
+            </h6>
+            <h6 className="ud-text udt-3">{eachSong.caption ? (<p>{eachSong.caption}</p>) : (<p>NO CAPTION FOR THIS FLOW</p>) }</h6>
+          </div>
         </li>
       );
     });
@@ -244,7 +244,9 @@ function SocialFeed(props) {
   const displaySearch = () => {
     return (
       <div ref={popUpSearchRef} className="comment-pop-out">
+
           <Search />
+
         <div
             ref={opacitySearchRef3}
             style={{ opacity: "0" }}
@@ -258,51 +260,55 @@ function SocialFeed(props) {
 
 
   const displayComments=()=>{
-    return(<div ref={popUpRef} className="comment-pop-out">
-    <div className="inner-com">
+    return(
+    <div ref={popUpRef} className="comment-pop-out">
+      <div className="inner-com">
+
         <div ref={opacityRef1} style={{opacity: '0'}} className="com-cont-1">
-            <div className="input-container">
-                <div className="input-inset">
-                    <form className="social-comment-form">
-                        <input
-                            className="social-comment-input" 
-                            type='text' 
-                            value='' 
-                            placeholder='Drop yo comment' 
-                            ></input>
-                    </form>
-                </div>
+          <div className="input-container">
+            <div className="input-inset">
+              <form className="social-comment-form">
+                <input
+                    className="social-comment-input" 
+                    type='text' 
+                    value='' 
+                    placeholder='Drop yo comment' 
+                    ></input>
+              </form>
             </div>
+          </div>
         </div>
 
-    <div ref={opacityRef2} style={{opacity: '0'}} className="com-cont-2">
-        <div className="comments-container">
+        <div ref={opacityRef2} style={{opacity: '0'}} className="com-cont-2">
+          <div className="comments-container">
             <div className="comment-list-container">
+              <div className="comment-list">
 
-                <div className="comment-list">
-                    <div className="comment-list-inner">
-                        <p className="comment-username">
-                            @username
-                        </p>
-                        <p className="comment-date">12m</p>
-                        <p className="comment-text">
-                        Lorem Ipsum is simply dummy text of the printing and typesetting industry. 
-                        Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, 
-                        when an unknown printer took a galley of type and scrambled it to make a type specimen book.
-                        </p>
-                    </div>
+                <div className="comment-list-inner">
+                  <p className="comment-username">
+                      @username
+                  </p>
+                  <p className="comment-date">
+                    12m
+                  </p>
+                  <p className="comment-text">
+                    Lorem Ipsum is simply dummy text of the printing and typesetting industry. 
+                    Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, 
+                    when an unknown printer took a galley of type and scrambled it to make a type specimen book.
+                  </p>
                 </div>
 
+              </div>
             </div>
+          </div>
         </div>
-    </div>
-</div>
-
-<div ref={opacityRef3} style={{ opacity: "0" }} className="bottom-bar">
-          <div className="inner-bar"></div>
-        </div>
+        
       </div>
 
+      <div ref={opacityRef3} style={{ opacity: "0" }} className="bottom-bar">
+        <div className="inner-bar"></div>
+      </div>
+    </div>
       )
     }
   
@@ -362,12 +368,15 @@ function SocialFeed(props) {
 
                     </li> */}
           <div className="video-details-container">
+
             <div className="transparent-test">
+
               <div className="user-details-container">
                 <div className="user-details-inset">
-                  
+            
                 </div>
               </div>
+
               <div className="user-profile-image">
                 <div className="user-profile-inset social-p">
                   <div className="nav-buttons-inset inset-social-p">
@@ -375,6 +384,7 @@ function SocialFeed(props) {
                   </div>
                 </div>
               </div>
+
             </div>
           </div>
         </ul>
@@ -385,7 +395,5 @@ function SocialFeed(props) {
       </div>
     );
   };
-
-  
 
 export default SocialFeed;

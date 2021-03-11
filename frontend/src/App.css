@@ -577,9 +577,12 @@ footer {
   animation: floatText 5s linear infinite
 }
 .udt-2 {
+  color: white;
   animation: floatText 5s linear infinite
 }
 .udt-3 {
+  color: white;
+  font-size: 12px;
   animation: floatText 5s linear infinite
 }
 @keyframes floatText {
