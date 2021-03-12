@@ -126,30 +126,146 @@ html, body, #root {
   text-align: center;
 }
 @keyframes notify{
-  0% {width:0vw;
-      height:0vh;
+  0% {
       margin-left: 100vw;}
-  50% {width:17vw;
-      height:8vh;
-      margin-left:83vw}
-  100%{width:0vw;
-      height:0vh;
+  50% {
+      margin-left:65vw}
+  100%{
       margin-left: 100vw;}
 }
 @keyframes hideNotify{
-  from {width:25vw}
-  to {width:0vw}
+  from {
+    width:25vw
+  }
+  to {
+    width:0vw
+  }
+}
+.help-btn {
+  color: white;
+  font-size: 15px;
+  background: none;
+  outline: none !important;
+  border: none;
+  height: 20px;
+  width: 20px;
+  z-index: 100;
+  top: 0;
+  right: 0;
+  position: absolute;
+}
+.modal {
+  height: 61vh;
+  width: 100vw;
+  background:#ecf0f3;
+  z-index: 100;
+  display: none;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  border-top: 5px solid #ecf0f3;
+  box-shadow: inset 0px 4px 5px #cacaca
+}
+.modal-info {
+  height: 95%;
+  width: 93%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  border-radius: 20px;
+  box-shadow: inset 2px 2px 5px #cacaca, inset -3px -3px 4px #ffffff;
+}
+.modal-info-inset {
+  height: 95%;
+  width: 92%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border-radius: 18px;
+  box-shadow: 2px 2px 4px 0px #b0b1b3, -2px -2px 3px #ffffff;
+}
+.modal-info-outset {
+  height: 94%;
+  width: 92%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border-radius: 14px;
+  box-shadow: inset 2px 2px 5px #cacaca, inset -3px -3px 4px #ffffff;
+}
+.modal-directions {
+  height: 80%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+}
+.modal-list-items {
+  height: 18%;
+  width: 90%;
+  list-style-type: none;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50px;
+  box-shadow: inset 2px 2px 5px #cacaca, inset -3px -3px 4px #ffffff;
+}
+.modal-list-items p {
+  width: 90%;
+  font-size: 13px;
+  line-height: .8;
+  color: rgb(228, 121, 139);
+}
+.close-btn {
+  height: 10%;
+  width: 90%;
+  margin-top: 2%;
+  background: rgb(38, 153, 115);
+  border: none;
+  color: white;
+  border-radius: 50px;
+  box-shadow: 2px 2px 4px #283e35, -1px -1px 2px #d1ffe6;
 }
 .notification {
   z-index: 200;
-  position:absolute;
-  margin-left:100vw;
-  margin-top:0vh;
-  height:0vh;
-  width:0vw;
-  background-color: white;
+  position: fixed;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-left: 100vw;
+  margin-top: 0vh;
+  height: 60px;
+  width: 120px;
+  background: #ecf0f3;
+  border-radius: 50px;
+}
+.notification-inset {
+  height: 80%;
+  width: 90%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50px;
+  box-shadow: inset 2px 2px 7px #c1c1c1, inset -2px -2px 3px #ffffff;
+}
+.notification-outset {
+  height: 65%;
+  width: 85%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   border-radius: 20px;
-  
+  box-shadow: 2px 2px 6px 0px #b1b1b1, -2px -2px 2px #ffffff;
+}
+.notification-outset p {
+  color: #ec6aa0;
+  font-weight: bold;
+  font-size: 14px;
 }
 .TestAudio {
   height: 97.2%;
@@ -263,10 +379,16 @@ footer {
   height: 1.7em;
   width: 1.7em;
 }
+.bi-profile-social {
+  margin: 7px 0px 0px 0px;
+}
+.bi-social-p {
+  margin: 7px 0px 0px 0px;
+}
 .bi-record {
   height: 2.2em;
   width: 2.2em;
-  margin: 1px 0px 0px 1px;
+  margin: 5px 0px 0px 0px;
   filter: invert(69%) sepia(43%) saturate(437%) hue-rotate(103deg) brightness(91%) contrast(89%);
 }
 .home-record {
@@ -611,34 +733,40 @@ footer {
   width: 95%;
   text-align: start;
   margin-left: 3%;
+  font-weight: bold;
+  text-shadow: 3px 4px 5px #494848;
 }
 .transcript-line-2 {
   height: 90%;
   width: 93%;
-
   text-align: start;
   overflow-y: scroll;
   color: #01fff3;
   font-size: 14px;
-}
-.transcript-line-3 {
-  color: blue;
-}
-.transcript-line-4 {
-  color: yellow;
-}
-/* -----------------------------------------------Customize Rhymes Section--------------------------------------------------- */
-.TestAudio p {
   font-weight: bold;
   text-shadow: 3px 4px 5px #494848;
 }
+.transcript-line-3 {
+  color: #ff95da;
+  font-size: 16px;
+  width: 95%;
+  font-weight: bold;
+  text-shadow: 3px 4px 5px #494848;
+}
+.transcript-line-4 {
+  color:#ecf9b5;
+  font-size: 16px;
+  width: 95%;
+  font-weight: bold;
+  text-shadow: 3px 4px 5px #494848;
+}
+/* -----------------------------------------------Customize Rhymes Section--------------------------------------------------- */
 .scroll-rhymes-container {
   height: 70%;
   width: 87%;
   margin-top: 3%;
   overflow-y: scroll;
   display: flex;
-  justify-content: center;
   flex-direction: column;
   border-radius: 20px;
   box-shadow: inset 2px 2px 3px #000000fc, inset -2px -2px 3px #ffffffdb;
@@ -666,22 +794,23 @@ footer {
   justify-content: center;
 }
 .custom-rhyme {
-  height: 50px;
-  width: 85%;
+  height: 74%;
+  width: 94%;
   display: flex;
   justify-content: center;
   align-items: center;
   border-radius: 50px;
-  background: #b7b4b4;
-  box-shadow: inset 4px 4px 5px #999c9e, 
-              inset -4px -4px 7px #ffffff;
+  box-shadow: 2px 2px 3px #bdbdbd, -2px -2px 3px #ffffff;
 }
 .custom-rhyme-inner {
   height: 65%;
-  width: 94%;
-  background: #383838;
+  width: 93%;
+  display: flex;
+  justify-content: center;
+  background: #686a6b;
   border-radius: 50px;
-
+  overflow-x: scroll;
+  box-shadow: inset 4px 4px 3px #4a4a4a, inset -3px -3px 3px #a7a7a7;
 }
 .suggestions-container {
   height: 40%;
@@ -699,9 +828,8 @@ footer {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  border-radius: 10px;
-  box-shadow: 3px 3px 5px 0px #d0d2d4, 
-             -2px -2px 3px #ffffff;
+  border-radius: 50px;
+  box-shadow: inset 2px 2px 3px 0px #d0d2d4, inset -2px -2px 3px #ffffff;
 }
 .canvas-anim-box {
   background: #ecf0f3;
@@ -714,7 +842,7 @@ footer {
 }
 .canvas-outset {
   height: 85%;
-  width: 85%;
+  width: 93%;
   margin-top: 2%;
   display: flex;
   justify-content: center;
@@ -1517,7 +1645,6 @@ nav {
   outline: none !important;
   color: white;
   border-radius: 20px;
-  font-family: inherit;
 }
 .input-sections {
   font-size: 12px;
@@ -1527,7 +1654,14 @@ nav {
   flex-direction: column;
   justify-content: space-between;
 }
-
+.input-sections p {
+  text-align: start;
+  padding-left: 2%;
+}
+.submit-button-edit:active {
+  outline: none !important;
+  border: 2px solid white;
+}
 .input-sections-container {
   height: 90%;
   width: 100%;
@@ -1551,7 +1685,7 @@ nav {
 }
 /* -----------------------------------PROFILE PROFILE PROFILE PROFILE --------------------------------------------*/
 .nb-profile {
-  height: 10%;
+  height: 11%;
   position: fixed;
   bottom: 0;
   border: none;
@@ -1583,7 +1717,7 @@ nav {
 }
 .username-pic-container, .username-pic-outset, .profile-pic-container, .profile-post-feed,
 .username-container, .username-outset, .username-inset, .users-details-container, .users-details-outset,
-.edit-profile-container, .log-profile-container, .edit-profile-outset, .users-details-each,
+.edit-profile-container, .log-profile-container, .edit-profile-outset,
 .edit-profile-inset, .log-profile-outset, .log-profile-inset, .edit-profile-button, 
 .log-profile-button, .profile-post-inner, .profile-post-inner-inner,
 .profile-pic-inset, .profile-pic-outset {
@@ -1706,19 +1840,40 @@ nav {
   box-shadow: inset 3px 3px 4px #4f5050, inset -3px -3px 4px #8c8f90;
 }
 .ude-1 {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   min-height: 15%;
   max-height: 50%;
   padding: 5px 0px 5px 0px;
+  overflow-y: scroll;
 }
-.ude-2, .ude-3, .ude-4, .ude-0 {
+.little-p {
+  width: 90%;
+  font-size: 12px;
+  text-align: start;
+  border-radius: 10px;
+}
+.big-p {
+  font-size: 12px;
+  text-align: start;
+  height: 77%;
+  width: 90%;
+  border-radius: 10px;
+  overflow-y: scroll;
+}
+.ude-2, .ude-3, .ude-4 {
+  display: flex;
+  justify-content: center;
   height: 15%;
+  padding: 5px 0px 5px 0px;
 }
-.users-details-each p {
+.ude-2 p, .ude-3 p, .ude-4 p {
   font-size: 12px;
   width: 90%;
   text-align: start;
-  overflow-y: scroll;
 }
+
 .profile-post {
   width: 49vw;
   height: 49vw;

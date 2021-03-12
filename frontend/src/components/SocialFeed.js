@@ -260,7 +260,7 @@ function SocialFeed(props) {
             <div className="nav-buttons-rim">
               <div className="nav-buttons-outset">
                 <div className="nav-buttons-inset">
-                  <img className="button-icons" src={explore}></img>
+                  <img className="button-icons bi-explore" src={explore}></img>
                 </div>
               </div>
             </div>
@@ -268,7 +268,7 @@ function SocialFeed(props) {
             <div className="nav-buttons-rim">
               <div className="nav-buttons-outset">
                 <div onClick={getSocialFeed} className="nav-buttons-inset">
-                  <img className="button-icons" src={social}></img>
+                  <img className="button-icons bi-social" src={social}></img>
                 </div>
               </div>
             </div>
@@ -278,11 +278,11 @@ function SocialFeed(props) {
                 <div className="nav-buttons-inset">
                   {user._id ? (
                     <Link to="/profile">
-                      <img className="button-icons" src={avatar3}></img>
+                      <img className="button-icons bi-profile-social" src={avatar3}></img>
                     </Link>
                   ) : (
                     <Link to="/auth">
-                      <img className="button-icons" src={avatar3}></img>
+                      <img className="button-icons bi-profile-social" src={avatar3}></img>
                     </Link>
                   )}
                   {/* <img className="button-icons" src={avatar3}></img> */}

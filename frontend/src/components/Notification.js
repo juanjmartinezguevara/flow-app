@@ -43,9 +43,12 @@ function Notification(props) {
 
     return (
         <div>
-        <div ref={popUp} style={{backgroundImage: `url(${check})`,
-                                 backgroundSize: 'contain',
-                                 backgroundRepeat: 'no-repeat'}} className='notification'>
+        <div ref={popUp} className='notification'>
+            <div className="notification-inset">
+                <div className="notification-outset">
+                    <p>followed</p>
+                </div>
+            </div>
         </div>
         <button style={{display: 'none'}} id='unfollowN' onClick={notiUnfollow}>Unfollow</button>
         <button style={{display: 'none'}} id='followN' onClick={notiFollow}>Follow</button>
