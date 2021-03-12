@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef,useMemo } from "react";
+import React, { useState, useEffect, useRef, useMemo } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import gradientbg from "../images/gradient-bg-2.png";
@@ -10,27 +10,27 @@ import avatar3 from "../images/avatar3.svg";
 import social from "../images/social.svg";
 import follow from "../images/follow.svg";
 import comments from "../images/comment.svg";
-import search from '../images/search.svg'
+import search from "../images/search.svg";
 import heart2 from "../images/heart2.svg";
 import explore from "../images/explore.svg";
 import Search from "../components/Search";
 import { useInView } from "react-intersection-observer";
 
-let SONG={}
+let SONG = {};
 
 function SocialFeed(props) {
   const { user, setUser, userViewed, setUserViewed } = React.useContext(
     TheContext
   );
 
-  axios.get();
+  // axios.get();
 
   const [comment, setComment] = useState();
   const [poppedUp, setPoppedUp] = useState(false);
-  const [searchPoppedUp,setSearchPoppedUp] = useState(false);
+  const [searchPoppedUp, setSearchPoppedUp] = useState(false);
   const windowRef = useRef();
   const popUpRef = useRef();
- 
+
   const opacityRef1 = useRef();
   const opacityRef2 = useRef();
   const opacityRef3 = useRef();
@@ -40,19 +40,17 @@ function SocialFeed(props) {
   const popUpComments = () => {
    
     if (poppedUp == false) {
-      
       opacityRef1.current.style.opacity = 1;
       opacityRef2.current.style.opacity = 1;
       opacityRef3.current.style.opacity = 1;
       popUpRef.current.style.height = "50%";
       windowRef.current.style.bottom = "50%";
-      
+
       setPoppedUp(true);
     } else {
-      
       popUpRef.current.style.height = "0px";
       windowRef.current.style.bottom = "0";
-     
+
       opacityRef1.current.style.opacity = 0;
       opacityRef2.current.style.opacity = 0;
       opacityRef3.current.style.opacity = 0;
@@ -62,33 +60,43 @@ function SocialFeed(props) {
 
   const popUpSearch = () => {
     if (searchPoppedUp == false) {
-     
       opacitySearchRef3.current.style.opacity = 1;
       popUpSearchRef.current.style.height = "50%";
       windowRef.current.style.bottom = "50%";
-    
+
       setSearchPoppedUp(true);
     } else {
-     
       popUpSearchRef.current.style.height = "0px";
       windowRef.current.style.bottom = "0";
-      
+
       opacitySearchRef3.current.style.opacity = 0;
       setSearchPoppedUp(false);
     }
   };
 
   const [thisFeedSongs, setThisFeedSongs] = useState([]);
-  let [page, setPage] = useState(1);
-  let [userUser, setUserUser] = useState({})
+  let page = 1;
+  let userUser = "";
+  let songUsersArr = [];
 
   //TEMPORARY CODE TO SHOW ALL SONGS JUST TO GET SOME LIKES ADDED
   useEffect(() => {
     actions
       .getUserSongs(user)
       .then((usersSongs) => {
-      
         setThisFeedSongs(usersSongs.data);
+
+        console.log("inside useffect", thisFeedSongs);
+        usersSongs.data.map((eachFSong) => {
+          console.log("WTF", eachFSong);
+          return actions
+            .getAUser(eachFSong)
+            .then((res) => {
+              console.log("second action results", res);
+              songUsersArr.push(res);
+            })
+            .catch(console.error);
+        });
       })
       .catch(console.error);
   }, [page]);
@@ -121,21 +129,49 @@ function SocialFeed(props) {
 
 
 
-//NIKO
+  // const getSongUsers = (theUserId) => {
+  //     console.log('HEY HEY HEY HEY HEY HEY', theUserId )
+  //     actions
+  //     .getAUser(theUserId)
+  //     .then((useUser) => {
+  //         setUserForSong(useUser.data)
+  //     })
+  //     .catch(console.error)
+  // }
 
-function DisplaySong(eachSong) {
-  const [ref, inView] = useInView({
-    threshold: 0.5
-  });
-  if(inView){
-    // eachSong.setActiveSong(eachSong)
-    console.log(eachSong.i)
-    
-    
-    SONG=eachSong
-  }else{
+  // useEffect(() => {
+  //     actions
+  //     .getAUser(userUser)
+  //     .then((useUser) => {
+  //         setUserForSong(useUser.data)
+  //     })
+  //     .catch(console.error)
+  // }, [userUser]);
 
-  }
+  const getUserName = (id) => {
+    actions
+      .getAUser(id)
+      .then((name) => {
+        console.log(`@${name.data.userName}`);
+      })
+      .catch(console.error);
+  };
+
+
+
+  function DisplaySong(eachSong) {
+    const [ref, inView] = useInView({
+      threshold: 0.5,
+    });
+    if (inView) {
+      // eachSong.setActiveSong(eachSong)
+      SONG = eachSong;
+      audioRef.current.src=eachSong.songURL
+      console.log('i was called')
+      
+    } else {
+    }
+   
   
   return (
     <li ref={ref}
@@ -163,13 +199,10 @@ function DisplaySong(eachSong) {
   
 
   const showSongs = () => {
-    return thisFeedSongs.map((eachSong,i) => {
-        // setUserUser(eachSong)
-        // console.log(userForSong)
-      return (
-          <DisplaySong i={i}{...eachSong} />
-          
-      );
+    return thisFeedSongs.map((eachSong, i) => {
+      // setUserUser(eachSong)
+      // console.log(userForSong)
+      return <DisplaySong i={i} {...eachSong} />;
     });
   };
 
@@ -184,20 +217,19 @@ function DisplaySong(eachSong) {
   // }, [page]);
 
   const getSocialFeed = () => {
-    page === 1 ? setPage(0) : setPage(1);
+    page === 1 ? (page = 0) : (page = 1);
     console.log("GET SOCIAL FEED SONGS FUNCTION");
   };
 
   const followUser = () => {
     console.log(user, userViewed);
-    document.getElementById('followN').click()
+    document.getElementById("followN").click();
     const followData = { user1: user.id, user2: userViewed.id };
     console.log("profile follow user function ", followData);
     actions
       .addFollow(followData)
       .then((somethingreturnedfromapi) => {
-     
-      document.getElementById('notify').click()
+        document.getElementById("notify").click();
       })
       .catch(console.error);
   };
@@ -264,7 +296,7 @@ function DisplaySong(eachSong) {
                 </div>
               </div>
             </div>
-            
+
             <div className="nav-buttons-rim">
               <div className="nav-buttons-outset">
                 <div className="nav-buttons-inset">
@@ -282,7 +314,6 @@ function DisplaySong(eachSong) {
               </div>
             </div>
           </div>
-
         </div>
       </footer>
     );
@@ -291,15 +322,14 @@ function DisplaySong(eachSong) {
   const displaySearch = () => {
     return (
       <div ref={popUpSearchRef} className="comment-pop-out">
-
-          <Search />
+        <Search />
 
         <div
-            ref={opacitySearchRef3}
-            style={{ opacity: "0" }}
-            className="bottom-bar"
-          >
-            <div className="inner-bar"></div>
+          ref={opacitySearchRef3}
+          style={{ opacity: "0" }}
+          className="bottom-bar"
+        >
+          <div className="inner-bar"></div>
         </div>
       </div>
     );
@@ -372,7 +402,7 @@ function DisplaySong(eachSong) {
               </form>
             </div>
           </div>
-        </div>
+          </div>
 
         <div ref={opacityRef2} style={{opacity: '0'}} className="com-cont-2">
           <div className="comments-container">
@@ -385,16 +415,15 @@ function DisplaySong(eachSong) {
             </div>
           </div>
         </div>
-        
+        <div ref={opacityRef3} style={{ opacity: "0" }} className="bottom-bar">
+          <div className="inner-bar"></div>
+        </div>
       </div>
+      </div>
+    
 
-      <div ref={opacityRef3} style={{ opacity: "0" }} className="bottom-bar">
-        <div className="inner-bar"></div>
-      </div>
-    </div>
-      )
-    }
-  
+    )
+  }
 
   // REAL CODE TO REPLACE TEMPORARY GET ALL SONGS CODE ABOVE HERE
   // useEffect(() => {
@@ -406,13 +435,19 @@ function DisplaySong(eachSong) {
   //     .catch(console.error);
   // }, [page]);
 
+  const audioRef=useRef()
+
+
  const handlePlayPause=()=>{
-   if(document.querySelector('audio').paused){
-  document.querySelector('audio').play()
+   
+   if(audioRef.current.paused){
+    audioRef.current.play()
+
    }else
-   {document.querySelector('audio').pause()
+   {
+    audioRef.current.pause()
   }
-  console.log(SONG)
+  
  }
  
 
@@ -420,15 +455,11 @@ function DisplaySong(eachSong) {
     <div className="SocialFeed">
       <div ref={windowRef} className="social-panel">
         <ul className="video-scroll-container">
-          {showSongs()}      
+          {showSongs()}
           <div className="video-details-container">
-
             <div className="transparent-test">
-
               <div className="user-details-container">
-                <div className="user-details-inset">
-            
-                </div>
+                <div className="user-details-inset"></div>
               </div>
 
               <div className="user-profile-image">
@@ -438,7 +469,6 @@ function DisplaySong(eachSong) {
                   </div>
                 </div>
               </div>
-
             </div>
           </div>
         </ul>
@@ -446,9 +476,9 @@ function DisplaySong(eachSong) {
       {displayComments()}
       {displaySearch()}
       {showNavBar()}
-      <audio src={SONG.songURL}></audio>
+      <audio ref={audioRef} id='damn' ></audio>
       </div>
-    );
-  };
+    )
+  }
 
 export default SocialFeed;
