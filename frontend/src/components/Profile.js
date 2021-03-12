@@ -13,6 +13,7 @@ import heart2 from '../images/heart2.svg'
 import editicon from '../images/edit.svg'
 import logouticon from '../images/logout.svg'
 import explore from '../images/explore.svg'
+import play from '../images/play.svg'
 
 
 function Profile(props) {
@@ -75,18 +76,40 @@ function Profile(props) {
   }, []);
   
   const showLyrics = (lyrics) => {
+    
     return lyrics.map((eachLine) => {
       return (
         <p>{eachLine}</p>
       )
     })
   }
+  const handlePlayPause=(x)=>{
+    const currentPlayer=document.getElementById(`${x}`)
+    if(currentPlayer.paused){
+     currentPlayer.play()
+ 
+    }else
+    {
+    currentPlayer.pause()
+   }
+  }
+
 
   const showSongs = () => {
     return thisUserSongs.map((eachSong) => {
+      console.log(eachSong.songLyricsStr)
       return (
         <li className="your-track-container">
+        <div style={{display: 'flex'
+        }}>
           <h4>{eachSong.songName}</h4>
+          <audio id={eachSong.songName} src={eachSong.songURL}></audio>
+          <div style={{ 
+                        height: '20px',
+                        width: '20px'}} className="nav-buttons-inset inset-social-p">
+                    <img className="button-icons bi-play" src={play} onClick={()=>handlePlayPause(eachSong.songName)}></img>
+                  </div>
+          </div>
           <div className="lyrics-container">
             {showLyrics(eachSong.songLyricsStr)}
           </div>
@@ -94,6 +117,8 @@ function Profile(props) {
       )
     })
   }
+
+  
 
   return (
     <div className="Profile">
@@ -109,7 +134,7 @@ function Profile(props) {
             <div className="profile-pic-container">
               <div className="profile-pic-outset">
                 <div className="profile-pic-inset">
-                  <img className="profile-pic" src={thisUser.picture}/>
+                  <img className="profile-pic" src={thisUser?.picture} alt="prof pic"/>
                 </div>
               </div>
             </div>
@@ -118,6 +143,7 @@ function Profile(props) {
               <div className="username-outset">
                 <div className="username-inset">
                   <h3>{thisUser.userName}</h3>
+                  <h3>{thisUser.userFollows?.length}</h3>
                 </div>
               </div>
             </div>
@@ -208,7 +234,8 @@ function Profile(props) {
         <div className="nav-buttons-rim">
           <div className="nav-buttons-outset">
             <div className="nav-buttons-inset">
-              <img className="button-icons bi-explore" src={explore}></img>
+            <Link to="/explore-feed">
+                  <img className="button-icons bi-explore" src={explore} alt="explore"></img></Link>
             </div>
           </div>
         </div>
