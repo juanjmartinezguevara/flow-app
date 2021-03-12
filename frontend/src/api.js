@@ -2,7 +2,7 @@ import axios from "axios";
 
 
 // const baseURL = `http://localhost:5000/api`;
-const baseURL = 'https://iron-flow.herokuapp.com'
+const baseURL = 'https://iron-flow.herokuapp.com/api'
 const token = localStorage.getItem("token");
 
 const API = axios.create({
