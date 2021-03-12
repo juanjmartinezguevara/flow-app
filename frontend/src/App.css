@@ -400,6 +400,12 @@ footer {
   width: 2.2em;
   filter: invert(80%) sepia(14%) saturate(1272%) hue-rotate(111deg) brightness(96%) contrast(89%);
 }
+.bi-explore {
+  margin: 7px 0px 0px 0px;
+}
+.bi-social-explore {
+  margin: 7px 0px 0px 0px;
+}
 /*--------------------------------------------------------------------------*/
 .social-buttons {
   width: 100%;
@@ -1832,8 +1838,16 @@ nav {
   border-radius: 50px;
   box-shadow: 3px 3px 4px #525252, -2px -2px 3px #939597;
 }
-.username-inset h3 {
+.username-text-me {
+  width: 75%;
+  margin-left: 4%;
   color: #e24f8c;
+  overflow-x: scroll;
+  white-space: nowrap;
+}
+.username-follow-me {
+  width: 20%;
+  color: pink;
 }
 .users-details-container {
   height: 100%;
@@ -1981,10 +1995,45 @@ nav {
   text-align: start;
   color:rgb(46, 194, 145);
 }
+.lyrics-outter-container {
+  height: 45px;
+  width: 45px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  box-shadow: inset 3px 3px 4px #c5c5c5, inset -3px -3px 5px #ffffff;
+}
+.lyrics-play {
+  height: 25%;
+  width: 85%;
+  margin-left: 4%;
+  display: flex;
+  align-items: center;
+}
+.play-ur-song {
+  height: 30px;
+  width: 30px;
+  box-shadow: 2px 2px 3px 0px #b0b1b3, -2px -2px 3px #ffffff;
+}
+.lyrics-songname-cont {
+  height: 100%;
+  width: 75%;
+  margin-left: 5%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 20px;
+  box-shadow: 2px 2px 2px 0px #b0b1b3, -2px -2px 2px #ffffff;
+}
+.bi-play-2 {
+  margin-left: 5px;
+  font-size: .8em
+}
 .lyrics-container {
   font-size: 12px;
   margin-left: 4%;
-  height: 80%;
+  height: 75%;
   width: 85%;
   color: #e24f8c;
   overflow-y: scroll;

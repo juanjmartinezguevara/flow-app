@@ -274,11 +274,11 @@ let profilePicRef=useRef()
               <div className="individual-btn" onClick={followUser}>
                 <img className="social-icons follow" src={follow}></img>
               </div>
-              <div className="individual-btn" onClick={popUpSearch}>
-                <img className="social-icons heart" src={search}></img>
-              </div>
               <div className="individual-btn">
                 <img className="social-icons heart" onClick={(() => likePost())} src={heart2}></img><p>{songLikez}</p>
+              </div>
+              <div className="individual-btn" onClick={popUpSearch}>
+                <img className="social-icons heart" src={search}></img>
               </div>
               <div className="individual-btn" onClick={popUpComments}>
                 <img className="social-icons comment" src={comments}></img>
@@ -311,18 +311,18 @@ let profilePicRef=useRef()
             <div className="nav-buttons-rim">
               <div className="nav-buttons-outset">
                 <div className="nav-buttons-inset">
-                  <img className="button-icons bi-explore" src={explore}></img>
+                  <img className="button-icons bi-explore-e" src={explore}></img>
                 </div>
               </div>
             </div>
 
             <div className="nav-buttons-rim">
               <div className="nav-buttons-outset">
-              
-                <Link to='/social-feed'>
-                  <img className="button-icons bi-social" src={social} alt="social"></img>
+                <div className="nav-buttons-inset">
+                  <Link to='/social-feed'>
+                    <img className="button-icons bi-social-explore" src={social} alt="social"></img>
                   </Link>
-                
+                </div>
               </div>
             </div>
 

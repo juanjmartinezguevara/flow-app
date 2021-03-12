@@ -100,15 +100,16 @@ function Profile(props) {
       console.log(eachSong.songLyricsStr)
       return (
         <li className="your-track-container">
-        <div style={{display: 'flex'
-        }}>
-          <h4>{eachSong.songName}</h4>
-          <audio id={eachSong.songName} src={eachSong.songURL}></audio>
-          <div style={{ 
-                        height: '20px',
-                        width: '20px'}} className="nav-buttons-inset inset-social-p">
-                    <img className="button-icons bi-play" src={play} onClick={()=>handlePlayPause(eachSong.songName)}></img>
-                  </div>
+          <div className="lyrics-play">
+            <audio id={eachSong.songName} src={eachSong.songURL}></audio>
+            <div className="lyrics-outter-container">
+              <div className="nav-buttons-inset play-ur-song">
+                <img className="button-icons bi-play-2" src={play} onClick={()=>handlePlayPause(eachSong.songName)}></img>
+              </div>
+            </div>
+            <div className="lyrics-songname-cont">
+              <h4>{eachSong.songName}</h4>
+            </div>
           </div>
           <div className="lyrics-container">
             {showLyrics(eachSong.songLyricsStr)}
@@ -142,8 +143,8 @@ function Profile(props) {
             <div className="username-container">
               <div className="username-outset">
                 <div className="username-inset">
-                  <h3>{thisUser.userName}</h3>
-                  <h3>{thisUser.userFollows?.length}</h3>
+                  <h3 className="username-text-me">{thisUser.userName}</h3>
+                  <h3 className="username-follow-me">{thisUser.userFollows?.length}</h3>
                 </div>
               </div>
             </div>
