@@ -836,8 +836,7 @@ footer {
   margin-top: 3%;
   overflow-y: scroll;
   display: flex;
-  justify-content: flex-start;
-  flex-direction: column-reverse;
+  flex-direction: column;
   border-radius: 20px;
   box-shadow: inset 2px 2px 3px #000000fc, inset -2px -2px 3px #ffffffdb;
 }
