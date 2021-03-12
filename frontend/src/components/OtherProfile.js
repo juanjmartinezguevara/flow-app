@@ -96,6 +96,7 @@ function OtherProfile(props) {
       return (
         <li className="your-track-container">
           <h4>{eachSong.songName}</h4>
+          
           <div className="lyrics-container">
             {showLyrics(eachSong.songLyricsStr)}
           </div>
@@ -175,7 +176,8 @@ function OtherProfile(props) {
               <div className="log-profile-outset">
                 <div className="log-profile-inset">
                   <div className="edit-profile-button" >
-                    <img className="button-icons hearts" src={heart2} />
+                  <h2>{thisUser.userFollows?.length}</h2>
+                    {/* <img className="button-icons hearts" src={heart2} /> */}
                   </div>
                 </div>
               </div>
@@ -213,7 +215,8 @@ function OtherProfile(props) {
         <div className="nav-buttons-rim">
           <div className="nav-buttons-outset">
             <div className="nav-buttons-inset">
-              <img className="button-icons bi-explore" src={explore}></img>
+            <Link to="/explore-feed">
+                  <img className="button-icons bi-explore" src={explore} alt="explore"></img></Link>
             </div>
           </div>
         </div>
@@ -233,7 +236,8 @@ function OtherProfile(props) {
         <div className="nav-buttons-rim">
           <div className="nav-buttons-outset">
             <div className="nav-buttons-inset">
-              <img className="button-icons bi-profile" src={avatar3}></img>
+            <Link to="/profile"><img className="button-icons bi-profile" src={avatar3}></img></Link>
+              
             </div>
           </div>
         </div>
