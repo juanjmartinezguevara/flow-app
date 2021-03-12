@@ -161,6 +161,7 @@ function SocialFeed(props) {
   const handlePlayPause=()=>{
     
     if(audioRef.current.paused){
+
      audioRef.current.play()
  
     }else
@@ -190,7 +191,7 @@ let profilePicRef=useRef()
         ref={ref}
         className="video-pane"
         style={{
-          backgroundImage: `url('${getRandomBackground()}')`
+          backgroundImage: `url('${gradientbg}'), url('${getRandomBackground()}')`
         }}
       >
         <div className="text-container">
@@ -204,7 +205,7 @@ let profilePicRef=useRef()
             {eachSong.caption ? (
               <p>{eachSong.caption}</p>
             ) : (
-              <p>NO CAPTION FOR THIS FLOW</p>
+              <p>no caption for this flow</p>
             )}
           </h6>
         </div>
@@ -245,12 +246,12 @@ let profilePicRef=useRef()
 
   const likePost = () => {
     console.log(user, userViewed);
-    document.getElementById("notify").click();
+    document.getElementById("notifyLike").click();
     const likeData = { user1: user._id, songLiked: SONG._id };
     actions
       .addLike(likeData)
       .then((whatever) => {
-        document.getElementById("notify").click();
+        document.getElementById("notifyLike").click();
       })
       .catch(console.error);
   }
@@ -264,7 +265,7 @@ let profilePicRef=useRef()
           <div className="social-list">
             <div className="individual-btn">
               <div className="individual-profile-pic">
-                <img  src={SONG.songUser?.picture} ref={profilePicRef} alt=''/>
+                <img className="prof-pic" src={SONG.songUser?.picture} ref={profilePicRef} alt=''/>
               </div>
             </div>
             <div className="like-comment-container">
@@ -393,15 +394,15 @@ let profilePicRef=useRef()
       getCommentWriter(each.commUser)
       return (
         <div className="comment-list">
-      <div className="comment-list-inner">
-      <p className="comment-username">
-          {writer}
-      </p>
-      <p className="comment-text">
-        {each.comment}
-      </p>
-    </div>
-    </div>
+          <div className="comment-list-inner">
+            <p className="comment-username">
+                {writer}
+            </p>
+            <p className="comment-text">
+              {each.comment}
+            </p>
+          </div>
+        </div>
     )
   })
 }

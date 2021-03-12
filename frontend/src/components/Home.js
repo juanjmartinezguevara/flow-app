@@ -32,7 +32,7 @@ function Home(props) {
                 <ul className="video-scroll-container">
                     <li className="video-pane vp-home" style={{backgroundImage: `url('${backgroundFrame}'), url('https://media.giphy.com/media/3o7bu9IXcehrF9ENUY/source.gif')`}}>
                         <div className="test-transparent">
-                            <h5>@username</h5>
+                            <h5 style={{color: 'pink'}}>@BlobbyDaBari</h5>
                             <h5>Supermassivedopetrack</h5>
                         </div>
                     </li>

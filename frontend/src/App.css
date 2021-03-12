@@ -294,6 +294,10 @@ html, body, #root {
   width:90vw;
   height:2vh;
 }
+.prof-pic {
+  height: 100%;
+  width: 100%;
+}
 /* ------------------------------FOOOTER FOOOTER NAV NAV NAV BAR--------------------------------------------------- */
 .nav-buttons-outset, .nav-buttons-inset, .social-buttons, .individual-btn, .com-cont-1, .comments-container, .input-container, .input-inset {
 display: flex;
@@ -527,8 +531,7 @@ footer {
 }
 
 .comment-list {
-  min-height: 40px;
-  max-height: 100px;
+  height: 80px;
   width: 93%;
   display: flex;
   justify-content: center;
@@ -540,15 +543,20 @@ footer {
 }
 .comment-list-inner {
   height: 85%;
-  width: 93%;
+  width: 95%;
   position: relative;
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
+  align-items: center;
+  border-radius: 15px;
+  box-shadow: 2px 2px 3px #3d3f3f, -2px -2px 3px #9e9e9e;
 }
 .comment-username {
   color: #ec6aa0;
   font-weight: bold;
+  text-align: start;
+  width: 90%;
+  margin: auto;
 }
 .comment-date {
   color:#63d8a7;
@@ -558,15 +566,14 @@ footer {
   right: 10px;
 }
 .comment-text {
-  height: 85%;
+  height: 50%;
+  width: 90%;
+  text-align: start;
   color: white;
-  border-radius: 10px;
   word-wrap: break-word;
-  font-size: 12px;
+  font-size: 14px;
   overflow-y: scroll;
   line-height: 1;
-  text-align: left;
-  padding-left: 5px;
 }
 .input-container {
   height: 75%;
@@ -589,7 +596,50 @@ footer {
   justify-content: center;
   align-items: center;
 }
-
+.search-results {
+  height: 90%;
+  width: 94%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.search-username-container {
+  height: 100%;
+  width: 50%;
+  border-radius: 10px;
+  box-shadow: inset 2px 2px 3px #3d3f3f, inset -2px -2px 3px #9e9e9e;
+}
+.search-prof-container {
+ height: 100%;
+ width: 50%;
+ display: flex;
+ justify-content: center;
+ align-items: center;
+}
+.search-prof-inset {
+  height: 80%;
+  width: 90%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  box-shadow: inset 2px 2px 3px #3d3f3f, inset -2px -2px 3px #9e9e9e;
+}
+.search-prof-outset {
+  height: 85%;
+  width: 85%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  box-shadow: 2px 2px 3px #3d3f3f, -2px -2px 3px #9e9e9e;
+}
+.search-results-link {
+  height: 90%;
+  width: 90%;
+  overflow: hidden;
+  border-radius: 50%;
+}
 .bottom-bar {
   height: 4%;
   width: 96%;
@@ -770,7 +820,8 @@ footer {
   margin-top: 3%;
   overflow-y: scroll;
   display: flex;
-  flex-direction: column;
+  justify-content: flex-start;
+  flex-direction: column-reverse;
   border-radius: 20px;
   box-shadow: inset 2px 2px 3px #000000fc, inset -2px -2px 3px #ffffffdb;
 }
@@ -1957,4 +2008,30 @@ nav {
 }
 .ui-login-t:defined {
   color: rgb(37, 138, 104);
+}
+.com-list-cont {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.com-list-search {
+  height: 90%;
+  width: 93%;
+  margin-top: 0%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 14px;
+  box-shadow: inset 2px 2px 3px #3d3f3f, inset -2px -2px 3px #9e9e9e;
+}
+.com-search {
+  height: 85%;
+  width: 92%;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border-radius: 12px;
+  box-shadow: 2px 2px 3px #3d3f3f, -2px -2px 3px #9e9e9e;
 }

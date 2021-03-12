@@ -65,14 +65,19 @@ function Search(props) {
       return mappedRes.map((ele) => {
        console.log(ele)
         return (
-          <div style={boxStyle}>
-          <Link style={suggestStyle1} 
-            to={{pathname:`/profile/other/${ele.profile._id}`,
-                 profileInfo: ele.profile
-                 }} >
-                 <p style={userStyle} className="comment-username">{`@${ele.userName}`}</p>                              
-                <img style={imgStyle} src={ele.picture} alt=""></img>
-            </Link>
+          <div className="search-results">
+            <div className="search-username-container">
+              <p className="comment-username">{`@${ele.userName}`}</p>
+            </div>
+            <div className="search-prof-container">
+              <div className="search-prof-inset">
+                <div className="search-prof-outset">
+                  <Link to={{pathname:`/profile/other/${ele.profile._id}`, profileInfo: ele.profile}} className="search-results-link">
+                    <img className="prof-pic" src={ele.picture} alt=""></img>
+                  </Link>
+                </div>
+              </div>
+            </div>
           </div>
         );
       });       ///this part is for cases where the search returns 2-4
@@ -112,9 +117,9 @@ function Search(props) {
 
       <div className="com-cont-2">
         <div className="comments-container">
-          <div className="comment-list-container">
-            <div className="comment-list">
-              <div className="comment-list-inner">
+          <div className="comment-list-container com-list-cont">
+            <div className="comment-list com-list-search">
+              <div className="comment-list-inner com-search">
                 {suggestions}
               </div>
             </div>

@@ -5,6 +5,7 @@ import check from '../images/checkMark.jpeg'
 function Notification(props) {
     const [content,setContent] = useState()
     const popUp=useRef()
+    const popUpLike=useRef()
 
     const notiFollow=()=>{
         setContent(
@@ -33,9 +34,14 @@ function Notification(props) {
         popUp.current.style.animation='notify 2s ease 0s 1 normal'
 
     }
+    const notifyLike=()=>{
+        popUpLike.current.style.animation='notify 2s ease 0s 1 normal'
 
+    }
     useEffect(()=>{
         popUp.current.style.animation='none';
+        popUpLike.current.style.animation='none';
+
     })
 
 
@@ -50,11 +56,19 @@ function Notification(props) {
                 </div>
             </div>
         </div>
+        <div ref={popUpLike} className='notification'>
+            <div className="notification-inset">
+                <div className="notification-outset">
+                    <p>Liked</p>
+                </div>
+            </div>
+        </div>
         <button style={{display: 'none'}} id='unfollowN' onClick={notiUnfollow}>Unfollow</button>
         <button style={{display: 'none'}} id='followN' onClick={notiFollow}>Follow</button>
         <button style={{display: 'none'}} id='likeN' onClick={notiLike}>Like</button>
         <button style={{display: 'none'}} id='unlikeN' onClick={notiUnlike}>Unlike</button>
         <button style={{display: 'none'}} id='notify' onClick={notify}>notify</button>
+        <button style={{display: 'none'}} id='notifyLike' onClick={notifyLike}>notify</button>
         </div>
     );
 }
