@@ -38,7 +38,7 @@ function SocialFeed(props) {
   const opacitySearchRef3 = useRef();
 
   const popUpComments = () => {
-    console.log(SONG);
+   
     if (poppedUp == false) {
       opacityRef1.current.style.opacity = 1;
       opacityRef2.current.style.opacity = 1;
@@ -101,8 +101,31 @@ function SocialFeed(props) {
   }, [page]);
 
 
+  const [userForSong, setUserForSong] = useState({})
 
-  console.log("thisFeedSongs", thisFeedSongs);
+  const [activeSong,setActiveSong]=useState({})
+
+  
+// const getSongUsers = (theUserId) => {
+//     console.log('HEY HEY HEY HEY HEY HEY', theUserId )
+//     actions
+//     .getAUser(theUserId)
+//     .then((useUser) => {
+//         setUserForSong(useUser.data)
+//     })
+//     .catch(console.error)
+// }
+
+// useEffect(() => {
+//     actions
+//     .getAUser(userUser)
+//     .then((useUser) => {
+//         setUserForSong(useUser.data)
+//     })
+//     .catch(console.error)
+// }, [userUser]);
+
+
 
   // const [userForSong, setUserForSong] = useState({});
 
@@ -117,7 +140,7 @@ function SocialFeed(props) {
   //     .catch(console.error);
   // };
 
-  //NIKO
+
 
   function DisplaySong(eachSong) {
     const [ref, inView] = useInView({
@@ -126,41 +149,37 @@ function SocialFeed(props) {
     if (inView) {
       // eachSong.setActiveSong(eachSong)
       SONG = eachSong;
+      audioRef.current.src=eachSong.songURL
+      console.log('i was called')
+      
     } else {
     }
-    console.log("scrolling", inView, eachSong);
-    return (
-      <li
-        ref={ref}
-        className="video-pane"
-        style={{
-          backgroundImage: `url('${gradientbg}'), url(https://avatars.dicebear.com/4.5/api/avataaars/${eachSong.i}.svg)`,
-        }}
-      >
-      {/* <div style={{backgroundColor: "red", zIndex: "3000"}}></div> */}
-        <div className="text-container">
-          <h5 className="ud-text udt-1">
-          <Link to={{pathname:`/profile/other${eachSong.songUser._id}`, profileInfo: eachSong.songUser}}>
-            <span id="please" style={{ color: "#ec6aa0" }}>
-            {console.log('HEY BITCH',eachSong.songUser._id)}
-            
-              {eachSong.songUser.userName}
-              
-            </span>{" "}</Link>
-          </h5>
-          <audio src={eachSong.songURL}></audio>
-          <h6 className="ud-text udt-2">{eachSong.songName}</h6>
-          <h6 className="ud-text udt-3">
-            {eachSong.caption ? (
-              <p>{eachSong.caption}</p>
-            ) : (
-              <p>NO CAPTION FOR THIS FLOW</p>
-            )}
-          </h6>
-        </div>
-      </li>
-    );
-  }
+   
+  
+  return (
+    <li ref={ref}
+          className="video-pane"
+          style={{
+            backgroundImage: `url('${gradientbg}'), url(https://avatars.dicebear.com/4.5/api/avataaars/${eachSong.i}.svg)`,
+          }}
+        >
+        
+          <div className="text-container">
+            <h5 className="ud-text udt-1">
+              <span style={{ color: "#ec6aa0" }}>
+                {eachSong.songUser.userName}
+                
+              </span>{" "}
+            </h5>
+            <h6 className="ud-text udt-2">
+            {eachSong.songName}
+            </h6>
+            <h6 className="ud-text udt-3">{eachSong.caption ? (<p>{eachSong.caption}</p>) : (<p>NO CAPTION FOR THIS FLOW</p>) }</h6>
+          </div>
+        </li>
+  );
+}
+  
 
 
   const showSongs = () => {
@@ -291,51 +310,83 @@ function SocialFeed(props) {
     );
   };
 
-  const displayComments = () => {
-    return (
-      <div ref={popUpRef} className="comment-pop-out">
-        <div className="inner-com">
-          <div
-            ref={opacityRef1}
-            style={{ opacity: "0" }}
-            className="com-cont-1"
-          >
-            <div className="input-container">
-              <div className="input-inset">
-                <form
-                  className="social-comment-form"
-                  onSubmit={() => {
-                    actions.addComment({ comment, SONG });
-                  }}
-                >
-                  <input
-                    className="social-comment-input"
-                    type="text"
-                    onChange={(e) => setComment(e.target.value)}
-                    placeholder="Drop yo comment"
-                  ></input>
-                </form>
-              </div>
+  //prevent default
+
+  const handleSubmit =(e)=>{
+
+    e.preventDefault()
+    actions.addComment({comment,SONG})
+   
+  }
+
+
+  const [writer,setWriter]=useState()
+
+  const getCommentWriter=(num)=>{
+    actions
+    .getAUser({id: num})
+    .then((res)=>{
+      setWriter( `@${res.data.userName}`)
+      
+    }).catch((e)=>{
+      console.log('failed to get name')
+    })
+  }
+
+  const renderEachComment = ()=>{
+
+    console.log(SONG)
+    if(!SONG.songComments){
+
+    }else{
+
+    return SONG.songComments.map((each)=>{
+      getCommentWriter(each.commUser)
+      return (
+        <div className="comment-list">
+      <div className="comment-list-inner">
+      <p className="comment-username">
+          {writer}
+      </p>
+      <p className="comment-text">
+        {each.comment}
+      </p>
+    </div>
+    </div>
+    )
+  })
+}
+}
+
+  const displayComments=()=>{
+    return(
+    <div ref={popUpRef} className="comment-pop-out">
+      <div className="inner-com">
+
+        <div ref={opacityRef1} style={{opacity: '0'}} className="com-cont-1">
+          <div className="input-container">
+            <div className="input-inset">
+              <form className="social-comment-form" onSubmit={handleSubmit}>
+                <input
+                    className="social-comment-input" 
+                    type='text' 
+                    onChange={(e)=>setComment(e.target.value)}
+                    placeholder='Drop yo comment' 
+                    ></input>
+                  <button></button>
+              </form>
             </div>
           </div>
+          </div>
 
-          <div
-            ref={opacityRef2}
-            style={{ opacity: "0" }}
-            className="com-cont-2"
-          >
-            <div className="comments-container">
-              <div className="comment-list-container">
-                <div className="comment-list">
-                  <div className="comment-list-inner">
-                    <p className="comment-username">@username</p>
-                    <p className="comment-date">12m</p>
-                    <p className="comment-text">
-                      {(SONG._id, SONG.i, SONG.songName)}
-                    </p>
-                  </div>
-                </div>
-              </div>
+        <div ref={opacityRef2} style={{opacity: '0'}} className="com-cont-2">
+          <div className="comments-container">
+            <div className="comment-list-container">
+              
+
+               {renderEachComment()}
+
+             
             </div>
           </div>
         </div>
@@ -343,9 +394,28 @@ function SocialFeed(props) {
           <div className="inner-bar"></div>
         </div>
       </div>
-    );
-  };
+      </div>
+    
 
+    )
+  }
+
+
+  const audioRef=useRef()
+
+
+ const handlePlayPause=()=>{
+   
+   if(audioRef.current.paused){
+    audioRef.current.play()
+
+   }else
+   {
+    audioRef.current.pause()
+  }
+  
+ }
+ 
 
   return (
     <div className="SocialFeed">
@@ -361,7 +431,7 @@ function SocialFeed(props) {
               <div className="user-profile-image">
                 <div className="user-profile-inset social-p">
                   <div className="nav-buttons-inset inset-social-p">
-                    <img className="button-icons bi-play" src={play}></img>
+                    <img className="button-icons bi-play" src={play} onClick={handlePlayPause}></img>
                   </div>
                 </div>
               </div>
@@ -372,8 +442,9 @@ function SocialFeed(props) {
       {displayComments()}
       {displaySearch()}
       {showNavBar()}
-    </div>
-  );
-}
+      <audio ref={audioRef} id='damn' ></audio>
+      </div>
+    )
+  }
 
 export default SocialFeed;

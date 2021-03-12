@@ -43,7 +43,7 @@ router.get(`/getOneUserRT`, verifyToken, async (req, res, next) => {
 
 router.post(`/getAUserRT`, async (req, res, next) => {
   //GETTING A PARTICULAR USER
-  console.log('hey hey hey hey hey ', req.body.id)
+  console.log('hey hey hey hey hey ', req.body)
       await User.findById(req.body.id)
         .then((user) => {
           res.status(200).json(user);
