@@ -35,12 +35,13 @@ function OtherProfile(props) {
   const followUser = () => {
     console.log(user, userViewed);
     document.getElementById('notify').click()
-    const followData = { user1: user.id, user2: userViewed.id };
+    const followData = { user1: thisUser };
     console.log("profile follow user function ", followData);
     actions
       .addFollow(followData)
       .then((somethingreturnedfromapi) => {
-     
+        console.log(somethingreturnedfromapi)
+        document.getElementById("notify").click();
       })
       .catch(console.error);
   };
