@@ -267,11 +267,11 @@ function SocialFeed(props) {
               <div className="individual-btn" onClick={followUser}>
                 <img className="social-icons follow" src={follow}></img>
               </div>
-              <div className="individual-btn" onClick={popUpSearch}>
-                <img className="social-icons heart" src={search}></img>
-              </div>
               <div className="individual-btn">
                 <img className="social-icons heart" onClick={(() => likePost())} src={heart2}></img><p>{songLikez}</p>
+              </div>
+              <div className="individual-btn" onClick={popUpSearch}>
+                <img className="social-icons heart" src={search}></img>
               </div>
               <div className="individual-btn" onClick={popUpComments}>
                 <img className="social-icons comment" src={comments}></img>
