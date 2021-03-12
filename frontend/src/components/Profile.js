@@ -131,11 +131,12 @@ function Profile(props) {
               <div className="users-details-inset">
 
                 <div className="users-details-each ude-1">
-                  <p><span style={{color: 'white', fontWeight: 'bold'}}>About: </span>{thisUser.userAbout}</p>
+                  <p className="little-p"><span style={{color: 'white', fontWeight: 'bold'}}>About: </span></p>
+                  <p className="big-p">{thisUser.userAbout}</p>
                 </div>
 
                 <div className="users-details-each ude-2">
-                  <p><span style={{color: 'white', fontWeight: 'bold'}}>Instagram: </span> {thisUser.Instagram}</p>
+                  <p><span style={{color: 'white', fontWeight: 'bold'}}>Instagram: </span> {thisUser.userInstagram}</p>
                 </div>
 
                 <div className="users-details-each ude-3">
@@ -207,7 +208,7 @@ function Profile(props) {
         <div className="nav-buttons-rim">
           <div className="nav-buttons-outset">
             <div className="nav-buttons-inset">
-              <img className="button-icons" src={explore}></img>
+              <img className="button-icons bi-explore" src={explore}></img>
             </div>
           </div>
         </div>
@@ -216,10 +217,10 @@ function Profile(props) {
           <div className="nav-buttons-outset">
             <div className="nav-buttons-inset">
             { user._id ? (<Link to="/social-feed">
-                                        <img className="button-icons" src={social}></img>
-                                    </Link>) : (<Link to="/auth">
-                                        <img className="button-icons" src={social}></img>
-                                    </Link>)}
+                              <img className="button-icons bi-social-p" src={social}></img>
+                          </Link>) : (<Link to="/auth">
+                              <img className="button-icons bi-social-p" src={social}></img>
+                          </Link>)}
               {/* <img className="button-icons" src={social}></img> */}
             </div>
           </div>
@@ -229,7 +230,7 @@ function Profile(props) {
           <div className="nav-buttons-outset">
             <div className="nav-buttons-inset">
             
-              <img className="button-icons" src={avatar3}></img>
+              <img className="button-icons bi-profile" src={avatar3}></img>
             </div>
           </div>
         </div>

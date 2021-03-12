@@ -48,49 +48,49 @@ function EditProfile(props) {
               <div className="input-sections-container">
                 <form onSubmit={submit} style={{height: '100%', width: '80%'}}>
                   <div className="input-sections">
-                    UserName
+                    <p>Username</p>
                     <div className="user-input profile-user-i">
                       <input className="user-text profile-user-t" type="text" autoComplete='off' onChange={handleChange} name="userName" placeholder={thisUser.userName}></input>
                     </div>
                   </div>
                   <div className="input-sections">
-                    First Name
+                    <p>First Name</p>
                     <div className="user-input profile-user-i">
                       <input className="user-text profile-user-t" type="text" autoComplete='off' onChange={handleChange} name="given_name" placeholder={thisUser.given_name}></input>
                     </div>
                   </div>
                   <div className="input-sections">
-                    Last Name
+                    <p>Last Name</p>
                     <div className="user-input profile-user-i">
                       <input className="user-text profile-user-t" type="text" autoComplete='off' onChange={handleChange} name="family_name" placeholder={thisUser.family_name}></input>
                     </div>
                   </div>
                   <div className="input-sections">
-                    Email
+                    <p>Email</p>
                     <div className="user-input profile-user-i">
                       <input className="user-text profile-user-t" type="text" autoComplete='off' onChange={handleChange} name="email" placeholder={thisUser.email}></input>
                     </div>
                   </div>
                   <div className="input-sections">
-                    Bio
+                    <p>Bio</p>
                     <div className="user-input profile-user-i">
                       <input className="user-text profile-user-t" type="text" autoComplete='off' onChange={handleChange} name="userAbout" placeholder={thisUser.userAbout}></input>
                     </div>
                   </div>
                   <div className="input-sections">
-                    Twitter
+                    <p>Twitter</p>
                     <div className="user-input profile-user-i">
                       <input className="user-text profile-user-t" type="text" autoComplete='off' onChange={handleChange} name="userTwitter" placeholder={thisUser.userTwitter}></input>
                     </div>
                   </div>
                   <div className="input-sections">
-                    Instagram
+                    <p>Instagram</p>
                     <div className="user-input profile-user-i">
                       <input className="user-text profile-user-t" type="text" autoComplete='off' onChange={handleChange} name="userInstagram" placeholder={thisUser.userInstagram}></input>
                     </div>
                   </div>
                   <div className="input-sections">
-                    Soundcloud
+                    <p>Soundcloud</p>
                     <div className="user-input profile-user-i">
                       <input className="user-text profile-user-t" type="text" autoComplete='off' onChange={handleChange} name="userSoundCloud" placeholder={thisUser.userSoundCloud}></input>
                     </div>
