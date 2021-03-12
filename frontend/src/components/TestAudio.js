@@ -249,7 +249,14 @@ function TestAudio(props) {
     copyLine.push(songLine());
     resetTranscript();
     setLine(copyLine);
+    autoScroll()
   };
+
+  const autoScroll=()=>{
+    let scrollLyrics= document.getElementById('currentTranscript')
+    scrollLyrics.scrollTop
+    =scrollLyrics.scrollHeight
+  }
 
   const lockSuggestion = () => {
     const copyRhyme = [...rhymes];
@@ -310,8 +317,10 @@ function TestAudio(props) {
       let selectedTake = document.getElementById("takes");
       selectedTake.selectedIndex = takes.length - 1;
       const freshTrack = allTakes[takes.length - 1];
+      if(freshTrack){
       freshTrack.setDate();
       freshTrack.setLyrics();
+      }
     }
   };
 
@@ -367,6 +376,11 @@ function TestAudio(props) {
       helpBtn.style.display = "block";
     });
   };
+
+  const deleteTake=()=>{
+   setLine([])
+   
+  }
 
   return (
     <div className="TestAudio">
@@ -530,7 +544,7 @@ function TestAudio(props) {
               </div>
             </div>
             <div className="button-icons-inset">
-              <div className="button-icons-outset">
+              <div className="button-icons-outset" onClick={deleteTake}>
                 <img className="button-icons bi-play" src={trashbin}></img>
               </div>
             </div>
