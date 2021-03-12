@@ -80,60 +80,42 @@ function SocialFeed(props) {
   let songUsersArr = [];
 
   //TEMPORARY CODE TO SHOW ALL SONGS JUST TO GET SOME LIKES ADDED
+  // useEffect(() => {
+  //   actions
+  //     .getUserSongs(user)
+  //     .then((usersSongs) => {
+  //       setThisFeedSongs(usersSongs.data);
+  //       console.log("inside useffect", thisFeedSongs);
+  //     })
+  //     .catch(console.error);
+  // }, [page]);
+
   useEffect(() => {
     actions
-      .getUserSongs(user)
+      .getMostLikedSongs()
       .then((usersSongs) => {
         setThisFeedSongs(usersSongs.data);
-
         console.log("inside useffect", thisFeedSongs);
-        usersSongs.data.map((eachFSong) => {
-          console.log("WTF", eachFSong);
-          return actions
-            .getAUser(eachFSong)
-            .then((res) => {
-              console.log("second action results", res);
-              songUsersArr.push(res);
-            })
-            .catch(console.error);
-        });
       })
       .catch(console.error);
   }, [page]);
 
+
+
   console.log("thisFeedSongs", thisFeedSongs);
 
-  const [userForSong, setUserForSong] = useState({});
+  // const [userForSong, setUserForSong] = useState({});
 
-  const [activeSong, setActiveSong] = useState({});
+  // const [activeSong, setActiveSong] = useState({});
 
-  // const getSongUsers = (theUserId) => {
-  //     console.log('HEY HEY HEY HEY HEY HEY', theUserId )
-  //     actions
-  //     .getAUser(theUserId)
-  //     .then((useUser) => {
-  //         setUserForSong(useUser.data)
+  // const getUserName = (id) => {
+  //   actions
+  //     .getAUser(id)
+  //     .then((name) => {
+  //       console.log(`@${name.data.userName}`);
   //     })
-  //     .catch(console.error)
-  // }
-
-  // useEffect(() => {
-  //     actions
-  //     .getAUser(userUser)
-  //     .then((useUser) => {
-  //         setUserForSong(useUser.data)
-  //     })
-  //     .catch(console.error)
-  // }, [userUser]);
-
-  const getUserName = (id) => {
-    actions
-      .getAUser(id)
-      .then((name) => {
-        console.log(`@${name.data.userName}`);
-      })
-      .catch(console.error);
-  };
+  //     .catch(console.error);
+  // };
 
   //NIKO
 
@@ -155,12 +137,18 @@ function SocialFeed(props) {
           backgroundImage: `url('${gradientbg}'), url(https://avatars.dicebear.com/4.5/api/avataaars/${eachSong.i}.svg)`,
         }}
       >
+      {/* <div style={{backgroundColor: "red", zIndex: "3000"}}></div> */}
         <div className="text-container">
           <h5 className="ud-text udt-1">
-            <span style={{ color: "#ec6aa0" }}>
+          <Link to={{pathname:`/profile/other${eachSong.songUser._id}`, profileInfo: eachSong.songUser}}>
+            <span id="please" style={{ color: "#ec6aa0" }}>
+            {console.log('HEY BITCH',eachSong.songUser._id)}
+            
               {eachSong.songUser.userName}
-            </span>{" "}
+              
+            </span>{" "}</Link>
           </h5>
+          <audio src={eachSong.songURL}></audio>
           <h6 className="ud-text udt-2">{eachSong.songName}</h6>
           <h6 className="ud-text udt-3">
             {eachSong.caption ? (
@@ -174,6 +162,7 @@ function SocialFeed(props) {
     );
   }
 
+
   const showSongs = () => {
     return thisFeedSongs.map((eachSong, i) => {
       // setUserUser(eachSong)
@@ -182,15 +171,6 @@ function SocialFeed(props) {
     });
   };
 
-  // REAL CODE TO REPLACE TEMPORARY GET ALL SONGS CODE ABOVE HERE
-  // useEffect(() => {
-  //   actions
-  //     .getUserLikedSongs(user)
-  //     .then((usersSongs) => {
-  //       setThisFeedSongs(usersSongs.data);
-  //     })
-  //     .catch(console.error);
-  // }, [page]);
 
   const getSocialFeed = () => {
     page === 1 ? (page = 0) : (page = 1);
@@ -366,15 +346,6 @@ function SocialFeed(props) {
     );
   };
 
-  // REAL CODE TO REPLACE TEMPORARY GET ALL SONGS CODE ABOVE HERE
-  // useEffect(() => {
-  //   actions
-  //     .getUserLikedSongs(user)
-  //     .then((usersSongs) => {
-  //       setThisFeedSongs(usersSongs.data);
-  //     })
-  //     .catch(console.error);
-  // }, [page]);
 
   return (
     <div className="SocialFeed">

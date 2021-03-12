@@ -83,36 +83,51 @@ router.post(`/getUserSongsRT`, async (req, res, next) => {
 })
 
 router.post(`/addFollowRT`, verifyToken, async (req, res, next) => {
-  jwt.verify(req.token, "secretkey", (err, authData) => {
+  jwt.verify(req.token, "secretkey", async (err, authData) => {
     if (err) {
       res.status(403).json(err);
     } else {
-      let follow = {followed: req.body.user2, follower: req.body.user1}
-      Follows.create(follow)
-        .then((foll) => {
-          res.status(200).json(foll);
-        })
-        .catch((err) => res.status(500).json(err));
+      let follow = {followed: req.body.user1._id, follower: authData.user._id}
+      let followed = await Follows.create(follow)
+      let stuff = await User.findByIdAndUpdate(req.body.user1._id,{$push:{userFollows:followed._id}})  
+      res.status(200).json(followed);
     }
   });
 });
+
+router.post(`/getMostLikedSongsRT`, (req, res, next) => {
+  // Songs.find({$sort: {"songTotLikes": -1}})
+  Songs.find({})
+  .then(songs => {
+    res.status(200).json(songs)
+
+  })
+  .catch(err => res.status(500).json(err))
+
+    // if (err) {
+    //   res.status(403).json(err);
+    // } else {
+    //   let songPosts = await Songs.find({$sort: {"songTotLikes": -1}});
+    //   res.status(200).json(songPosts)
+    // }
+  });
+
 
 router.post(`/addCommentRT`, verifyToken, async (req, res, next) => {
   jwt.verify(req.token, "secretkey", async (err, authData) => {
     if (err) {
       res.status(403).json(err);
     } else {
-      console.log('Bodied',req.body)
+      // console.log('Bodied',req.body)
       let body = req.body;
       body.commUser = authData.user._id;
-      console.log(1)
+      // console.log(1)
       let comment = await Comments.create(body);
-      console.log(comment)
-      console.log(2)
+      // console.log(comment)
+      // console.log(2)
       let s = await Songs.findByIdAndUpdate(req.body.SONG._id,{$push:{songComments:comment._id}})
-      console.log(s)
-      console.log(3)
-
+      // console.log(s)
+      // console.log(3)
       res.status(200).json(comment);
     }
   });
