@@ -15,8 +15,10 @@ import heart2 from "../images/heart2.svg";
 import explore from "../images/explore.svg";
 import Search from "../components/Search";
 import { useInView } from "react-intersection-observer";
+import gifsArr from "../images/gifs.json"
 
 let SONG = {};
+let songLikez = ''
 
 function SocialFeed(props) {
   const { user, setUser, userViewed, setUserViewed } = React.useContext(
@@ -28,6 +30,7 @@ function SocialFeed(props) {
   const [comment, setComment] = useState();
   const [poppedUp, setPoppedUp] = useState(false);
   const [searchPoppedUp, setSearchPoppedUp] = useState(false);
+  const [likes, setLikes] = useState(0)
   const windowRef = useRef();
   const popUpRef = useRef();
 
@@ -137,6 +140,16 @@ function SocialFeed(props) {
 
   //NIKO
 
+  let gifsCopy = [...gifsArr]
+
+  const getRandomBackground = () => {
+    let index = Math.floor(Math.random()*gifsCopy.length)
+    // gifsCopy.splice(index, 1)
+    // while (!gifsCopy.includes(gifsCopy[index])) {
+      return gifsCopy[index].url
+    // }
+  }
+
   function DisplaySong(eachSong) {
     const [ref, inView] = useInView({
       threshold: 0.5,
@@ -144,6 +157,8 @@ function SocialFeed(props) {
     if (inView) {
       // eachSong.setActiveSong(eachSong)
       SONG = eachSong;
+      songLikez = eachSong.songLikes.length
+      console.log(songLikez, '>>>>>>>><<<<<<<<<', eachSong.songLikes)
     } else {
     }
     console.log("scrolling", inView, eachSong);
@@ -152,7 +167,7 @@ function SocialFeed(props) {
         ref={ref}
         className="video-pane"
         style={{
-          backgroundImage: `url('${gradientbg}'), url(https://avatars.dicebear.com/4.5/api/avataaars/${eachSong.i}.svg)`,
+          backgroundImage: `url('${getRandomBackground()}')`
         }}
       >
         <div className="text-container">
@@ -210,6 +225,22 @@ function SocialFeed(props) {
       .catch(console.error);
   };
 
+  // const likePost = () => {
+  //   setLikes(likes + 1)
+  // }
+
+  const likePost = () => {
+    console.log(user, userViewed);
+    document.getElementById("likeN").click();
+    const likeData = { user1: user._id, songLiked: SONG._id };
+    actions
+      .addLike(likeData)
+      .then((whatever) => {
+        document.getElementById("notify").click();
+      })
+      .catch(console.error);
+  }
+
   const showNavBar = () => {
     return (
       <footer
@@ -219,7 +250,7 @@ function SocialFeed(props) {
           <div className="social-list">
             <div className="individual-btn">
               <div className="individual-profile-pic">
-                {/* stuff it in my tiny hole! (user's profile img) */}
+                {/* <img src={SONG.songUser.picture} alt=''/> */}
               </div>
             </div>
             <div className="like-comment-container">
@@ -228,6 +259,9 @@ function SocialFeed(props) {
               </div>
               <div className="individual-btn" onClick={popUpSearch}>
                 <img className="social-icons heart" src={search}></img>
+              </div>
+              <div className="individual-btn">
+                <img className="social-icons heart" onClick={(() => likePost())} src={heart2}></img><p>{songLikez}</p>
               </div>
               <div className="individual-btn" onClick={popUpComments}>
                 <img className="social-icons comment" src={comments}></img>
@@ -365,16 +399,6 @@ function SocialFeed(props) {
       </div>
     );
   };
-
-  // REAL CODE TO REPLACE TEMPORARY GET ALL SONGS CODE ABOVE HERE
-  // useEffect(() => {
-  //   actions
-  //     .getUserLikedSongs(user)
-  //     .then((usersSongs) => {
-  //       setThisFeedSongs(usersSongs.data);
-  //     })
-  //     .catch(console.error);
-  // }, [page]);
 
   return (
     <div className="SocialFeed">

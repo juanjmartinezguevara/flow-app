@@ -82,6 +82,23 @@ router.post(`/getUserSongsRT`, async (req, res, next) => {
     .catch((err) => res.status(500).json(err))
 })
 
+router.post(`/getSongLikesRT`, async (req, res, next) => {
+  Songs.find({ SongTotLikes: req.body._id})
+  console.log('getting LIKES from SONG LIKES ROUTE...', req.body._id)
+  .then((songLikes) => {
+      res.status(200).json(songLikes);
+  })
+  .catch((err) => res.status(500).json(err))
+})
+
+router.post(`/addLikeRT`, async (req, res, next) => {
+  let body = { likeUser: req.body.user1, likerSong: req.body.songLiked }
+  let liked = await Likes.create(body)
+  console.log(liked)
+  let stuff = await Songs.findByIdAndUpdate(liked.likerSong, {$push: {songLikes: liked._id}})
+  res.status(200).json(info)
+})
+
 router.post(`/addFollowRT`, verifyToken, async (req, res, next) => {
   jwt.verify(req.token, "secretkey", (err, authData) => {
     if (err) {

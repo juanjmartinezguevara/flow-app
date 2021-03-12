@@ -1,10 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Link } from 'react-router-dom'
 import axios from "axios";
 import { Redirect, useHistory } from "react-router";
 import TheContext from "../TheContext";
 import actions from "../api";
-import {Link} from 'react-router-dom';
 
 function EditProfile(props) {
   const { user } = React.useContext(TheContext);
