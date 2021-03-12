@@ -18,7 +18,6 @@ import { useInView } from "react-intersection-observer";
 import gifsArr from "../images/gifs.json"
 
 let SONG = {};
-let songLikez = ''
 
 function SocialFeed(props) {
   const { user, setUser, userViewed, setUserViewed } = React.useContext(
@@ -32,6 +31,7 @@ function SocialFeed(props) {
   const [poppedUp, setPoppedUp] = useState(false);
   const [searchPoppedUp, setSearchPoppedUp] = useState(false);
   const [likes, setLikes] = useState(0)
+  const [bg, setBg] = useState('')
   const windowRef = useRef();
   const popUpRef = useRef();
 
@@ -180,8 +180,8 @@ let profilePicRef=useRef()
       SONG = eachSong;
       audioRef.current.src=eachSong.songURL
       profilePicRef.current.src=eachSong.songUser.picture
-      songLikez = eachSong.songLikes.length
-      console.log(songLikez, '>>>>>>>><<<<<<<<<', eachSong.songLikes)
+      setLikes(eachSong.songLikes?.length)
+      console.log(likes)
     } else {
     }
     console.log("scrolling", inView, eachSong);
@@ -275,7 +275,7 @@ let profilePicRef=useRef()
                 <img className="social-icons heart" src={search}></img>
               </div>
               <div className="individual-btn">
-                <img className="social-icons heart" onClick={(() => likePost())} src={heart2}></img><p>{songLikez}</p>
+                <img className="social-icons heart" onClick={likePost} src={heart2}></img><p>{likes}</p>
               </div>
               <div className="individual-btn" onClick={popUpComments}>
                 <img className="social-icons comment" src={comments}></img>
