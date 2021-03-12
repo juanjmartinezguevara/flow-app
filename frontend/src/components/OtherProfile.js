@@ -176,8 +176,8 @@ function OtherProfile(props) {
               <div className="log-profile-outset">
                 <div className="log-profile-inset">
                   <div className="edit-profile-button" >
-                  <h2>{thisUser.userFollows?.length}</h2>
-                    {/* <img className="button-icons hearts" src={heart2} /> */}
+                    <img className="button-icons hearts" src={heart2} />
+                    <h4 style={{color: 'pink'}}>{thisUser.userFollows?.length}</h4>
                   </div>
                 </div>
               </div>
