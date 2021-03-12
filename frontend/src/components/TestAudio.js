@@ -379,7 +379,8 @@ function TestAudio(props) {
 
   const deleteTake=()=>{
    setLine([])
-   
+   setRhymes([])
+
   }
 
   return (
