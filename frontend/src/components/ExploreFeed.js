@@ -183,7 +183,7 @@ let gifsCopy = [...gifsArr]
             </div>
             <div className="like-comment-container">
               <div className="individual-btn">
-                <img className="social-icons follow" onClick={(() => likePost())} src={heart2}></img>{showPostLikes()}
+                {/* <img className="social-icons follow" onClick={(() => likePost())} src={heart2}></img>{showPostLikes()} */}
               </div>
               <div className="individual-btn" onClick={popUpSearch}>
                 <img className="social-icons heart" src={search}></img>

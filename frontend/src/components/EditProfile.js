@@ -50,49 +50,49 @@ function EditProfile(props) {
                   <div className="input-sections">
                     UserName
                     <div className="user-input profile-user-i">
-                      <input className="user-text profile-user-t" type="text" autocomplete='off' onChange={handleChange} name="userName" placeholder={thisUser.userName}></input>
+                      <input className="user-text profile-user-t" type="text" autoComplete='off' onChange={handleChange} name="userName" placeholder={thisUser.userName}></input>
                     </div>
                   </div>
                   <div className="input-sections">
                     First Name
                     <div className="user-input profile-user-i">
-                      <input className="user-text profile-user-t" type="text" autocomplete='off' onChange={handleChange} name="given_name" placeholder={thisUser.given_name}></input>
+                      <input className="user-text profile-user-t" type="text" autoComplete='off' onChange={handleChange} name="given_name" placeholder={thisUser.given_name}></input>
                     </div>
                   </div>
                   <div className="input-sections">
                     Last Name
                     <div className="user-input profile-user-i">
-                      <input className="user-text profile-user-t" type="text" autocomplete='off' onChange={handleChange} name="family_name" placeholder={thisUser.family_name}></input>
+                      <input className="user-text profile-user-t" type="text" autoComplete='off' onChange={handleChange} name="family_name" placeholder={thisUser.family_name}></input>
                     </div>
                   </div>
                   <div className="input-sections">
                     Email
                     <div className="user-input profile-user-i">
-                      <input className="user-text profile-user-t" type="text" autocomplete='off' onChange={handleChange} name="email" placeholder={thisUser.email}></input>
+                      <input className="user-text profile-user-t" type="text" autoComplete='off' onChange={handleChange} name="email" placeholder={thisUser.email}></input>
                     </div>
                   </div>
                   <div className="input-sections">
                     Bio
                     <div className="user-input profile-user-i">
-                      <input className="user-text profile-user-t" type="text" autocomplete='off' onChange={handleChange} name="userAbout" placeholder={thisUser.userAbout}></input>
+                      <input className="user-text profile-user-t" type="text" autoComplete='off' onChange={handleChange} name="userAbout" placeholder={thisUser.userAbout}></input>
                     </div>
                   </div>
                   <div className="input-sections">
                     Twitter
                     <div className="user-input profile-user-i">
-                      <input className="user-text profile-user-t" type="text" autocomplete='off' onChange={handleChange} name="userTwitter" placeholder={thisUser.userTwitter}></input>
+                      <input className="user-text profile-user-t" type="text" autoComplete='off' onChange={handleChange} name="userTwitter" placeholder={thisUser.userTwitter}></input>
                     </div>
                   </div>
                   <div className="input-sections">
                     Instagram
                     <div className="user-input profile-user-i">
-                      <input className="user-text profile-user-t" type="text" autocomplete='off' onChange={handleChange} name="userInstagram" placeholder={thisUser.userInstagram}></input>
+                      <input className="user-text profile-user-t" type="text" autoComplete='off' onChange={handleChange} name="userInstagram" placeholder={thisUser.userInstagram}></input>
                     </div>
                   </div>
                   <div className="input-sections">
                     Soundcloud
                     <div className="user-input profile-user-i">
-                      <input className="user-text profile-user-t" type="text" autocomplete='off' onChange={handleChange} name="userSoundCloud" placeholder={thisUser.userSoundCloud}></input>
+                      <input className="user-text profile-user-t" type="text" autoComplete='off' onChange={handleChange} name="userSoundCloud" placeholder={thisUser.userSoundCloud}></input>
                     </div>
                   </div>
                     <button type="submit" className="submit-button-edit">

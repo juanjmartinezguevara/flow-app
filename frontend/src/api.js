@@ -49,8 +49,8 @@ const actions = {
     return await axios.get(`${baseURL}/getUserLikedSongsRT`, resetHead());
   },
 
-  getMostLikedSongs: async (songPosts) => {
-    return await axios.post(`${baseURL}/getMostLikedSongsRT`, songPosts, resetHead());
+  getMostLikedSongs: async () => {
+    return await axios.post(`${baseURL}/getMostLikedSongsRT`, resetHead());
   },
 
   addLike: async (likePassed) => {
@@ -62,6 +62,7 @@ const actions = {
   },
 
   addFollow: async (followDat) => {
+    console.log('followDat from the API', followDat)
     return await axios.post(`${baseURL}/addFollowRT`, followDat, resetHead())
   },
 

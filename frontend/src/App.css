@@ -556,12 +556,15 @@ footer {
   position: relative;
   top: 82%;
   left: -10%;
+
 }
 .ud-text {
   white-space: nowrap;
   width: 95%;
   text-align: left;
   display: inline-block;
+
+ 
   transform: translateX(110%)
 }
 .udt-1 {

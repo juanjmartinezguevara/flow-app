@@ -41,7 +41,7 @@ function SocialFeed(props) {
   const opacitySearchRef3 = useRef();
 
   const popUpComments = () => {
-    console.log(SONG);
+   
     if (poppedUp == false) {
       opacityRef1.current.style.opacity = 1;
       opacityRef2.current.style.opacity = 1;
@@ -83,62 +83,67 @@ function SocialFeed(props) {
   let songUsersArr = [];
 
   //TEMPORARY CODE TO SHOW ALL SONGS JUST TO GET SOME LIKES ADDED
+  // useEffect(() => {
+  //   actions
+  //     .getUserSongs(user)
+  //     .then((usersSongs) => {
+  //       setThisFeedSongs(usersSongs.data);
+  //       console.log("inside useffect", thisFeedSongs);
+  //     })
+  //     .catch(console.error);
+  // }, [page]);
+
   useEffect(() => {
     actions
-      .getUserSongs(user)
+      .getMostLikedSongs()
       .then((usersSongs) => {
         setThisFeedSongs(usersSongs.data);
-
         console.log("inside useffect", thisFeedSongs);
-        usersSongs.data.map((eachFSong) => {
-          console.log("WTF", eachFSong);
-          return actions
-            .getAUser(eachFSong)
-            .then((res) => {
-              console.log("second action results", res);
-              songUsersArr.push(res);
-            })
-            .catch(console.error);
-        });
       })
       .catch(console.error);
   }, [page]);
 
-  console.log("thisFeedSongs", thisFeedSongs);
 
-  const [userForSong, setUserForSong] = useState({});
+  const [userForSong, setUserForSong] = useState({})
 
-  const [activeSong, setActiveSong] = useState({});
+  const [activeSong,setActiveSong]=useState({})
 
-  // const getSongUsers = (theUserId) => {
-  //     console.log('HEY HEY HEY HEY HEY HEY', theUserId )
-  //     actions
-  //     .getAUser(theUserId)
-  //     .then((useUser) => {
-  //         setUserForSong(useUser.data)
+  
+// const getSongUsers = (theUserId) => {
+//     console.log('HEY HEY HEY HEY HEY HEY', theUserId )
+//     actions
+//     .getAUser(theUserId)
+//     .then((useUser) => {
+//         setUserForSong(useUser.data)
+//     })
+//     .catch(console.error)
+// }
+
+// useEffect(() => {
+//     actions
+//     .getAUser(userUser)
+//     .then((useUser) => {
+//         setUserForSong(useUser.data)
+//     })
+//     .catch(console.error)
+// }, [userUser]);
+
+
+
+  // const [userForSong, setUserForSong] = useState({});
+
+  // const [activeSong, setActiveSong] = useState({});
+
+  // const getUserName = (id) => {
+  //   actions
+  //     .getAUser(id)
+  //     .then((name) => {
+  //       console.log(`@${name.data.userName}`);
   //     })
-  //     .catch(console.error)
-  // }
+  //     .catch(console.error);
+  // };
 
-  // useEffect(() => {
-  //     actions
-  //     .getAUser(userUser)
-  //     .then((useUser) => {
-  //         setUserForSong(useUser.data)
-  //     })
-  //     .catch(console.error)
-  // }, [userUser]);
 
-  const getUserName = (id) => {
-    actions
-      .getAUser(id)
-      .then((name) => {
-        console.log(`@${name.data.userName}`);
-      })
-      .catch(console.error);
-  };
-
-  //NIKO
 
   let gifsCopy = [...gifsArr]
 
@@ -150,6 +155,19 @@ function SocialFeed(props) {
     // }
   }
 
+  const audioRef=useRef()
+
+  const handlePlayPause=()=>{
+    
+    if(audioRef.current.paused){
+     audioRef.current.play()
+ 
+    }else
+    {
+     audioRef.current.pause()
+   }
+  }
+
   function DisplaySong(eachSong) {
     const [ref, inView] = useInView({
       threshold: 0.5,
@@ -157,6 +175,7 @@ function SocialFeed(props) {
     if (inView) {
       // eachSong.setActiveSong(eachSong)
       SONG = eachSong;
+      audioRef.current.src=eachSong.songURL
       songLikez = eachSong.songLikes.length
       console.log(songLikez, '>>>>>>>><<<<<<<<<', eachSong.songLikes)
     } else {
@@ -197,15 +216,6 @@ function SocialFeed(props) {
     });
   };
 
-  // REAL CODE TO REPLACE TEMPORARY GET ALL SONGS CODE ABOVE HERE
-  // useEffect(() => {
-  //   actions
-  //     .getUserLikedSongs(user)
-  //     .then((usersSongs) => {
-  //       setThisFeedSongs(usersSongs.data);
-  //     })
-  //     .catch(console.error);
-  // }, [page]);
 
   const getSocialFeed = () => {
     page === 1 ? (page = 0) : (page = 1);
@@ -214,7 +224,7 @@ function SocialFeed(props) {
 
   const followUser = () => {
     console.log(user, userViewed);
-    document.getElementById("followN").click();
+    document.getElementById("notify").click();
     const followData = { user1: user.id, user2: userViewed.id };
     console.log("profile follow user function ", followData);
     actions
@@ -231,7 +241,7 @@ function SocialFeed(props) {
 
   const likePost = () => {
     console.log(user, userViewed);
-    document.getElementById("likeN").click();
+    document.getElementById("notify").click();
     const likeData = { user1: user._id, songLiked: SONG._id };
     actions
       .addLike(likeData)
@@ -345,51 +355,83 @@ function SocialFeed(props) {
     );
   };
 
-  const displayComments = () => {
-    return (
-      <div ref={popUpRef} className="comment-pop-out">
-        <div className="inner-com">
-          <div
-            ref={opacityRef1}
-            style={{ opacity: "0" }}
-            className="com-cont-1"
-          >
-            <div className="input-container">
-              <div className="input-inset">
-                <form
-                  className="social-comment-form"
-                  onSubmit={() => {
-                    actions.addComment({ comment, SONG });
-                  }}
-                >
-                  <input
-                    className="social-comment-input"
-                    type="text"
-                    onChange={(e) => setComment(e.target.value)}
-                    placeholder="Drop yo comment"
-                  ></input>
-                </form>
-              </div>
+  //prevent default
+
+  const handleSubmit =(e)=>{
+
+    e.preventDefault()
+    actions.addComment({comment,SONG})
+   
+  }
+
+
+  const [writer,setWriter]=useState()
+
+  const getCommentWriter=(num)=>{
+    actions
+    .getAUser({id: num})
+    .then((res)=>{
+      setWriter( `@${res.data.userName}`)
+      
+    }).catch((e)=>{
+      console.log('failed to get name')
+    })
+  }
+
+  const renderEachComment = ()=>{
+
+    console.log(SONG)
+    if(!SONG.songComments){
+
+    }else{
+
+    return SONG.songComments.map((each)=>{
+      getCommentWriter(each.commUser)
+      return (
+        <div className="comment-list">
+      <div className="comment-list-inner">
+      <p className="comment-username">
+          {writer}
+      </p>
+      <p className="comment-text">
+        {each.comment}
+      </p>
+    </div>
+    </div>
+    )
+  })
+}
+}
+
+  const displayComments=()=>{
+    return(
+    <div ref={popUpRef} className="comment-pop-out">
+      <div className="inner-com">
+
+        <div ref={opacityRef1} style={{opacity: '0'}} className="com-cont-1">
+          <div className="input-container">
+            <div className="input-inset">
+              <form className="social-comment-form" onSubmit={handleSubmit}>
+                <input
+                    className="social-comment-input" 
+                    type='text' 
+                    onChange={(e)=>setComment(e.target.value)}
+                    placeholder='Drop yo comment' 
+                    ></input>
+                  <button></button>
+              </form>
             </div>
           </div>
+          </div>
 
-          <div
-            ref={opacityRef2}
-            style={{ opacity: "0" }}
-            className="com-cont-2"
-          >
-            <div className="comments-container">
-              <div className="comment-list-container">
-                <div className="comment-list">
-                  <div className="comment-list-inner">
-                    <p className="comment-username">@username</p>
-                    <p className="comment-date">12m</p>
-                    <p className="comment-text">
-                      {(SONG._id, SONG.i, SONG.songName)}
-                    </p>
-                  </div>
-                </div>
-              </div>
+        <div ref={opacityRef2} style={{opacity: '0'}} className="com-cont-2">
+          <div className="comments-container">
+            <div className="comment-list-container">
+              
+
+               {renderEachComment()}
+
+             
             </div>
           </div>
         </div>
@@ -397,8 +439,11 @@ function SocialFeed(props) {
           <div className="inner-bar"></div>
         </div>
       </div>
-    );
-  };
+      </div>
+    
+
+    )
+  }
 
   return (
     <div className="SocialFeed">
@@ -414,7 +459,7 @@ function SocialFeed(props) {
               <div className="user-profile-image">
                 <div className="user-profile-inset social-p">
                   <div className="nav-buttons-inset inset-social-p">
-                    <img className="button-icons bi-play" src={play}></img>
+                    <img className="button-icons bi-play" src={play} onClick={handlePlayPause}></img>
                   </div>
                 </div>
               </div>
@@ -425,8 +470,9 @@ function SocialFeed(props) {
       {displayComments()}
       {displaySearch()}
       {showNavBar()}
-    </div>
-  );
-}
+      <audio ref={audioRef} id='damn' ></audio>
+      </div>
+    )
+  }
 
 export default SocialFeed;
