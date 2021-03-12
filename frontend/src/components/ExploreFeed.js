@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useMemo } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import gradientbg from "../images/gradient-bg-2.png";
@@ -14,22 +14,24 @@ import search from "../images/search.svg";
 import heart2 from "../images/heart2.svg";
 import explore from "../images/explore.svg";
 import Search from "../components/Search";
+import { useInView } from "react-intersection-observer";
 import gifsArr from "../images/gifs.json"
 
-function ExploreFeed(props) {
-  const { songs } = React.useContext(TheContext);
-  const [topSongs, setTopSongs] = useState([{ songs }]);
-  const [likes, setLikes] = useState(0)
+let SONG = {};
+let songLikez = ''
 
+function SocialFeed(props) {
   const { user, setUser, userViewed, setUserViewed } = React.useContext(
     TheContext
   );
 
-  axios.get();
+  // axios.get();
+
 
   const [comment, setComment] = useState();
   const [poppedUp, setPoppedUp] = useState(false);
   const [searchPoppedUp, setSearchPoppedUp] = useState(false);
+  const [likes, setLikes] = useState(0)
   const windowRef = useRef();
   const popUpRef = useRef();
 
@@ -40,6 +42,7 @@ function ExploreFeed(props) {
   const opacitySearchRef3 = useRef();
 
   const popUpComments = () => {
+   
     if (poppedUp == false) {
       opacityRef1.current.style.opacity = 1;
       opacityRef2.current.style.opacity = 1;
@@ -75,21 +78,77 @@ function ExploreFeed(props) {
     }
   };
 
-  let [page, setPage] = useState(1);
-  let [userUser, setUserUser] = useState({});
-  const [userForSong, setUserForSong] = useState({});
+  const [thisFeedSongs, setThisFeedSongs] = useState([]);
+  let page = 1;
+  let userUser = "";
+  let songUsersArr = [];
+
+  //TEMPORARY CODE TO SHOW ALL SONGS JUST TO GET SOME LIKES ADDED
+  // useEffect(() => {
+  //   actions
+  //     .getUserSongs(user)
+  //     .then((usersSongs) => {
+  //       setThisFeedSongs(usersSongs.data);
+  //       console.log("inside useffect", thisFeedSongs);
+  //     })
+  //     .catch(console.error);
+  // }, [page]);
 
   useEffect(() => {
     actions
       .getMostLikedSongs()
-      .then((allSongs) => {
-        console.log("Showing posts from database...", allSongs);
-        setTopSongs(allSongs.data);
+      .then((usersSongs) => {
+        
+        usersSongs.data.reverse()
+        setThisFeedSongs(usersSongs.data);
+        console.log("inside useffect", thisFeedSongs);
       })
       .catch(console.error);
-  }, []);
+  }, [page]);
 
-let gifsCopy = [...gifsArr]
+
+  const [userForSong, setUserForSong] = useState({})
+
+  const [activeSong,setActiveSong]=useState({})
+
+  
+// const getSongUsers = (theUserId) => {
+//     console.log('HEY HEY HEY HEY HEY HEY', theUserId )
+//     actions
+//     .getAUser(theUserId)
+//     .then((useUser) => {
+//         setUserForSong(useUser.data)
+//     })
+//     .catch(console.error)
+// }git add
+
+// useEffect(() => {
+//     actions
+//     .getAUser(userUser)
+//     .then((useUser) => {
+//         setUserForSong(useUser.data)
+//     })
+//     .catch(console.error)
+// }, [userUser]);
+
+
+
+  // const [userForSong, setUserForSong] = useState({});
+
+  // const [activeSong, setActiveSong] = useState({});
+
+  // const getUserName = (id) => {
+  //   actions
+  //     .getAUser(id)
+  //     .then((name) => {
+  //       console.log(`@${name.data.userName}`);
+  //     })
+  //     .catch(console.error);
+  // };
+
+
+
+  let gifsCopy = [...gifsArr]
 
   const getRandomBackground = () => {
     let index = Math.floor(Math.random()*gifsCopy.length)
@@ -99,75 +158,105 @@ let gifsCopy = [...gifsArr]
     // }
   }
 
+  const audioRef=useRef()
+
+  const handlePlayPause=()=>{
+    
+    if(audioRef.current.paused){
+     audioRef.current.play()
+ 
+    }else
+    {
+     audioRef.current.pause()
+   }
+  }
+
+let profilePicRef=useRef()
+
+
+  function DisplaySong(eachSong) {
+    const [ref, inView] = useInView({
+      threshold: 0.5,
+    });
+    if (inView) {
+      // eachSong.setActiveSong(eachSong)
+      SONG = eachSong;
+      audioRef.current.src=eachSong.songURL
+      profilePicRef.current.src=eachSong.songUser.picture
+      songLikez = eachSong.songLikes?.length
+      console.log(songLikez, '>>>>>>>><<<<<<<<<', eachSong.songLikes)
+    } else {
+    }
+    // console.log("scrolling", inView, eachSong);
+    return (
+      <li
+        ref={ref}
+        className="video-pane"
+        style={{
+          backgroundImage: `url('${getRandomBackground()}')`
+        }}
+      >
+        <div className="text-container">
+          <h5 className="ud-text udt-1">
+            <span style={{ color: "#ec6aa0" }}>
+              {eachSong.songUser.userName}
+            </span>{" "}
+          </h5>
+          <h6 className="ud-text udt-2">{eachSong.songName}</h6>
+          <h6 className="ud-text udt-3">
+            {eachSong.caption ? (
+              <p>{eachSong.caption}</p>
+            ) : (
+              <p>NO CAPTION FOR THIS FLOW</p>
+            )}
+          </h6>
+        </div>
+      </li>
+    );
+  }
+
+  const showSongs = () => {
+    return thisFeedSongs.map((eachSong, i) => {
+      // setUserUser(eachSong)
+      // console.log(userForSong)
+      return <DisplaySong i={i} {...eachSong} />;
+    });
+  };
+
+
+  const getSocialFeed = () => {
+    page === 1 ? (page = 0) : (page = 1);
+    console.log("GET SOCIAL FEED SONGS FUNCTION");
+  };
+
+  const followUser = () => {
+    console.log(user, userViewed);
+    document.getElementById("notify").click();
+    const followData = { user1: user._id, user2: userViewed._id };
+    console.log("profile follow user function ", followData);
+    actions
+      .addFollow(followData)
+      .then((somethingreturnedfromapi) => {
+        document.getElementById("notify").click();
+      })
+      .catch(console.error);
+  };
+
   // const likePost = () => {
   //   setLikes(likes + 1)
   // }
 
-  const showPosts = () => {
-    return topSongs
-      .splice(0, 10)
-      .sort((a, b) => b.songDate - a.songDate)
-      .map((eachSong) => {
-        console.log(eachSong.songName, eachSong);
-      let i = 0
-
-        return (
-          <div>
-            <li
-              className="video-pane"
-              style={{ backgroundImage: `url('${getRandomBackground()}')`}}
-            >
-              {/* <div
-                className="video-details-container video-details-transition"
-              >
-                <div className="transparent-test">
-                  <div className="user-details-container">
-                    <div className="user-details-inset">
-                      <h5 className="ud-text udt-1">
-                        <span style={{ color: "#ec6aa0" }}>
-                          @USERNAME {eachSong.userName}
-                        </span>
-                      </h5>
-                      <h6 className="ud-text udt-2">
-                        SONG TITLE MAYBE GOES HERE? {eachSong.songName}
-                      </h6>
-                      <h6 className="ud-text udt-3">
-                        CAPTION GOES HERE {eachSong.songCaption}
-                      </h6>
-                    </div>
-                  </div>
-                  <div className="user-profile-image">
-                    <div className="user-profile-inset social-p">
-                      <div className="nav-buttons-inset inset-social-p">
-                        <img className="button-icons bi-play" alt=""></img>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div> */}
-              <div className="text-container">
-                <h5 className="ud-text udt-1">
-                  <span style={{ color: "#ec6aa0" }}>@Usernamesernamese</span>{" "}
-                </h5>
-                <h6 className="ud-text udt-2">{eachSong.songName}</h6>
-                <h6 className="ud-text udt-3">
-                  {eachSong.caption ? (
-                    <p>{eachSong.caption}</p>
-                  ) : (
-                    <p>NO CAPTION FOR THIS FLOW</p>
-                  )}
-                </h6>
-              </div>
-            </li>
-          </div>
-        );
-      });
-  };
-
-  const getSocialFeed = () => {
-    page === 1 ? setPage(0) : setPage(1);
-    console.log("GET SOCIAL FEED SONGS FUNCTION");
-  };
+  const likePost = () => {
+    console.log(user, userViewed);
+    document.getElementById("notify").click();
+    const likeData = { user1: user._id, songLiked: SONG._id };
+    actions
+      .addLike(likeData)
+      .then((whatever) => {
+        document.getElementById("notify").click();
+      })
+      .catch(console.error);
+  }
 
   const showNavBar = () => {
     return (
@@ -178,15 +267,18 @@ let gifsCopy = [...gifsArr]
           <div className="social-list">
             <div className="individual-btn">
               <div className="individual-profile-pic">
-                {/* stuff it in my tiny hole! (user's profile img) */}
+                <img  src={SONG.songUser?.picture} ref={profilePicRef} alt=''/>
               </div>
             </div>
             <div className="like-comment-container">
-              <div className="individual-btn">
-                {/* <img className="social-icons follow" onClick={(() => likePost())} src={heart2}></img>{showPostLikes()} */}
+              <div className="individual-btn" onClick={followUser}>
+                <img className="social-icons follow" src={follow}></img>
               </div>
               <div className="individual-btn" onClick={popUpSearch}>
                 <img className="social-icons heart" src={search}></img>
+              </div>
+              <div className="individual-btn">
+                <img className="social-icons heart" onClick={(() => likePost())} src={heart2}></img><p>{songLikez}</p>
               </div>
               <div className="individual-btn" onClick={popUpComments}>
                 <img className="social-icons comment" src={comments}></img>
@@ -219,16 +311,18 @@ let gifsCopy = [...gifsArr]
             <div className="nav-buttons-rim">
               <div className="nav-buttons-outset">
                 <div className="nav-buttons-inset">
-                  <img className="button-icons" src={explore}></img>
+                  <img className="button-icons bi-explore" src={explore}></img>
                 </div>
               </div>
             </div>
 
             <div className="nav-buttons-rim">
               <div className="nav-buttons-outset">
-                <div onClick={getSocialFeed} className="nav-buttons-inset">
-                  <img className="button-icons" src={social}></img>
-                </div>
+              
+                <Link to='/social-feed'>
+                  <img className="button-icons bi-social" src={social} alt="social"></img>
+                  </Link>
+                
               </div>
             </div>
 
@@ -237,13 +331,14 @@ let gifsCopy = [...gifsArr]
                 <div className="nav-buttons-inset">
                   {user._id ? (
                     <Link to="/profile">
-                      <img className="button-icons" src={avatar3}></img>
+                      <img className="button-icons bi-profile-social" src={avatar3}></img>
                     </Link>
                   ) : (
                     <Link to="/auth">
-                      <img className="button-icons" src={avatar3}></img>
+                      <img className="button-icons bi-profile-social" src={avatar3}></img>
                     </Link>
                   )}
+                  {/* <img className="button-icons" src={avatar3}></img> */}
                 </div>
               </div>
             </div>
@@ -257,6 +352,7 @@ let gifsCopy = [...gifsArr]
     return (
       <div ref={popUpSearchRef} className="comment-pop-out">
         <Search />
+
         <div
           ref={opacitySearchRef3}
           style={{ opacity: "0" }}
@@ -268,78 +364,111 @@ let gifsCopy = [...gifsArr]
     );
   };
 
-  const displayComments = () => {
-    return (
-      <div ref={popUpRef} className="comment-pop-out">
-        <div className="inner-com">
-          <div
-            ref={opacityRef1}
-            style={{ opacity: "0" }}
-            className="com-cont-1"
-          >
-            <div className="input-container">
-              <div className="input-inset">
-                <form className="social-comment-form">
-                  <input
-                    className="social-comment-input"
-                    type="text"
-                    value=""
-                    placeholder="Drop yo comment"
-                  ></input>
-                </form>
-              </div>
+  //prevent default
+
+  const handleSubmit =(e)=>{
+
+    e.preventDefault()
+    actions.addComment({comment,SONG})
+   
+  }
+
+
+  const [writer,setWriter]=useState()
+
+  const getCommentWriter=(num)=>{
+    actions
+    .getAUser({id: num})
+    .then((res)=>{
+      setWriter( `@${res.data.userName}`)
+      
+    }).catch((e)=>{
+      console.log('failed to get name')
+    })
+  }
+
+  const renderEachComment = ()=>{
+
+    console.log(SONG)
+    if(!SONG.songComments){
+
+    }else{
+
+    return SONG.songComments.map((each)=>{
+      getCommentWriter(each.commUser)
+      return (
+        <div className="comment-list">
+      <div className="comment-list-inner">
+      <p className="comment-username">
+          {writer}
+      </p>
+      <p className="comment-text">
+        {each.comment}
+      </p>
+    </div>
+    </div>
+    )
+  })
+}
+}
+
+  const displayComments=()=>{
+    return(
+    <div ref={popUpRef} className="comment-pop-out">
+      <div className="inner-com">
+
+        <div ref={opacityRef1} style={{opacity: '0'}} className="com-cont-1">
+          <div className="input-container">
+            <div className="input-inset">
+              <form className="social-comment-form" onSubmit={handleSubmit}>
+                <input
+                    className="social-comment-input" 
+                    type='text' 
+                    onChange={(e)=>setComment(e.target.value)}
+                    placeholder='Drop yo comment' 
+                    ></input>
+                  <button></button>
+              </form>
             </div>
           </div>
+          </div>
 
-          <div
-            ref={opacityRef2}
-            style={{ opacity: "0" }}
-            className="com-cont-2"
-          >
-            <div className="comments-container">
-              <div className="comment-list-container">
-                <div className="comment-list">
-                  <div className="comment-list-inner">
-                    <p className="comment-username">@username</p>
-                    <p className="comment-date">12m</p>
-                    <p className="comment-text">
-                      Lorem Ipsum is simply dummy text of the printing and
-                      typesetting industry. Lorem Ipsum has been the industry's
-                      standard dummy text ever since the 1500s, when an unknown
-                      printer took a galley of type and scrambled it to make a
-                      type specimen book.
-                    </p>
-                  </div>
-                </div>
-              </div>
+        <div ref={opacityRef2} style={{opacity: '0'}} className="com-cont-2">
+          <div className="comments-container">
+            <div className="comment-list-container">
+              
+
+               {renderEachComment()}
+
+             
             </div>
           </div>
         </div>
-
         <div ref={opacityRef3} style={{ opacity: "0" }} className="bottom-bar">
           <div className="inner-bar"></div>
         </div>
       </div>
-    );
-  };
+      </div>
+    
+
+    )
+  }
 
   return (
     <div className="SocialFeed">
       <div ref={windowRef} className="social-panel">
         <ul className="video-scroll-container">
-          {showPosts()}
+          {showSongs()}
           <div className="video-details-container">
             <div className="transparent-test">
               <div className="user-details-container">
-                <div className="user-details-inset">
-
-                </div>
+                <div className="user-details-inset"></div>
               </div>
 
               <div className="user-profile-image">
                 <div className="user-profile-inset social-p">
                   <div className="nav-buttons-inset inset-social-p">
-                    <img className="button-icons bi-play" src={play}></img>
+                    <img className="button-icons bi-play" src={play} onClick={handlePlayPause}></img>
                   </div>
                 </div>
               </div>
@@ -350,8 +479,9 @@ let gifsCopy = [...gifsArr]
       {displayComments()}
       {displaySearch()}
       {showNavBar()}
-    </div>
-  );
-}
+      <audio ref={audioRef} id='damn' ></audio>
+      </div>
+    )
+  }
 
-export default ExploreFeed;
+export default SocialFeed;

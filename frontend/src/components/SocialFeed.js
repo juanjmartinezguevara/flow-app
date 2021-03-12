@@ -18,7 +18,6 @@ import { useInView } from "react-intersection-observer";
 import gifsArr from "../images/gifs.json"
 
 let SONG = {};
-let songLikez = ''
 
 function SocialFeed(props) {
   const { user, setUser, userViewed, setUserViewed } = React.useContext(
@@ -27,11 +26,12 @@ function SocialFeed(props) {
 
   // axios.get();
 
-  
+
   const [comment, setComment] = useState();
   const [poppedUp, setPoppedUp] = useState(false);
   const [searchPoppedUp, setSearchPoppedUp] = useState(false);
   const [likes, setLikes] = useState(0)
+  const [bg, setBg] = useState('')
   const windowRef = useRef();
   const popUpRef = useRef();
 
@@ -171,6 +171,7 @@ function SocialFeed(props) {
 
 let profilePicRef=useRef()
 
+
   function DisplaySong(eachSong) {
     const [ref, inView] = useInView({
       threshold: 0.5,
@@ -180,11 +181,11 @@ let profilePicRef=useRef()
       SONG = eachSong;
       audioRef.current.src=eachSong.songURL
       profilePicRef.current.src=eachSong.songUser.picture
-      songLikez = eachSong.songLikes.length
-      console.log(songLikez, '>>>>>>>><<<<<<<<<', eachSong.songLikes)
+      setLikes(eachSong.songLikes?.length)
+      console.log(likes)
     } else {
     }
-    console.log("scrolling", inView, eachSong);
+    // console.log("scrolling", inView, eachSong);
     return (
       <li
         ref={ref}
@@ -229,7 +230,7 @@ let profilePicRef=useRef()
   const followUser = () => {
     console.log(user, userViewed);
     document.getElementById("notify").click();
-    const followData = { user1: user.id, user2: userViewed.id };
+    const followData = { user1: user._id, user2: userViewed._id };
     console.log("profile follow user function ", followData);
     actions
       .addFollow(followData)
@@ -275,7 +276,7 @@ let profilePicRef=useRef()
                 <img className="social-icons heart" src={search}></img>
               </div>
               <div className="individual-btn">
-                <img className="social-icons heart" onClick={(() => likePost())} src={heart2}></img><p>{songLikez}</p>
+                <img className="social-icons heart" onClick={likePost} src={heart2}></img><p>{likes}</p>
               </div>
               <div className="individual-btn" onClick={popUpComments}>
                 <img className="social-icons comment" src={comments}></img>
@@ -308,7 +309,8 @@ let profilePicRef=useRef()
             <div className="nav-buttons-rim">
               <div className="nav-buttons-outset">
                 <div className="nav-buttons-inset">
-                  <img className="button-icons bi-explore" src={explore}></img>
+                <Link to="/explore-feed">
+                  <img className="button-icons bi-explore" src={explore} alt="explore"></img></Link>
                 </div>
               </div>
             </div>

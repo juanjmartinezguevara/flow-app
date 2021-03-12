@@ -134,7 +134,7 @@ function Profile(props) {
             <div className="profile-pic-container">
               <div className="profile-pic-outset">
                 <div className="profile-pic-inset">
-                  <img className="profile-pic" src={thisUser.picture}/>
+                  <img className="profile-pic" src={thisUser?.picture} alt="prof pic"/>
                 </div>
               </div>
             </div>
@@ -143,6 +143,7 @@ function Profile(props) {
               <div className="username-outset">
                 <div className="username-inset">
                   <h3>{thisUser.userName}</h3>
+                  <h3>{thisUser.userFollows?.length}</h3>
                 </div>
               </div>
             </div>
@@ -233,7 +234,8 @@ function Profile(props) {
         <div className="nav-buttons-rim">
           <div className="nav-buttons-outset">
             <div className="nav-buttons-inset">
-              <img className="button-icons bi-explore" src={explore}></img>
+            <Link to="/explore-feed">
+                  <img className="button-icons bi-explore" src={explore} alt="explore"></img></Link>
             </div>
           </div>
         </div>
