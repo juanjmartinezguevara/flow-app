@@ -671,13 +671,22 @@ footer {
   height: 100%;
   width: 100%;
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+
+  align-items: center;
   scroll-snap-align: start;
   scroll-snap-stop: always;
   /* background-image: url('./images/gradient-bg-2.png'),
                     url('https://media.giphy.com/media/l3b01SFaxG0V0GqV6N/source.gif'); */
   background-size: cover;
   background-position-x: center;
+}
+.last-div {
+  height: 65%;
+  width: 85%;
+  margin-top: 10%;
+  border-radius: 20px;
+  box-shadow: 2px 2px 3px #00000099, -2px -2px 2px #ffffff7a;
 }
 .video-details-container {
   height: 130px;
@@ -692,7 +701,7 @@ footer {
   background-size: cover;
   background-position: center;
   bottom: 3%;
-  left: 3%;
+  left: 2.5%;
   box-shadow: 0px 8px 20px 0px #00000099;
 }
 .transparent-test {
@@ -720,6 +729,7 @@ footer {
   width: 92%;
   border-radius: 10px;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   color: white;
@@ -727,13 +737,13 @@ footer {
   box-shadow: inset 3px 3px 4px #2d2d2d, inset -2px -2px 3px #8c8f90;
 }
 .text-container {
-  height: 20%;
   width: 53%;
   display: flex;
   flex-direction: column;
   overflow-x: hidden;
   position: relative;
-  top: 82%;
+  /* top: 82%; */
+  bottom: -11.5%;
   left: -7%;
 }
 .ud-text {

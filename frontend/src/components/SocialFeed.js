@@ -195,6 +195,7 @@ let profilePicRef=useRef()
           backgroundImage: `url('${gradientbg}'), url('${getRandomBackground()}')`
         }}
       >
+        <div className="last-div"></div>
         <div className="text-container">
           <h5 className="ud-text udt-1">
             <span style={{ color: "#ec6aa0" }}>
