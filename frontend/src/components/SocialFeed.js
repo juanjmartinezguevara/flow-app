@@ -114,7 +114,7 @@ function SocialFeed(props) {
 //         setUserForSong(useUser.data)
 //     })
 //     .catch(console.error)
-// }
+// }git add
 
 // useEffect(() => {
 //     actions
@@ -218,6 +218,7 @@ function SocialFeed(props) {
           <div className="social-list">
             <div className="individual-btn">
               <div className="individual-profile-pic">
+              <img src={`${SONG.songUser?.picture}`} alt="user"></img>
                 {/* stuff it in my tiny hole! (user's profile img) */}
               </div>
             </div>
